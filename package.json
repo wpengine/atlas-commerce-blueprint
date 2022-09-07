@@ -1,0 +1,50 @@
+{
+  "name": "atlas-blueprint-titan",
+  "version": "0.1.0",
+  "private": false,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "clean": "rimraf .next node_modules",
+    "generate": "gqty generate",
+    "wpe-build": "next build",
+    "format": "prettier --write 'src/**/*.{js,jsx,md,mdx,css,scss}'",
+    "format:check": "prettier --check 'src/**/*.{js,jsx,md,mdx,css,scss}'"
+  },
+  "dependencies": {
+    "@faustjs/core": "^0.15.2",
+    "@faustjs/next": "^0.15.3",
+    "cookie-cutter": "^0.2.0",
+    "gqty": "^2.2.0",
+    "next": "^12.1.0",
+    "normalize.css": "^8.0.1",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "react-icons": "^4.3.1",
+    "react-image-magnify": "^2.7.4",
+    "react-slick": "^0.29.0",
+    "sharp": "^0.30.5",
+    "slick-carousel": "^1.8.1",
+    "use-debounce": "^7.0.1"
+  },
+  "devDependencies": {
+    "@fortawesome/fontawesome-free": "^6.1.2",
+    "@gqty/cli": "^3.1.0",
+    "@wordpress/base-styles": "^4.1.1",
+    "@wordpress/block-library": "^7.0.0",
+    "dotenv-flow": "^3.2.0",
+    "eslint": "8.9.0",
+    "eslint-config-next": "12.0.10",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.25.4",
+    "prettier": "^2.5.1",
+    "rimraf": "^3.0.2",
+    "sass": "^1.49.8"
+  },
+  "engines": {
+    "node": ">=14.0.0",
+    "npm": ">=6.0.0"
+  }
+}
