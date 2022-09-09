@@ -1,4 +1,4 @@
-# atlas-commerce-Blueprint
+# atlas-commerce-blueprint
 
 An eCommerce template for Atlas Blueprints
 
@@ -6,7 +6,7 @@ This repository contains a starter Blueprint to get you up and running quickly o
 
 ## Development
 
-Copy `.env.local.sample` to `.env.local` in your local development environment. The sample env file points to the dev Titan Blueprint Wordpress site, but you can change it to point to a local Wordpress site instead.
+Copy `.env.local.sample` to `.env.local` in your local development environment. The sample env file points to the dev Commerce Blueprint Wordpress site, but you can change it to point to a local Wordpress site instead.
 
 Make sure that any Wordpress site that is connected to this headless site has set its Permalinks to use this custom structure:
 
