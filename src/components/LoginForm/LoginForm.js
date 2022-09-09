@@ -22,7 +22,7 @@ export default function LoginForm() {
   useEffect(() => {
     console.log("loaded");
     // Get token
-    const authToken = cookieCutter.get('tecom-token-user');
+    const authToken = cookieCutter.get('atlasecom-token-user');
     console.log(authToken);
 
     if (typeof authToken !== 'undefined') {
@@ -34,7 +34,7 @@ export default function LoginForm() {
 
   // Returns Auth Token
   async function getRefreshToken(e) {
-    const cartToken = cookieCutter.get('tecom-token-cart');
+    const cartToken = cookieCutter.get('atlasecom-token-cart');
     
     const headers = {
       'Content-Type': 'application/json'
@@ -45,7 +45,7 @@ export default function LoginForm() {
     }
     
     try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_WORDPRESS_URL}/wp-json/tecom/v1/login`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_WORDPRESS_URL}/wp-json/atlas-commerce-connector-bigcommerce/v1/login`, {
             method: 'POST',
             headers,
             body:  JSON.stringify({username:document.getElementById('username').value,password:document.getElementById('password').value}) 
@@ -55,8 +55,8 @@ export default function LoginForm() {
         
         if (data.status == 200){
           console.log("Success: Requesting Redirect URL")
-          cookieCutter.set('tecom-token-user', data.token, { path: '/' });
-          cookieCutter.set('tecom-token-cart', '', { path: '/', expires: new Date(0) });
+          cookieCutter.set('atlasecom-token-user', data.token, { path: '/' });
+          cookieCutter.set('atlasecom-token-cart', '', { path: '/', expires: new Date(0) });
           const date = Date();
           getRedirectUrl();
         } else {
@@ -72,10 +72,10 @@ export default function LoginForm() {
   // Returns BigCommerce redirect URL
   async function getRedirectUrl() {
 
-    var bearerToken = "Bearer " + cookieCutter.get('tecom-token-user');
+    var bearerToken = "Bearer " + cookieCutter.get('atlasecom-token-user');
 
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_WORDPRESS_URL}/wp-json/tecom/v1/bc-link`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_WORDPRESS_URL}/wp-json/atlas-commerce-connector-bigcommerce/v1/bc-link`, {
           method: 'POST',
           headers:{
             'Accept' : 'application/json', 
@@ -106,7 +106,7 @@ export default function LoginForm() {
         // Expired Token: Clear old token, resubmit, and store the new one
         if (data.message == "invalid_token") {
           console.log("expired token: resubmitting");
-          cookieCutter.set('tecom-token-user', '', { path: '/', expires: new Date(0) });
+          cookieCutter.set('atlasecom-token-user', '', { path: '/', expires: new Date(0) });
           setErrorMessage("Session expired, please log in again.");
           //getRefreshToken();
         } 
@@ -133,7 +133,7 @@ export default function LoginForm() {
 
   function clearCookie() {
     console.log("clear");
-    cookieCutter.set('tecom-token-user', '', { path: '/', expires: new Date(0) });
+    cookieCutter.set('atlasecom-token-user', '', { path: '/', expires: new Date(0) });
   }
   
   return (
