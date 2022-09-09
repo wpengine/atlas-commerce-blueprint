@@ -9,7 +9,7 @@ import { NavigationMenu, SkipNavigationLink } from 'components';
 import { client } from 'client';
 import cookieCutter from 'cookie-cutter';
 import { FaustProvider } from '@faustjs/next';
-import useTEcom from 'hooks/useTEcom';
+import useAtlasEcom from 'hooks/useAtlasEcom';
 
 import styles from './Header.module.scss';
 
@@ -42,7 +42,7 @@ export default function Header({ className, storeSettings }) {
   useEffect(() => {
     //console.log("loaded");
     // Get token
-    const authToken = cookieCutter.get('tecom-token-user');
+    const authToken = cookieCutter.get('atlasecom-token-user');
     //console.log(authToken);
 
     if (typeof authToken !== 'undefined') {
@@ -54,7 +54,7 @@ export default function Header({ className, storeSettings }) {
 
   function clearCookie() {
     console.log("clear");
-    cookieCutter.set('tecom-token-user', '', { path: '/', expires: new Date(0) });
+    cookieCutter.set('atlasecom-token-user', '', { path: '/', expires: new Date(0) });
     setIsSignOutShown(false);
   }
   
@@ -122,7 +122,7 @@ export default function Header({ className, storeSettings }) {
 }
 
 function CartQuickView({ storeSettings }) {
-  const { cartData } = useTEcom();
+  const { cartData } = useAtlasEcom();
   
   let cartSubTotal = (0).toFixed(2);
   let cartItems = [];
