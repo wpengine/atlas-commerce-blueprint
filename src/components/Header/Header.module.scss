@@ -17,17 +17,24 @@
   width: 400px;
   height: auto;
   line-height: 0;
-  margin: 0 0.8rem;
+  margin: 0.8rem 0;
 }
+
 .logo img {
-    width: 100px;
-    height: auto;
-    float: left;
-    margin-right: 15px;
+  width: 100px;
+  height: auto;
+  float: left;
+  margin-right: 15px;
 }
+
 .logo h3 {
-    margin: 6px 10px
+  margin: 6px 10px;
 }
+
+.logo span {
+  margin: 6px 10px;
+}
+
 .logo a {
   color: var(--color-secondary);
   text-decoration: none;
@@ -94,7 +101,6 @@
     text-transform: uppercase;
     font-size: 1.4rem;
     margin: 0;
-
 
     @media (min-width: $breakpoint-small) {
       flex-direction: row;
@@ -179,11 +185,11 @@
       display: inline;
     }
     .price-amount {
-      margin-right: .5em;
+      margin-right: 0.5em;
     }
     .count {
       font-weight: 400;
-      font-size: .9em;
+      font-size: 0.9em;
     }
   }
   .widget_shopping_cart {
@@ -195,7 +201,7 @@
     top: 100%;
     width: 100%;
     z-index: 999999;
-    font-size: .9em;
+    font-size: 0.9em;
     margin-bottom: 0;
     a {
       color: #c6c6c6;
@@ -211,7 +217,7 @@
         padding-left: 1em;
         padding-right: 1em;
         position: relative;
-        border-bottom: 1px solid rgba(0,0,0,.05);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
         .thumbnail {
           margin-left: 1em;
           max-width: 3em;
@@ -225,17 +231,17 @@
         }
       }
     }
-    .mini-cart__total{
+    .mini-cart__total {
       padding: 1em;
       background-color: #202b29;
-      border-bottom: 1px solid rgba(0,0,0,.05);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
       margin: 0;
       text-align: center;
     }
-    .mini-cart__buttons{
+    .mini-cart__buttons {
       padding: 1em;
       background-color: #202b29;
-      border-bottom: 1px solid rgba(0,0,0,.05);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
       margin: 0;
       text-align: center;
       .button {
@@ -243,11 +249,11 @@
         border-color: #107f67;
         color: #ffffff;
         display: block;
-        margin-bottom: .6180469716em;
+        margin-bottom: 0.6180469716em;
         border: 0;
         border-radius: 0;
         cursor: pointer;
-        padding: .6180469716em 1.41575em;
+        padding: 0.6180469716em 1.41575em;
         text-decoration: none;
         font-weight: 600;
         text-shadow: none;
