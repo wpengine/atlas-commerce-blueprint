@@ -8,6 +8,8 @@ This repository contains a starter Blueprint to get you up and running quickly o
 
 Copy `.env.local.sample` to `.env.local` in your local development environment. The sample env file points to the dev Commerce Blueprint Wordpress site, but you can change it to point to a local Wordpress site instead.
 
+**N.B!** To run this version please use `npm install --legacy-peer-deps`
+
 Make sure that any Wordpress site that is connected to this headless site has set its Permalinks to use this custom structure:
 
     /posts/%postname%/
