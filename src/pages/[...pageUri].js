@@ -3,7 +3,6 @@ import { client } from 'client';
 import {
   Header,
   Notification,
-  EntryHeader,
   ContentWrapper,
   Footer,
   Main,
@@ -14,7 +13,7 @@ import { pageTitle } from 'utils';
 export function PageComponent({ page }) {
   const { useQuery } = client;
   const generalSettings = useQuery().generalSettings;
-  const storeSettings  = useQuery().storeSettings({ first: 1 })?.nodes?.[0];
+  const storeSettings = useQuery().storeSettings({ first: 1 })?.nodes?.[0];
 
   return (
     <>
@@ -26,22 +25,15 @@ export function PageComponent({ page }) {
         )}
         imageUrl={page?.featuredImage?.node?.sourceUrl?.()}
       />
-      <Header
-        storeSettings={storeSettings}
-      />
-      <Notification
-        storeSettings={storeSettings}
-      />
+      <Header storeSettings={storeSettings} />
+      <Notification storeSettings={storeSettings} />
       <Main>
-        
-        <div className="_container">
+        <div className='_container'>
           <ContentWrapper content={page?.content()} />
         </div>
       </Main>
 
-      <Footer 
-        storeSettings={storeSettings}
-      />
+      <Footer storeSettings={storeSettings} />
     </>
   );
 }
