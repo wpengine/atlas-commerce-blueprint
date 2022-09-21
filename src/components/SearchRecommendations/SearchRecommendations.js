@@ -3,8 +3,6 @@ import { client } from 'client';
 
 import styles from './SearchRecommendations.module.scss';
 
-const recommendedPostsLimit = 5;
-
 /**
  * Render the SearchRecommendations component.
  *
@@ -20,22 +18,11 @@ export default function SearchRecommendations() {
 
   return (
     <div className={styles.recommendations}>
-      {/* <h4>Recent Posts</h4>
-      <ul>
-        {recentPostNodes?.map((node) => (
-          <li key={node?.databaseId ?? 0}>
-            <Link href={node?.uri ?? '#'}>
-              <a>{node.title()}</a>
-            </Link>
-          </li>
-        ))}
-      </ul> */}
-
       <h4>Browse by Category</h4>
       <ul>
         {categoryNodes?.map((node) => (
           <li key={node?.databaseId ?? 0}>
-            <Link href={'/productcategory/' + node?.slug ?? '#'}>
+            <Link href={'/product-category/' + node?.slug ?? '#'}>
               <a>{node.name}</a>
             </Link>
           </li>
