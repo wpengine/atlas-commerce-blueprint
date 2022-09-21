@@ -1,49 +1,34 @@
-import { getNextStaticProps, is404 } from '@faustjs/next';
+import { getNextStaticProps } from '@faustjs/next';
 import { client } from 'client';
 import {
-  ContentWrapper,
   Footer,
   Header,
   Notification,
-  EntryHeader,
   Main,
   SEO,
-  TaxonomyTerms,
-  ProductSummary,
   ProductSort,
 } from 'components';
 import styles from 'styles/pages/_Shop.module.scss';
 import { pageTitle } from 'utils';
 import { classNames } from 'utils';
 
-
-import Link from 'next/link';
-
 export function ShopComponent({ products }) {
   const { useQuery } = client;
   const generalSettings = useQuery().generalSettings;
-  const storeSettings  = useQuery().storeSettings({ first: 1 })?.nodes?.[0];
+  const storeSettings = useQuery().storeSettings({ first: 1 })?.nodes?.[0];
 
   return (
     <>
       <SEO
-        title={pageTitle(
-          generalSettings,
-          'Shop',
-          generalSettings?.title
-        )}
-        imageUrl={false/*product?.featuredImage?.node?.sourceUrl?.()*/}
+        title={pageTitle(generalSettings, 'Shop', generalSettings?.title)}
+        imageUrl={false /*product?.featuredImage?.node?.sourceUrl?.()*/}
       />
 
-      <Header
-      storeSettings={storeSettings}
-      />
-      <Notification
-        storeSettings={storeSettings}
-      />
+      <Header storeSettings={storeSettings} />
+      <Notification storeSettings={storeSettings} />
 
       <Main>
-        <div className="container">
+        <div className='container'>
           <div className={styles.shopTitle}>
             <h1>Shop</h1>
           </div>
@@ -54,9 +39,7 @@ export function ShopComponent({ products }) {
         </div>
       </Main>
 
-      <Footer
-      storeSettings={storeSettings}
-      />
+      <Footer storeSettings={storeSettings} />
     </>
   );
 }

@@ -1,6 +1,4 @@
-import Link from 'next/link';
-import Image from 'next/image';
-import { FormatDate, LoadingSearchResult } from 'components';
+import { LoadingSearchResult } from 'components';
 import { FaSearch } from 'react-icons/fa';
 import { ProductSummary } from 'components';
 import styles from './SearchResults.module.scss';

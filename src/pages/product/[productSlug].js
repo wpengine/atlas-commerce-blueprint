@@ -1,18 +1,13 @@
-import { getNextStaticProps, is404 } from '@faustjs/next';
+import { getNextStaticProps } from '@faustjs/next';
 import { client } from 'client';
 import {
-  ContentWrapper,
   Footer,
   Header,
   Notification,
-  EntryHeader,
   Main,
   SEO,
-  TaxonomyTerms,
   Button,
   ProductSummary,
-  Review,
-  ReviewForm,
 } from 'components';
 import ProductFormField from 'components/ProductFormField/ProductFormField';
 
@@ -383,6 +378,7 @@ function ProductGallery({ images }) {
             className={styles.productGalleryThumbnail}
             onClick={() => setProductIndex(index)}
             key={index}
+            alt={image.description}
           />
         ))}
       </Slider>

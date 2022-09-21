@@ -1,13 +1,11 @@
 import { getNextStaticProps, is404 } from '@faustjs/next';
-import Link from 'next/link';
 import { client } from 'client';
-import { Footer, Header, EntryHeader, Main, SEO } from 'components';
+import { Footer, Header, Main, SEO } from 'components';
 import { pageTitle } from 'utils';
 
 export default function Page() {
   const { useQuery } = client;
   const generalSettings = useQuery().generalSettings;
-  const categories = useQuery()?.categories();
 
   if (useQuery().$state.isLoading) {
     return null;
@@ -27,8 +25,8 @@ export default function Page() {
 
       <Main>
         {/* <EntryHeader title="All Categories" /> */}
-        <div className="container">
-          <div className="content">
+        <div className='container'>
+          <div className='content'>
             <h1>All Categories</h1>
             {/*
             <ul>

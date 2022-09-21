@@ -1,16 +1,16 @@
-import { getNextStaticProps, is404 } from '@faustjs/next';
+import { getNextStaticProps } from '@faustjs/next';
 import { client } from 'client';
 import {
+  Footer,
   Header,
   Notification,
-  ContentWrapper,
-  Footer,
   Main,
   SEO,
+  SearchRecommendations,
 } from 'components';
 import { pageTitle } from 'utils';
 
-export function PageComponent({ page }) {
+export default function Page() {
   const { useQuery } = client;
   const generalSettings = useQuery().generalSettings;
   const storeSettings = useQuery().storeSettings({ first: 1 })?.nodes?.[0];
@@ -20,16 +20,20 @@ export function PageComponent({ page }) {
       <SEO
         title={pageTitle(
           generalSettings,
-          page?.title(),
+          'Product Category',
           generalSettings?.title
         )}
-        imageUrl={page?.featuredImage?.node?.sourceUrl?.()}
+        imageUrl={false /*product?.featuredImage?.node?.sourceUrl?.()*/}
       />
+
       <Header storeSettings={storeSettings} />
       <Notification storeSettings={storeSettings} />
+
       <Main>
-        <div className='_container'>
-          <ContentWrapper content={page?.content()} />
+        <div className='container'>
+          <div style={{ marginTop: '80px' }}>
+            <SearchRecommendations />
+          </div>
         </div>
       </Main>
 
@@ -38,25 +42,11 @@ export function PageComponent({ page }) {
   );
 }
 
-export default function Page() {
-  const { usePage } = client;
-  const page = usePage();
-
-  return <PageComponent page={page} />;
-}
-
 export async function getStaticProps(context) {
   return getNextStaticProps(context, {
     Page,
     client,
-    notFound: await is404(context, { client }),
     revalidate: 1,
+    // notFound: await is404(context, { client }),
   });
-}
-
-export function getStaticPaths() {
-  return {
-    paths: [],
-    fallback: 'blocking',
-  };
 }
