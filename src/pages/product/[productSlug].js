@@ -24,7 +24,7 @@ import { useState, useMemo } from 'react';
 import Slider from 'react-slick';
 import { classNames } from 'utils';
 
-import ReactImageMagnify from 'react-image-magnify';
+import ReactImageMagnify from '@blacklab/react-image-magnify';
 
 import useAtlasEcom from 'hooks/useAtlasEcom';
 
@@ -356,17 +356,19 @@ function ProductGallery({ images }) {
     <div className={styles.productGallery}>
       <div>
         <ReactImageMagnify
-          {...{
-            smallImage: {
-              alt: '',
-              isFluidWidth: true,
-              src: images[productIndex]?.urlStandard,
-            },
-            largeImage: {
-              src: images[productIndex]?.urlZoom,
-              width: 960,
-              height: 1080,
-            },
+          imageProps={{
+            alt: images[productIndex].description,
+            isFluidWidth: true,
+            src: images[productIndex]?.urlStandard,
+          }}
+          magnifiedImageProps={{
+            src: images[productIndex]?.urlZoom,
+            width: 600,
+            height: '600',
+          }}
+          portalProps={{
+            height: 300,
+            width: 300,
           }}
         />
       </div>

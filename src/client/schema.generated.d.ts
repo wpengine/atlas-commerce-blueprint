@@ -122,7 +122,7 @@ export interface CategoryToContentNodeConnectionWhereArgs {
   dateQuery?: InputMaybe<DateQueryInput>;
   /** True for objects with passwords; False for objects without passwords; null for all objects with or without passwords */
   hasPassword?: InputMaybe<Scalars["Boolean"]>;
-  /** Specific ID of the object */
+  /** Specific database ID of the object */
   id?: InputMaybe<Scalars["Int"]>;
   /** Array of IDs for the objects to retrieve */
   in?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
@@ -176,7 +176,7 @@ export interface CategoryToPostConnectionWhereArgs {
   dateQuery?: InputMaybe<DateQueryInput>;
   /** True for objects with passwords; False for objects without passwords; null for all objects with or without passwords */
   hasPassword?: InputMaybe<Scalars["Boolean"]>;
-  /** Specific ID of the object */
+  /** Specific database ID of the object */
   id?: InputMaybe<Scalars["Int"]>;
   /** Array of IDs for the objects to retrieve */
   in?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
@@ -219,6 +219,13 @@ export interface CategoryToPostConnectionWhereArgs {
   /** Title of the object */
   title?: InputMaybe<Scalars["String"]>;
 }
+
+/** The Type of Identifier used to fetch a single comment node. Default is "ID". To be used along with the "id" field. */
+export type CommentNodeIdTypeEnum =
+  /** Identify a resource by the Database ID. */
+  | "DATABASE_ID"
+  /** Identify a resource by the (hashed) Global ID. */
+  | "ID";
 
 /** Arguments for filtering the CommentToCommentConnection connection */
 export interface CommentToCommentConnectionWhereArgs {
@@ -428,7 +435,7 @@ export interface ContentTypeToContentNodeConnectionWhereArgs {
   dateQuery?: InputMaybe<DateQueryInput>;
   /** True for objects with passwords; False for objects without passwords; null for all objects with or without passwords */
   hasPassword?: InputMaybe<Scalars["Boolean"]>;
-  /** Specific ID of the object */
+  /** Specific database ID of the object */
   id?: InputMaybe<Scalars["Int"]>;
   /** Array of IDs for the objects to retrieve */
   in?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
@@ -1159,7 +1166,7 @@ export interface HierarchicalContentNodeToContentNodeAncestorsConnectionWhereArg
   dateQuery?: InputMaybe<DateQueryInput>;
   /** True for objects with passwords; False for objects without passwords; null for all objects with or without passwords */
   hasPassword?: InputMaybe<Scalars["Boolean"]>;
-  /** Specific ID of the object */
+  /** Specific database ID of the object */
   id?: InputMaybe<Scalars["Int"]>;
   /** Array of IDs for the objects to retrieve */
   in?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
@@ -1199,7 +1206,7 @@ export interface HierarchicalContentNodeToContentNodeChildrenConnectionWhereArgs
   dateQuery?: InputMaybe<DateQueryInput>;
   /** True for objects with passwords; False for objects without passwords; null for all objects with or without passwords */
   hasPassword?: InputMaybe<Scalars["Boolean"]>;
-  /** Specific ID of the object */
+  /** Specific database ID of the object */
   id?: InputMaybe<Scalars["Int"]>;
   /** Array of IDs for the objects to retrieve */
   in?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
@@ -1257,10 +1264,6 @@ export type MediaItemIdType =
 
 /** The size of the media item object. */
 export type MediaItemSizeEnum =
-  /** MediaItem with the gb-block-post-grid-landscape size */
-  | "GB_BLOCK_POST_GRID_LANDSCAPE"
-  /** MediaItem with the gb-block-post-grid-square size */
-  | "GB_BLOCK_POST_GRID_SQUARE"
   /** MediaItem with the large size */
   | "LARGE"
   /** MediaItem with the medium size */
@@ -1356,7 +1359,7 @@ export type MenuItemNodeIdTypeEnum =
 
 /** Arguments for filtering the MenuItemToMenuItemConnection connection */
 export interface MenuItemToMenuItemConnectionWhereArgs {
-  /** The ID of the object */
+  /** The database ID of the object */
   id?: InputMaybe<Scalars["Int"]>;
   /** The menu location for the menu being queried */
   location?: InputMaybe<MenuLocationEnum>;
@@ -1388,7 +1391,7 @@ export type MenuNodeIdTypeEnum =
 
 /** Arguments for filtering the MenuToMenuItemConnection connection */
 export interface MenuToMenuItemConnectionWhereArgs {
-  /** The ID of the object */
+  /** The database ID of the object */
   id?: InputMaybe<Scalars["Int"]>;
   /** The menu location for the menu being queried */
   location?: InputMaybe<MenuLocationEnum>;
@@ -1682,7 +1685,7 @@ export interface PageToRevisionConnectionWhereArgs {
   dateQuery?: InputMaybe<DateQueryInput>;
   /** True for objects with passwords; False for objects without passwords; null for all objects with or without passwords */
   hasPassword?: InputMaybe<Scalars["Boolean"]>;
-  /** Specific ID of the object */
+  /** Specific database ID of the object */
   id?: InputMaybe<Scalars["Int"]>;
   /** Array of IDs for the objects to retrieve */
   in?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
@@ -1772,7 +1775,7 @@ export interface PostFormatToContentNodeConnectionWhereArgs {
   dateQuery?: InputMaybe<DateQueryInput>;
   /** True for objects with passwords; False for objects without passwords; null for all objects with or without passwords */
   hasPassword?: InputMaybe<Scalars["Boolean"]>;
-  /** Specific ID of the object */
+  /** Specific database ID of the object */
   id?: InputMaybe<Scalars["Int"]>;
   /** Array of IDs for the objects to retrieve */
   in?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
@@ -1826,7 +1829,7 @@ export interface PostFormatToPostConnectionWhereArgs {
   dateQuery?: InputMaybe<DateQueryInput>;
   /** True for objects with passwords; False for objects without passwords; null for all objects with or without passwords */
   hasPassword?: InputMaybe<Scalars["Boolean"]>;
-  /** Specific ID of the object */
+  /** Specific database ID of the object */
   id?: InputMaybe<Scalars["Int"]>;
   /** Array of IDs for the objects to retrieve */
   in?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
@@ -2165,7 +2168,7 @@ export interface PostToRevisionConnectionWhereArgs {
   dateQuery?: InputMaybe<DateQueryInput>;
   /** True for objects with passwords; False for objects without passwords; null for all objects with or without passwords */
   hasPassword?: InputMaybe<Scalars["Boolean"]>;
-  /** Specific ID of the object */
+  /** Specific database ID of the object */
   id?: InputMaybe<Scalars["Int"]>;
   /** Array of IDs for the objects to retrieve */
   in?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
@@ -2400,7 +2403,7 @@ export interface RootQueryToBannerConnectionWhereArgs {
   dateQuery?: InputMaybe<DateQueryInput>;
   /** True for objects with passwords; False for objects without passwords; null for all objects with or without passwords */
   hasPassword?: InputMaybe<Scalars["Boolean"]>;
-  /** Specific ID of the object */
+  /** Specific database ID of the object */
   id?: InputMaybe<Scalars["Int"]>;
   /** Array of IDs for the objects to retrieve */
   in?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
@@ -2446,7 +2449,7 @@ export interface RootQueryToBrandConnectionWhereArgs {
   dateQuery?: InputMaybe<DateQueryInput>;
   /** True for objects with passwords; False for objects without passwords; null for all objects with or without passwords */
   hasPassword?: InputMaybe<Scalars["Boolean"]>;
-  /** Specific ID of the object */
+  /** Specific database ID of the object */
   id?: InputMaybe<Scalars["Int"]>;
   /** Array of IDs for the objects to retrieve */
   in?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
@@ -2592,7 +2595,7 @@ export interface RootQueryToContentNodeConnectionWhereArgs {
   dateQuery?: InputMaybe<DateQueryInput>;
   /** True for objects with passwords; False for objects without passwords; null for all objects with or without passwords */
   hasPassword?: InputMaybe<Scalars["Boolean"]>;
-  /** Specific ID of the object */
+  /** Specific database ID of the object */
   id?: InputMaybe<Scalars["Int"]>;
   /** Array of IDs for the objects to retrieve */
   in?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
@@ -2632,7 +2635,7 @@ export interface RootQueryToContentRevisionUnionConnectionWhereArgs {
   dateQuery?: InputMaybe<DateQueryInput>;
   /** True for objects with passwords; False for objects without passwords; null for all objects with or without passwords */
   hasPassword?: InputMaybe<Scalars["Boolean"]>;
-  /** Specific ID of the object */
+  /** Specific database ID of the object */
   id?: InputMaybe<Scalars["Int"]>;
   /** Array of IDs for the objects to retrieve */
   in?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
@@ -2678,7 +2681,7 @@ export interface RootQueryToImageConnectionWhereArgs {
   dateQuery?: InputMaybe<DateQueryInput>;
   /** True for objects with passwords; False for objects without passwords; null for all objects with or without passwords */
   hasPassword?: InputMaybe<Scalars["Boolean"]>;
-  /** Specific ID of the object */
+  /** Specific database ID of the object */
   id?: InputMaybe<Scalars["Int"]>;
   /** Array of IDs for the objects to retrieve */
   in?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
@@ -2724,7 +2727,7 @@ export interface RootQueryToMediaItemConnectionWhereArgs {
   dateQuery?: InputMaybe<DateQueryInput>;
   /** True for objects with passwords; False for objects without passwords; null for all objects with or without passwords */
   hasPassword?: InputMaybe<Scalars["Boolean"]>;
-  /** Specific ID of the object */
+  /** Specific database ID of the object */
   id?: InputMaybe<Scalars["Int"]>;
   /** Array of IDs for the objects to retrieve */
   in?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
@@ -2758,7 +2761,7 @@ export interface RootQueryToMediaItemConnectionWhereArgs {
 
 /** Arguments for filtering the RootQueryToMenuConnection connection */
 export interface RootQueryToMenuConnectionWhereArgs {
-  /** The ID of the object */
+  /** The database ID of the object */
   id?: InputMaybe<Scalars["Int"]>;
   /** The menu location for the menu being queried */
   location?: InputMaybe<MenuLocationEnum>;
@@ -2768,7 +2771,7 @@ export interface RootQueryToMenuConnectionWhereArgs {
 
 /** Arguments for filtering the RootQueryToMenuItemConnection connection */
 export interface RootQueryToMenuItemConnectionWhereArgs {
-  /** The ID of the object */
+  /** The database ID of the object */
   id?: InputMaybe<Scalars["Int"]>;
   /** The menu location for the menu being queried */
   location?: InputMaybe<MenuLocationEnum>;
@@ -2792,7 +2795,7 @@ export interface RootQueryToModifierConnectionWhereArgs {
   dateQuery?: InputMaybe<DateQueryInput>;
   /** True for objects with passwords; False for objects without passwords; null for all objects with or without passwords */
   hasPassword?: InputMaybe<Scalars["Boolean"]>;
-  /** Specific ID of the object */
+  /** Specific database ID of the object */
   id?: InputMaybe<Scalars["Int"]>;
   /** Array of IDs for the objects to retrieve */
   in?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
@@ -2838,7 +2841,7 @@ export interface RootQueryToPageConnectionWhereArgs {
   dateQuery?: InputMaybe<DateQueryInput>;
   /** True for objects with passwords; False for objects without passwords; null for all objects with or without passwords */
   hasPassword?: InputMaybe<Scalars["Boolean"]>;
-  /** Specific ID of the object */
+  /** Specific database ID of the object */
   id?: InputMaybe<Scalars["Int"]>;
   /** Array of IDs for the objects to retrieve */
   in?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
@@ -2902,7 +2905,7 @@ export interface RootQueryToPostConnectionWhereArgs {
   dateQuery?: InputMaybe<DateQueryInput>;
   /** True for objects with passwords; False for objects without passwords; null for all objects with or without passwords */
   hasPassword?: InputMaybe<Scalars["Boolean"]>;
-  /** Specific ID of the object */
+  /** Specific database ID of the object */
   id?: InputMaybe<Scalars["Int"]>;
   /** Array of IDs for the objects to retrieve */
   in?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
@@ -3004,7 +3007,7 @@ export interface RootQueryToProductCategoryConnectionWhereArgs {
   dateQuery?: InputMaybe<DateQueryInput>;
   /** True for objects with passwords; False for objects without passwords; null for all objects with or without passwords */
   hasPassword?: InputMaybe<Scalars["Boolean"]>;
-  /** Specific ID of the object */
+  /** Specific database ID of the object */
   id?: InputMaybe<Scalars["Int"]>;
   /** Array of IDs for the objects to retrieve */
   in?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
@@ -3054,7 +3057,7 @@ export interface RootQueryToProductConnectionWhereArgs {
   dateQuery?: InputMaybe<DateQueryInput>;
   /** True for objects with passwords; False for objects without passwords; null for all objects with or without passwords */
   hasPassword?: InputMaybe<Scalars["Boolean"]>;
-  /** Specific ID of the object */
+  /** Specific database ID of the object */
   id?: InputMaybe<Scalars["Int"]>;
   /** Array of IDs for the objects to retrieve */
   in?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
@@ -3100,7 +3103,7 @@ export interface RootQueryToStoreSettingConnectionWhereArgs {
   dateQuery?: InputMaybe<DateQueryInput>;
   /** True for objects with passwords; False for objects without passwords; null for all objects with or without passwords */
   hasPassword?: InputMaybe<Scalars["Boolean"]>;
-  /** Specific ID of the object */
+  /** Specific database ID of the object */
   id?: InputMaybe<Scalars["Int"]>;
   /** Array of IDs for the objects to retrieve */
   in?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
@@ -3272,7 +3275,7 @@ export interface RootQueryToVariantConnectionWhereArgs {
   dateQuery?: InputMaybe<DateQueryInput>;
   /** True for objects with passwords; False for objects without passwords; null for all objects with or without passwords */
   hasPassword?: InputMaybe<Scalars["Boolean"]>;
-  /** Specific ID of the object */
+  /** Specific database ID of the object */
   id?: InputMaybe<Scalars["Int"]>;
   /** Array of IDs for the objects to retrieve */
   in?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
@@ -3344,7 +3347,7 @@ export interface TagToContentNodeConnectionWhereArgs {
   dateQuery?: InputMaybe<DateQueryInput>;
   /** True for objects with passwords; False for objects without passwords; null for all objects with or without passwords */
   hasPassword?: InputMaybe<Scalars["Boolean"]>;
-  /** Specific ID of the object */
+  /** Specific database ID of the object */
   id?: InputMaybe<Scalars["Int"]>;
   /** Array of IDs for the objects to retrieve */
   in?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
@@ -3398,7 +3401,7 @@ export interface TagToPostConnectionWhereArgs {
   dateQuery?: InputMaybe<DateQueryInput>;
   /** True for objects with passwords; False for objects without passwords; null for all objects with or without passwords */
   hasPassword?: InputMaybe<Scalars["Boolean"]>;
-  /** Specific ID of the object */
+  /** Specific database ID of the object */
   id?: InputMaybe<Scalars["Int"]>;
   /** Array of IDs for the objects to retrieve */
   in?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
@@ -3897,12 +3900,6 @@ export interface UpdateSettingsInput {
   generalSettingsTitle?: InputMaybe<Scalars["String"]>;
   /** Site URL. */
   generalSettingsUrl?: InputMaybe<Scalars["String"]>;
-  genesisBlocksGlobalSettingsSettingsGenesisBlocksMailchimpApiKey?: InputMaybe<
-    Scalars["String"]
-  >;
-  genesisBlocksGlobalSettingsSettingsGenesisProSubscriptionKey?: InputMaybe<
-    Scalars["String"]
-  >;
   /** The ID of the page that should display the latest posts */
   readingSettingsPageForPosts?: InputMaybe<Scalars["Int"]>;
   /** The ID of the page that should be displayed on the front page */
@@ -4064,7 +4061,11 @@ export type UserRoleEnum =
   /** User role with specific capabilities */
   | "CONTRIBUTOR"
   /** User role with specific capabilities */
+  | "CUSTOMER"
+  /** User role with specific capabilities */
   | "EDITOR"
+  /** User role with specific capabilities */
+  | "SHOP_MANAGER"
   /** User role with specific capabilities */
   | "SUBSCRIBER";
 
@@ -4082,7 +4083,7 @@ export interface UserToBannerConnectionWhereArgs {
   dateQuery?: InputMaybe<DateQueryInput>;
   /** True for objects with passwords; False for objects without passwords; null for all objects with or without passwords */
   hasPassword?: InputMaybe<Scalars["Boolean"]>;
-  /** Specific ID of the object */
+  /** Specific database ID of the object */
   id?: InputMaybe<Scalars["Int"]>;
   /** Array of IDs for the objects to retrieve */
   in?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
@@ -4128,7 +4129,7 @@ export interface UserToBrandConnectionWhereArgs {
   dateQuery?: InputMaybe<DateQueryInput>;
   /** True for objects with passwords; False for objects without passwords; null for all objects with or without passwords */
   hasPassword?: InputMaybe<Scalars["Boolean"]>;
-  /** Specific ID of the object */
+  /** Specific database ID of the object */
   id?: InputMaybe<Scalars["Int"]>;
   /** Array of IDs for the objects to retrieve */
   in?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
@@ -4230,7 +4231,7 @@ export interface UserToContentRevisionUnionConnectionWhereArgs {
   dateQuery?: InputMaybe<DateQueryInput>;
   /** True for objects with passwords; False for objects without passwords; null for all objects with or without passwords */
   hasPassword?: InputMaybe<Scalars["Boolean"]>;
-  /** Specific ID of the object */
+  /** Specific database ID of the object */
   id?: InputMaybe<Scalars["Int"]>;
   /** Array of IDs for the objects to retrieve */
   in?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
@@ -4276,7 +4277,7 @@ export interface UserToImageConnectionWhereArgs {
   dateQuery?: InputMaybe<DateQueryInput>;
   /** True for objects with passwords; False for objects without passwords; null for all objects with or without passwords */
   hasPassword?: InputMaybe<Scalars["Boolean"]>;
-  /** Specific ID of the object */
+  /** Specific database ID of the object */
   id?: InputMaybe<Scalars["Int"]>;
   /** Array of IDs for the objects to retrieve */
   in?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
@@ -4322,7 +4323,7 @@ export interface UserToMediaItemConnectionWhereArgs {
   dateQuery?: InputMaybe<DateQueryInput>;
   /** True for objects with passwords; False for objects without passwords; null for all objects with or without passwords */
   hasPassword?: InputMaybe<Scalars["Boolean"]>;
-  /** Specific ID of the object */
+  /** Specific database ID of the object */
   id?: InputMaybe<Scalars["Int"]>;
   /** Array of IDs for the objects to retrieve */
   in?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
@@ -4368,7 +4369,7 @@ export interface UserToModifierConnectionWhereArgs {
   dateQuery?: InputMaybe<DateQueryInput>;
   /** True for objects with passwords; False for objects without passwords; null for all objects with or without passwords */
   hasPassword?: InputMaybe<Scalars["Boolean"]>;
-  /** Specific ID of the object */
+  /** Specific database ID of the object */
   id?: InputMaybe<Scalars["Int"]>;
   /** Array of IDs for the objects to retrieve */
   in?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
@@ -4414,7 +4415,7 @@ export interface UserToPageConnectionWhereArgs {
   dateQuery?: InputMaybe<DateQueryInput>;
   /** True for objects with passwords; False for objects without passwords; null for all objects with or without passwords */
   hasPassword?: InputMaybe<Scalars["Boolean"]>;
-  /** Specific ID of the object */
+  /** Specific database ID of the object */
   id?: InputMaybe<Scalars["Int"]>;
   /** Array of IDs for the objects to retrieve */
   in?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
@@ -4468,7 +4469,7 @@ export interface UserToPostConnectionWhereArgs {
   dateQuery?: InputMaybe<DateQueryInput>;
   /** True for objects with passwords; False for objects without passwords; null for all objects with or without passwords */
   hasPassword?: InputMaybe<Scalars["Boolean"]>;
-  /** Specific ID of the object */
+  /** Specific database ID of the object */
   id?: InputMaybe<Scalars["Int"]>;
   /** Array of IDs for the objects to retrieve */
   in?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
@@ -4526,7 +4527,7 @@ export interface UserToProductCategoryConnectionWhereArgs {
   dateQuery?: InputMaybe<DateQueryInput>;
   /** True for objects with passwords; False for objects without passwords; null for all objects with or without passwords */
   hasPassword?: InputMaybe<Scalars["Boolean"]>;
-  /** Specific ID of the object */
+  /** Specific database ID of the object */
   id?: InputMaybe<Scalars["Int"]>;
   /** Array of IDs for the objects to retrieve */
   in?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
@@ -4572,7 +4573,7 @@ export interface UserToProductConnectionWhereArgs {
   dateQuery?: InputMaybe<DateQueryInput>;
   /** True for objects with passwords; False for objects without passwords; null for all objects with or without passwords */
   hasPassword?: InputMaybe<Scalars["Boolean"]>;
-  /** Specific ID of the object */
+  /** Specific database ID of the object */
   id?: InputMaybe<Scalars["Int"]>;
   /** Array of IDs for the objects to retrieve */
   in?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
@@ -4618,7 +4619,7 @@ export interface UserToStoreSettingConnectionWhereArgs {
   dateQuery?: InputMaybe<DateQueryInput>;
   /** True for objects with passwords; False for objects without passwords; null for all objects with or without passwords */
   hasPassword?: InputMaybe<Scalars["Boolean"]>;
-  /** Specific ID of the object */
+  /** Specific database ID of the object */
   id?: InputMaybe<Scalars["Int"]>;
   /** Array of IDs for the objects to retrieve */
   in?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
@@ -4664,7 +4665,7 @@ export interface UserToVariantConnectionWhereArgs {
   dateQuery?: InputMaybe<DateQueryInput>;
   /** True for objects with passwords; False for objects without passwords; null for all objects with or without passwords */
   hasPassword?: InputMaybe<Scalars["Boolean"]>;
-  /** Specific ID of the object */
+  /** Specific database ID of the object */
   id?: InputMaybe<Scalars["Int"]>;
   /** Array of IDs for the objects to retrieve */
   in?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
@@ -6057,11 +6058,6 @@ export declare const generatedSchema: {
     code: { __type: "String" };
     error: { __type: "String" };
   };
-  GenesisBlocksGlobalSettingsSettings: {
-    __typename: { __type: "String!" };
-    genesisBlocksMailchimpApiKey: { __type: "String" };
-    genesisProSubscriptionKey: { __type: "String" };
-  };
   HierarchicalContentNode: {
     __typename: { __type: "String!" };
     ancestors: {
@@ -6230,7 +6226,13 @@ export declare const generatedSchema: {
     file: { __type: "String" };
     height: { __type: "Int" };
     meta: { __type: "MediaItemMeta" };
-    sizes: { __type: "[MediaSize]" };
+    sizes: {
+      __type: "[MediaSize]";
+      __args: {
+        exclude: "[MediaItemSizeEnum]";
+        include: "[MediaItemSizeEnum]";
+      };
+    };
     width: { __type: "Int" };
   };
   MediaItem: {
@@ -8488,12 +8490,6 @@ export declare const generatedSchema: {
     generalSettingsTimezone: { __type: "String" };
     generalSettingsTitle: { __type: "String" };
     generalSettingsUrl: { __type: "String" };
-    genesisBlocksGlobalSettingsSettingsGenesisBlocksMailchimpApiKey: {
-      __type: "String";
-    };
-    genesisBlocksGlobalSettingsSettingsGenesisProSubscriptionKey: {
-      __type: "String";
-    };
     readingSettingsPageForPosts: { __type: "Int" };
     readingSettingsPageOnFront: { __type: "Int" };
     readingSettingsPostsPerPage: { __type: "Int" };
@@ -8727,19 +8723,11 @@ export declare const generatedSchema: {
     cursor: { __type: "String" };
     node: { __type: "ContentType" };
   };
-  Template_Blank: {
+  Template_FullWidth: {
     __typename: { __type: "String!" };
     templateName: { __type: "String" };
   };
-  Template_PageLargeHeader: {
-    __typename: { __type: "String!" };
-    templateName: { __type: "String" };
-  };
-  Template_PageNoSeparators: {
-    __typename: { __type: "String!" };
-    templateName: { __type: "String" };
-  };
-  Template_SinglePostNoSeparators: {
+  Template_Homepage: {
     __typename: { __type: "String!" };
     templateName: { __type: "String" };
   };
@@ -9119,12 +9107,6 @@ export declare const generatedSchema: {
     generalSettingsTimezone: { __type: "String" };
     generalSettingsTitle: { __type: "String" };
     generalSettingsUrl: { __type: "String" };
-    genesisBlocksGlobalSettingsSettingsGenesisBlocksMailchimpApiKey: {
-      __type: "String";
-    };
-    genesisBlocksGlobalSettingsSettingsGenesisProSubscriptionKey: {
-      __type: "String";
-    };
     readingSettingsPageForPosts: { __type: "Int" };
     readingSettingsPageOnFront: { __type: "Int" };
     readingSettingsPostsPerPage: { __type: "Int" };
@@ -9142,9 +9124,6 @@ export declare const generatedSchema: {
     clientMutationId: { __type: "String" };
     discussionSettings: { __type: "DiscussionSettings" };
     generalSettings: { __type: "GeneralSettings" };
-    genesisBlocksGlobalSettingsSettings: {
-      __type: "GenesisBlocksGlobalSettingsSettings";
-    };
     readingSettings: { __type: "ReadingSettings" };
     writingSettings: { __type: "WritingSettings" };
   };
@@ -10268,7 +10247,10 @@ export declare const generatedSchema: {
       __type: "Category";
       __args: { id: "ID!"; idType: "CategoryIdType" };
     };
-    comment: { __type: "Comment"; __args: { id: "ID!" } };
+    comment: {
+      __type: "Comment";
+      __args: { id: "ID!"; idType: "CommentNodeIdTypeEnum" };
+    };
     comments: {
       __type: "RootQueryToCommentConnection";
       __args: {
@@ -10308,9 +10290,6 @@ export declare const generatedSchema: {
     };
     discussionSettings: { __type: "DiscussionSettings" };
     generalSettings: { __type: "GeneralSettings" };
-    genesisBlocksGlobalSettingsSettings: {
-      __type: "GenesisBlocksGlobalSettingsSettings";
-    };
     image: {
       __type: "Image";
       __args: { asPreview: "Boolean"; id: "ID!"; idType: "ImageIdType" };
@@ -10755,10 +10734,8 @@ export declare const generatedSchema: {
     ContentRevisionUnion: ["Page", "Post"];
     ContentTemplate: [
       "DefaultTemplate",
-      "Template_Blank",
-      "Template_PageLargeHeader",
-      "Template_PageNoSeparators",
-      "Template_SinglePostNoSeparators"
+      "Template_FullWidth",
+      "Template_Homepage"
     ];
     EnqueuedAsset: ["EnqueuedScript", "EnqueuedStylesheet"];
     HierarchicalContentNode: ["MediaItem", "Page"];
@@ -12327,12 +12304,7 @@ export interface ContentRevisionUnion {
  * The template assigned to a node of content
  */
 export interface ContentTemplate {
-  __typename?:
-    | "DefaultTemplate"
-    | "Template_Blank"
-    | "Template_PageLargeHeader"
-    | "Template_PageNoSeparators"
-    | "Template_SinglePostNoSeparators";
+  __typename?: "DefaultTemplate" | "Template_FullWidth" | "Template_Homepage";
   /**
    * The name of the template
    */
@@ -13359,21 +13331,6 @@ export interface GenerateAuthorizationCodePayload {
 }
 
 /**
- * The genesisBlocksGlobalSettings setting type
- */
-export interface GenesisBlocksGlobalSettingsSettings {
-  __typename?: "GenesisBlocksGlobalSettingsSettings";
-  /**
-   * The string Settings Group
-   */
-  genesisBlocksMailchimpApiKey?: Maybe<ScalarsEnums["String"]>;
-  /**
-   * The string Settings Group
-   */
-  genesisProSubscriptionKey?: Maybe<ScalarsEnums["String"]>;
-}
-
-/**
  * Content node with hierarchical (parent/child) relationships
  */
 export interface HierarchicalContentNode {
@@ -13761,7 +13718,16 @@ export interface MediaDetails {
   /**
    * The available sizes of the mediaItem
    */
-  sizes?: Maybe<Array<Maybe<MediaSize>>>;
+  sizes: (args?: {
+    /**
+     * The sizes to exclude. Will take precedence over `include`.
+     */
+    exclude?: Maybe<Array<Maybe<MediaItemSizeEnum>>>;
+    /**
+     * The sizes to include. Can be overridden by `exclude`.
+     */
+    include?: Maybe<Array<Maybe<MediaItemSizeEnum>>>;
+  }) => Maybe<Array<Maybe<MediaSize>>>;
   /**
    * The width of the mediaItem
    */
@@ -18408,18 +18374,6 @@ export interface Settings {
    */
   generalSettingsUrl?: Maybe<ScalarsEnums["String"]>;
   /**
-   * Settings of the the string Settings Group
-   */
-  genesisBlocksGlobalSettingsSettingsGenesisBlocksMailchimpApiKey?: Maybe<
-    ScalarsEnums["String"]
-  >;
-  /**
-   * Settings of the the string Settings Group
-   */
-  genesisBlocksGlobalSettingsSettingsGenesisProSubscriptionKey?: Maybe<
-    ScalarsEnums["String"]
-  >;
-  /**
    * Settings of the the integer Settings Group
    */
   readingSettingsPageForPosts?: Maybe<ScalarsEnums["Int"]>;
@@ -19039,8 +18993,8 @@ export interface TaxonomyToContentTypeConnectionEdge {
 /**
  * The template assigned to the node
  */
-export interface Template_Blank {
-  __typename?: "Template_Blank";
+export interface Template_FullWidth {
+  __typename?: "Template_FullWidth";
   /**
    * The name of the template
    */
@@ -19050,30 +19004,8 @@ export interface Template_Blank {
 /**
  * The template assigned to the node
  */
-export interface Template_PageLargeHeader {
-  __typename?: "Template_PageLargeHeader";
-  /**
-   * The name of the template
-   */
-  templateName?: Maybe<ScalarsEnums["String"]>;
-}
-
-/**
- * The template assigned to the node
- */
-export interface Template_PageNoSeparators {
-  __typename?: "Template_PageNoSeparators";
-  /**
-   * The name of the template
-   */
-  templateName?: Maybe<ScalarsEnums["String"]>;
-}
-
-/**
- * The template assigned to the node
- */
-export interface Template_SinglePostNoSeparators {
-  __typename?: "Template_SinglePostNoSeparators";
+export interface Template_Homepage {
+  __typename?: "Template_Homepage";
   /**
    * The name of the template
    */
@@ -19564,10 +19496,6 @@ export interface UpdateSettingsPayload {
    * Update the GeneralSettings setting.
    */
   generalSettings?: Maybe<GeneralSettings>;
-  /**
-   * Update the GenesisBlocksGlobalSettingsSettings setting.
-   */
-  genesisBlocksGlobalSettingsSettings?: Maybe<GenesisBlocksGlobalSettingsSettings>;
   /**
    * Update the ReadingSettings setting.
    */
@@ -21144,7 +21072,10 @@ export interface Query {
     id: Scalars["ID"];
     idType?: Maybe<CategoryIdType>;
   }) => Maybe<Category>;
-  comment: (args: { id: Scalars["ID"] }) => Maybe<Comment>;
+  comment: (args: {
+    id: Scalars["ID"];
+    idType?: Maybe<CommentNodeIdTypeEnum>;
+  }) => Maybe<Comment>;
   comments: (args?: {
     after?: Maybe<Scalars["String"]>;
     before?: Maybe<Scalars["String"]>;
@@ -21177,7 +21108,6 @@ export interface Query {
   }) => Maybe<RootQueryToContentTypeConnection>;
   discussionSettings?: Maybe<DiscussionSettings>;
   generalSettings?: Maybe<GeneralSettings>;
-  genesisBlocksGlobalSettingsSettings?: Maybe<GenesisBlocksGlobalSettingsSettings>;
   image: (args: {
     asPreview?: Maybe<Scalars["Boolean"]>;
     id: Scalars["ID"];
@@ -21545,7 +21475,6 @@ export interface SchemaObjectTypes {
   EnqueuedStylesheet: EnqueuedStylesheet;
   GeneralSettings: GeneralSettings;
   GenerateAuthorizationCodePayload: GenerateAuthorizationCodePayload;
-  GenesisBlocksGlobalSettingsSettings: GenesisBlocksGlobalSettingsSettings;
   HierarchicalContentNodeToContentNodeAncestorsConnection: HierarchicalContentNodeToContentNodeAncestorsConnection;
   HierarchicalContentNodeToContentNodeAncestorsConnectionEdge: HierarchicalContentNodeToContentNodeAncestorsConnectionEdge;
   HierarchicalContentNodeToContentNodeChildrenConnection: HierarchicalContentNodeToContentNodeChildrenConnection;
@@ -21691,10 +21620,8 @@ export interface SchemaObjectTypes {
   Taxonomy: Taxonomy;
   TaxonomyToContentTypeConnection: TaxonomyToContentTypeConnection;
   TaxonomyToContentTypeConnectionEdge: TaxonomyToContentTypeConnectionEdge;
-  Template_Blank: Template_Blank;
-  Template_PageLargeHeader: Template_PageLargeHeader;
-  Template_PageNoSeparators: Template_PageNoSeparators;
-  Template_SinglePostNoSeparators: Template_SinglePostNoSeparators;
+  Template_FullWidth: Template_FullWidth;
+  Template_Homepage: Template_Homepage;
   TermNodeToEnqueuedScriptConnection: TermNodeToEnqueuedScriptConnection;
   TermNodeToEnqueuedScriptConnectionEdge: TermNodeToEnqueuedScriptConnectionEdge;
   TermNodeToEnqueuedStylesheetConnection: TermNodeToEnqueuedStylesheetConnection;
@@ -21834,7 +21761,6 @@ export type SchemaObjectTypesNames =
   | "EnqueuedStylesheet"
   | "GeneralSettings"
   | "GenerateAuthorizationCodePayload"
-  | "GenesisBlocksGlobalSettingsSettings"
   | "HierarchicalContentNodeToContentNodeAncestorsConnection"
   | "HierarchicalContentNodeToContentNodeAncestorsConnectionEdge"
   | "HierarchicalContentNodeToContentNodeChildrenConnection"
@@ -21980,10 +21906,8 @@ export type SchemaObjectTypesNames =
   | "Taxonomy"
   | "TaxonomyToContentTypeConnection"
   | "TaxonomyToContentTypeConnectionEdge"
-  | "Template_Blank"
-  | "Template_PageLargeHeader"
-  | "Template_PageNoSeparators"
-  | "Template_SinglePostNoSeparators"
+  | "Template_FullWidth"
+  | "Template_Homepage"
   | "TermNodeToEnqueuedScriptConnection"
   | "TermNodeToEnqueuedScriptConnectionEdge"
   | "TermNodeToEnqueuedStylesheetConnection"
@@ -22071,10 +21995,8 @@ export interface $ContentRevisionUnion {
 
 export interface $ContentTemplate {
   DefaultTemplate?: DefaultTemplate;
-  Template_Blank?: Template_Blank;
-  Template_PageLargeHeader?: Template_PageLargeHeader;
-  Template_PageNoSeparators?: Template_PageNoSeparators;
-  Template_SinglePostNoSeparators?: Template_SinglePostNoSeparators;
+  Template_FullWidth?: Template_FullWidth;
+  Template_Homepage?: Template_Homepage;
 }
 
 export interface $DatabaseIdentifier {
@@ -22270,6 +22192,7 @@ export interface ScalarsEnums extends MakeNullable<Scalars> {
   BannerIdType: BannerIdType | undefined;
   BrandIdType: BrandIdType | undefined;
   CategoryIdType: CategoryIdType | undefined;
+  CommentNodeIdTypeEnum: CommentNodeIdTypeEnum | undefined;
   CommentsConnectionOrderbyEnum: CommentsConnectionOrderbyEnum | undefined;
   ContentNodeIdTypeEnum: ContentNodeIdTypeEnum | undefined;
   ContentTypeEnum: ContentTypeEnum | undefined;

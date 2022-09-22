@@ -22,8 +22,6 @@ import SkipNavigationLink from './SkipNavigationLink';
 import TaxonomyTerms from './TaxonomyTerms';
 import ProductSummary from './ProductSummary';
 import ProductSort from './ProductSort';
-import Review from './Review';
-import ReviewForm from './ReviewForm';
 
 export {
   Button,
@@ -50,6 +48,4 @@ export {
   TaxonomyTerms,
   ProductSummary,
   ProductSort,
-  Review,
-  ReviewForm,
 };
