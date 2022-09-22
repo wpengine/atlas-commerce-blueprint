@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unknown-property */
 import appConfig from 'app.config';
 
 const themes = {

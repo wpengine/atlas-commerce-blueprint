@@ -12,6 +12,7 @@ export const scalarsEnumsHash = {
   Boolean: true,
   BrandIdType: true,
   CategoryIdType: true,
+  CommentNodeIdTypeEnum: true,
   CommentsConnectionOrderbyEnum: true,
   ContentNodeIdTypeEnum: true,
   ContentTypeEnum: true,
@@ -1366,11 +1367,6 @@ export const generatedSchema = {
     code: { __type: "String" },
     error: { __type: "String" },
   },
-  GenesisBlocksGlobalSettingsSettings: {
-    __typename: { __type: "String!" },
-    genesisBlocksMailchimpApiKey: { __type: "String" },
-    genesisProSubscriptionKey: { __type: "String" },
-  },
   HierarchicalContentNode: {
     __typename: { __type: "String!" },
     ancestors: {
@@ -1541,7 +1537,13 @@ export const generatedSchema = {
     file: { __type: "String" },
     height: { __type: "Int" },
     meta: { __type: "MediaItemMeta" },
-    sizes: { __type: "[MediaSize]" },
+    sizes: {
+      __type: "[MediaSize]",
+      __args: {
+        exclude: "[MediaItemSizeEnum]",
+        include: "[MediaItemSizeEnum]",
+      },
+    },
     width: { __type: "Int" },
   },
   MediaItem: {
@@ -3803,12 +3805,6 @@ export const generatedSchema = {
     generalSettingsTimezone: { __type: "String" },
     generalSettingsTitle: { __type: "String" },
     generalSettingsUrl: { __type: "String" },
-    genesisBlocksGlobalSettingsSettingsGenesisBlocksMailchimpApiKey: {
-      __type: "String",
-    },
-    genesisBlocksGlobalSettingsSettingsGenesisProSubscriptionKey: {
-      __type: "String",
-    },
     readingSettingsPageForPosts: { __type: "Int" },
     readingSettingsPageOnFront: { __type: "Int" },
     readingSettingsPostsPerPage: { __type: "Int" },
@@ -4042,19 +4038,11 @@ export const generatedSchema = {
     cursor: { __type: "String" },
     node: { __type: "ContentType" },
   },
-  Template_Blank: {
+  Template_FullWidth: {
     __typename: { __type: "String!" },
     templateName: { __type: "String" },
   },
-  Template_PageLargeHeader: {
-    __typename: { __type: "String!" },
-    templateName: { __type: "String" },
-  },
-  Template_PageNoSeparators: {
-    __typename: { __type: "String!" },
-    templateName: { __type: "String" },
-  },
-  Template_SinglePostNoSeparators: {
+  Template_Homepage: {
     __typename: { __type: "String!" },
     templateName: { __type: "String" },
   },
@@ -4434,12 +4422,6 @@ export const generatedSchema = {
     generalSettingsTimezone: { __type: "String" },
     generalSettingsTitle: { __type: "String" },
     generalSettingsUrl: { __type: "String" },
-    genesisBlocksGlobalSettingsSettingsGenesisBlocksMailchimpApiKey: {
-      __type: "String",
-    },
-    genesisBlocksGlobalSettingsSettingsGenesisProSubscriptionKey: {
-      __type: "String",
-    },
     readingSettingsPageForPosts: { __type: "Int" },
     readingSettingsPageOnFront: { __type: "Int" },
     readingSettingsPostsPerPage: { __type: "Int" },
@@ -4457,9 +4439,6 @@ export const generatedSchema = {
     clientMutationId: { __type: "String" },
     discussionSettings: { __type: "DiscussionSettings" },
     generalSettings: { __type: "GeneralSettings" },
-    genesisBlocksGlobalSettingsSettings: {
-      __type: "GenesisBlocksGlobalSettingsSettings",
-    },
     readingSettings: { __type: "ReadingSettings" },
     writingSettings: { __type: "WritingSettings" },
   },
@@ -5583,7 +5562,10 @@ export const generatedSchema = {
       __type: "Category",
       __args: { id: "ID!", idType: "CategoryIdType" },
     },
-    comment: { __type: "Comment", __args: { id: "ID!" } },
+    comment: {
+      __type: "Comment",
+      __args: { id: "ID!", idType: "CommentNodeIdTypeEnum" },
+    },
     comments: {
       __type: "RootQueryToCommentConnection",
       __args: {
@@ -5623,9 +5605,6 @@ export const generatedSchema = {
     },
     discussionSettings: { __type: "DiscussionSettings" },
     generalSettings: { __type: "GeneralSettings" },
-    genesisBlocksGlobalSettingsSettings: {
-      __type: "GenesisBlocksGlobalSettingsSettings",
-    },
     image: {
       __type: "Image",
       __args: { asPreview: "Boolean", id: "ID!", idType: "ImageIdType" },
@@ -6070,10 +6049,8 @@ export const generatedSchema = {
     ContentRevisionUnion: ["Page", "Post"],
     ContentTemplate: [
       "DefaultTemplate",
-      "Template_Blank",
-      "Template_PageLargeHeader",
-      "Template_PageNoSeparators",
-      "Template_SinglePostNoSeparators",
+      "Template_FullWidth",
+      "Template_Homepage",
     ],
     EnqueuedAsset: ["EnqueuedScript", "EnqueuedStylesheet"],
     HierarchicalContentNode: ["MediaItem", "Page"],
