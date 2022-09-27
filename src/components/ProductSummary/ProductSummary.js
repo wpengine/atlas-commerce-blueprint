@@ -15,43 +15,47 @@ import Link from 'next/link';
 export default function ProductSummary({ product, imageAltText }) {
   const productHref = `/product/${product?.slug}`;
   const image = product.images({ first: 1 })?.nodes?.[0]?.urlStandard;
-  
-  return (
-    <>
-      <div className={classNames(['column', 'column-25', styles.productWrapper])}>
-        <div className={styles.productImageContainer}>
-          <Link href={productHref}>
-            <a>
-              {
-                product?.salePrice !== 0
-                ? <span className={styles.onsale}>Sale!</span>
-                : null
-              }
-              <img className={styles.productImage} src={image ?? '/ProductDefault.gif'} alt={product?.imageAltText ?? product?.name} />
 
-            </a>
+  return (
+    <div className={classNames(['column', 'column-25', styles.productWrapper])}>
+      <div className={styles.productImageContainer}>
+        <Link href={productHref}>
+          <a>
+            {product?.salePrice !== 0 ? (
+              <span className={styles.onsale}>Sale!</span>
+            ) : null}
+            <img
+              className={styles.productImage}
+              src={image ?? '/ProductDefault.gif'}
+              alt={product?.imageAltText ?? product?.name}
+            />
+          </a>
+        </Link>
+      </div>
+      <div className={styles.productInfoContainer}>
+        <h6 className={styles.productTitle}>
+          <Link href={productHref}>
+            <a>{product?.name}</a>
+          </Link>
+        </h6>
+        <div className={styles.productPrice}>
+          <span>
+            {product?.salePrice === 0 ? (
+              '$' + product?.price?.toFixed(2)
+            ) : (
+              <>
+                <del>${product?.price?.toFixed(2)}</del> $
+                {product?.salePrice?.toFixed(2)}
+              </>
+            )}
+          </span>
+        </div>
+        <div className={styles.btnContainer}>
+          <Link href={productHref}>
+            <a className={styles.btn}>View product</a>
           </Link>
         </div>
-        <div className={styles.productInfoContainer}>
-          <h6 className={styles.productTitle}>
-            <Link href={productHref}>
-              <a>
-                {product?.name}
-              </a>
-            </Link>
-          </h6>
-          <div className={styles.productPrice}>
-            <span>
-              {
-                product?.salePrice === 0
-                ? '$' + product?.price?.toFixed(2)
-                : <><del>${product?.price?.toFixed(2)}</del> ${product?.salePrice?.toFixed(2)}</>
-              }
-            </span>
-          </div>
-          <div className={styles.btnContainer}><Link href={productHref}><a className={styles.btn}>View product</a></Link></div>
-        </div>
       </div>
-    </>
+    </div>
   );
 }

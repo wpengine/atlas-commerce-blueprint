@@ -75,7 +75,7 @@ export default function Header({ className, storeSettings }) {
           <div className={styles['logo']}>
             <Link href='/'>
               <a title='Home'>
-                <img src={storeLogo?.url}></img>
+                <img src={storeLogo?.url} alt='Store Logo'></img>
                 <h3 style={{ color: storeSettings?.storeSecondaryColor }}>
                   {generalSettings?.title}
                 </h3>

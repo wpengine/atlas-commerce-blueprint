@@ -8,7 +8,12 @@ import Link from 'next/link';
  * @param {string} props.className An optional className to be added to the component.
  * @return {React.ReactElement} The NavigationMenu component.
  */
-export default function NavigationMenu({ className, menuLocation, children, storeSettings }) {
+export default function NavigationMenu({
+  className,
+  menuLocation,
+  children,
+  storeSettings,
+}) {
   const { useQuery } = client;
   const { nodes: menuItems } = useQuery().menuItems({
     where: {
@@ -33,16 +38,18 @@ export default function NavigationMenu({ className, menuLocation, children, stor
   return (
     <nav
       className={className}
-      role="navigation"
+      role='navigation'
       aria-label={`${menuItems[0]?.menu.node.name} menu`}
     >
-      <ul className="menu">
+      <ul className='menu'>
         {menuItems.map((item) => {
-          const { id, path, label } = item;
+          const { path, label } = item;
           return (
-            <li key={id ?? ''}>
-              <Link href={path ?? ''}>
-                  <a style={{color:storeSettings?.storeSecondaryColor}}>{label ?? ''}</a>
+            <li key={`menu-item-${label}`}>
+              <Link href={path ?? ''} key={`menu-item-link-${label}`}>
+                <a style={{ color: storeSettings?.storeSecondaryColor }}>
+                  {label ?? ''}
+                </a>
               </Link>
             </li>
           );

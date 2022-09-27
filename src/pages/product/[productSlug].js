@@ -276,12 +276,15 @@ export function ProductComponent({ product }) {
                     {product
                       .productCategories()
                       .nodes.map((category, index) => (
-                        <>
+                        <span key={category.id}>
                           {index === 0 ? '' : ', '}
-                          <Link href={`/product-category/${category.slug}`}>
+                          <Link
+                            href={`/product-category/${category.slug}`}
+                            key={category.id}
+                          >
                             <a>{category.name}</a>
                           </Link>
-                        </>
+                        </span>
                       ))}
                   </p>
                 ) : null}
@@ -337,7 +340,10 @@ export function ProductComponent({ product }) {
             <h1>Related Products</h1>
             <div className='row row-wrap'>
               {relatedProducts.map((product) => (
-                <ProductSummary product={product} key={product.slug} />
+                <ProductSummary
+                  product={product}
+                  key={`related-product-${product.slug}`}
+                />
               ))}
             </div>
           </div>
@@ -358,7 +364,7 @@ function ProductGallery({ images }) {
         <ReactImageMagnify
           imageProps={{
             alt: images[productIndex].description,
-            isFluidWidth: true,
+            isfluidwidth: true.toString(),
             src: images[productIndex]?.urlStandard,
           }}
           magnifiedImageProps={{
@@ -379,7 +385,7 @@ function ProductGallery({ images }) {
             src={image.urlThumbnail}
             className={styles.productGalleryThumbnail}
             onClick={() => setProductIndex(index)}
-            key={index}
+            key={`slide-image-${index}`}
             alt={image.description}
           />
         ))}
