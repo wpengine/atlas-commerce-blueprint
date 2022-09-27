@@ -16,8 +16,11 @@
 .logo {
   width: 400px;
   height: auto;
-  line-height: 0;
   margin: 0.8rem 0;
+}
+
+.logo h3 {
+  margin-bottom: 0;
 }
 
 .logo img {
@@ -25,14 +28,6 @@
   height: auto;
   float: left;
   margin-right: 15px;
-}
-
-.logo h3 {
-  margin: 6px 10px;
-}
-
-.logo span {
-  margin: 6px 10px;
 }
 
 .logo a {

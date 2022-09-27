@@ -50,7 +50,7 @@ export default function Header({ className, storeSettings }) {
       console.log('token exists');
       setIsSignOutShown(true);
     }
-  });
+  }, [isSignOutShown]);
 
   function clearCookie() {
     console.log('clear');

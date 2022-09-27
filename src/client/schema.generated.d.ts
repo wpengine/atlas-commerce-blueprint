@@ -110,6 +110,8 @@ export interface CategoryToCategoryConnectionWhereArgs {
   slug?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
   /** Array of term taxonomy IDs, to match when querying terms. */
   termTaxonomId?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
+  /** Array of term taxonomy IDs, to match when querying terms. */
+  termTaxonomyId?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   /** Whether to prime meta caches for matched terms. Default true. */
   updateTermMetaCache?: InputMaybe<Scalars["Boolean"]>;
 }
@@ -212,9 +214,9 @@ export interface CategoryToPostConnectionWhereArgs {
   tagIn?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   /** Array of tag IDs, used to display objects from one tag OR another */
   tagNotIn?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
-  /** Array of tag slugs, used to display objects from one tag OR another */
+  /** Array of tag slugs, used to display objects from one tag AND another */
   tagSlugAnd?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
-  /** Array of tag slugs, used to exclude objects in specified tags */
+  /** Array of tag slugs, used to include objects in ANY specified tags */
   tagSlugIn?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
   /** Title of the object */
   title?: InputMaybe<Scalars["String"]>;
@@ -259,7 +261,7 @@ export interface CommentToCommentConnectionWhereArgs {
   contentIdIn?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   /** Array of content object IDs to exclude affiliated comments for. */
   contentIdNotIn?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
-  /** Content object name to retrieve affiliated comments for. */
+  /** Content object name (i.e. slug ) to retrieve affiliated comments for. */
   contentName?: InputMaybe<Scalars["String"]>;
   /** Content Object parent ID to retrieve affiliated comments for. */
   contentParent?: InputMaybe<Scalars["Int"]>;
@@ -321,7 +323,7 @@ export interface CommentToParentCommentConnectionWhereArgs {
   contentIdIn?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   /** Array of content object IDs to exclude affiliated comments for. */
   contentIdNotIn?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
-  /** Content object name to retrieve affiliated comments for. */
+  /** Content object name (i.e. slug ) to retrieve affiliated comments for. */
   contentName?: InputMaybe<Scalars["String"]>;
   /** Content Object parent ID to retrieve affiliated comments for. */
   contentParent?: InputMaybe<Scalars["Int"]>;
@@ -1320,7 +1322,7 @@ export interface MediaItemToCommentConnectionWhereArgs {
   contentIdIn?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   /** Array of content object IDs to exclude affiliated comments for. */
   contentIdNotIn?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
-  /** Content object name to retrieve affiliated comments for. */
+  /** Content object name (i.e. slug ) to retrieve affiliated comments for. */
   contentName?: InputMaybe<Scalars["String"]>;
   /** Content Object parent ID to retrieve affiliated comments for. */
   contentParent?: InputMaybe<Scalars["Int"]>;
@@ -1641,7 +1643,7 @@ export interface PageToCommentConnectionWhereArgs {
   contentIdIn?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   /** Array of content object IDs to exclude affiliated comments for. */
   contentIdNotIn?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
-  /** Content object name to retrieve affiliated comments for. */
+  /** Content object name (i.e. slug ) to retrieve affiliated comments for. */
   contentName?: InputMaybe<Scalars["String"]>;
   /** Content Object parent ID to retrieve affiliated comments for. */
   contentParent?: InputMaybe<Scalars["Int"]>;
@@ -1865,9 +1867,9 @@ export interface PostFormatToPostConnectionWhereArgs {
   tagIn?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   /** Array of tag IDs, used to display objects from one tag OR another */
   tagNotIn?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
-  /** Array of tag slugs, used to display objects from one tag OR another */
+  /** Array of tag slugs, used to display objects from one tag AND another */
   tagSlugAnd?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
-  /** Array of tag slugs, used to exclude objects in specified tags */
+  /** Array of tag slugs, used to include objects in ANY specified tags */
   tagSlugIn?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
   /** Title of the object */
   title?: InputMaybe<Scalars["String"]>;
@@ -2036,6 +2038,8 @@ export interface PostToCategoryConnectionWhereArgs {
   slug?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
   /** Array of term taxonomy IDs, to match when querying terms. */
   termTaxonomId?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
+  /** Array of term taxonomy IDs, to match when querying terms. */
+  termTaxonomyId?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   /** Whether to prime meta caches for matched terms. Default true. */
   updateTermMetaCache?: InputMaybe<Scalars["Boolean"]>;
 }
@@ -2072,7 +2076,7 @@ export interface PostToCommentConnectionWhereArgs {
   contentIdIn?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   /** Array of content object IDs to exclude affiliated comments for. */
   contentIdNotIn?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
-  /** Content object name to retrieve affiliated comments for. */
+  /** Content object name (i.e. slug ) to retrieve affiliated comments for. */
   contentName?: InputMaybe<Scalars["String"]>;
   /** Content Object parent ID to retrieve affiliated comments for. */
   contentParent?: InputMaybe<Scalars["Int"]>;
@@ -2142,6 +2146,8 @@ export interface PostToPostFormatConnectionWhereArgs {
   slug?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
   /** Array of term taxonomy IDs, to match when querying terms. */
   termTaxonomId?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
+  /** Array of term taxonomy IDs, to match when querying terms. */
+  termTaxonomyId?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   /** Whether to prime meta caches for matched terms. Default true. */
   updateTermMetaCache?: InputMaybe<Scalars["Boolean"]>;
 }
@@ -2204,9 +2210,9 @@ export interface PostToRevisionConnectionWhereArgs {
   tagIn?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   /** Array of tag IDs, used to display objects from one tag OR another */
   tagNotIn?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
-  /** Array of tag slugs, used to display objects from one tag OR another */
+  /** Array of tag slugs, used to display objects from one tag AND another */
   tagSlugAnd?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
-  /** Array of tag slugs, used to exclude objects in specified tags */
+  /** Array of tag slugs, used to include objects in ANY specified tags */
   tagSlugIn?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
   /** Title of the object */
   title?: InputMaybe<Scalars["String"]>;
@@ -2252,6 +2258,8 @@ export interface PostToTagConnectionWhereArgs {
   slug?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
   /** Array of term taxonomy IDs, to match when querying terms. */
   termTaxonomId?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
+  /** Array of term taxonomy IDs, to match when querying terms. */
+  termTaxonomyId?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   /** Whether to prime meta caches for matched terms. Default true. */
   updateTermMetaCache?: InputMaybe<Scalars["Boolean"]>;
 }
@@ -2298,6 +2306,8 @@ export interface PostToTermNodeConnectionWhereArgs {
   taxonomies?: InputMaybe<Array<InputMaybe<TaxonomyEnum>>>;
   /** Array of term taxonomy IDs, to match when querying terms. */
   termTaxonomId?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
+  /** Array of term taxonomy IDs, to match when querying terms. */
+  termTaxonomyId?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   /** Whether to prime meta caches for matched terms. Default true. */
   updateTermMetaCache?: InputMaybe<Scalars["Boolean"]>;
 }
@@ -2521,6 +2531,8 @@ export interface RootQueryToCategoryConnectionWhereArgs {
   slug?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
   /** Array of term taxonomy IDs, to match when querying terms. */
   termTaxonomId?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
+  /** Array of term taxonomy IDs, to match when querying terms. */
+  termTaxonomyId?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   /** Whether to prime meta caches for matched terms. Default true. */
   updateTermMetaCache?: InputMaybe<Scalars["Boolean"]>;
 }
@@ -2557,7 +2569,7 @@ export interface RootQueryToCommentConnectionWhereArgs {
   contentIdIn?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   /** Array of content object IDs to exclude affiliated comments for. */
   contentIdNotIn?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
-  /** Content object name to retrieve affiliated comments for. */
+  /** Content object name (i.e. slug ) to retrieve affiliated comments for. */
   contentName?: InputMaybe<Scalars["String"]>;
   /** Content Object parent ID to retrieve affiliated comments for. */
   contentParent?: InputMaybe<Scalars["Int"]>;
@@ -2941,9 +2953,9 @@ export interface RootQueryToPostConnectionWhereArgs {
   tagIn?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   /** Array of tag IDs, used to display objects from one tag OR another */
   tagNotIn?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
-  /** Array of tag slugs, used to display objects from one tag OR another */
+  /** Array of tag slugs, used to display objects from one tag AND another */
   tagSlugAnd?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
-  /** Array of tag slugs, used to exclude objects in specified tags */
+  /** Array of tag slugs, used to include objects in ANY specified tags */
   tagSlugIn?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
   /** Title of the object */
   title?: InputMaybe<Scalars["String"]>;
@@ -2989,6 +3001,8 @@ export interface RootQueryToPostFormatConnectionWhereArgs {
   slug?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
   /** Array of term taxonomy IDs, to match when querying terms. */
   termTaxonomId?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
+  /** Array of term taxonomy IDs, to match when querying terms. */
+  termTaxonomyId?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   /** Whether to prime meta caches for matched terms. Default true. */
   updateTermMetaCache?: InputMaybe<Scalars["Boolean"]>;
 }
@@ -3175,6 +3189,8 @@ export interface RootQueryToTagConnectionWhereArgs {
   slug?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
   /** Array of term taxonomy IDs, to match when querying terms. */
   termTaxonomId?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
+  /** Array of term taxonomy IDs, to match when querying terms. */
+  termTaxonomyId?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   /** Whether to prime meta caches for matched terms. Default true. */
   updateTermMetaCache?: InputMaybe<Scalars["Boolean"]>;
 }
@@ -3221,6 +3237,8 @@ export interface RootQueryToTermNodeConnectionWhereArgs {
   taxonomies?: InputMaybe<Array<InputMaybe<TaxonomyEnum>>>;
   /** Array of term taxonomy IDs, to match when querying terms. */
   termTaxonomId?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
+  /** Array of term taxonomy IDs, to match when querying terms. */
+  termTaxonomyId?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   /** Whether to prime meta caches for matched terms. Default true. */
   updateTermMetaCache?: InputMaybe<Scalars["Boolean"]>;
 }
@@ -3437,9 +3455,9 @@ export interface TagToPostConnectionWhereArgs {
   tagIn?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   /** Array of tag IDs, used to display objects from one tag OR another */
   tagNotIn?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
-  /** Array of tag slugs, used to display objects from one tag OR another */
+  /** Array of tag slugs, used to display objects from one tag AND another */
   tagSlugAnd?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
-  /** Array of tag slugs, used to exclude objects in specified tags */
+  /** Array of tag slugs, used to include objects in ANY specified tags */
   tagSlugIn?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
   /** Title of the object */
   title?: InputMaybe<Scalars["String"]>;
@@ -4061,11 +4079,7 @@ export type UserRoleEnum =
   /** User role with specific capabilities */
   | "CONTRIBUTOR"
   /** User role with specific capabilities */
-  | "CUSTOMER"
-  /** User role with specific capabilities */
   | "EDITOR"
-  /** User role with specific capabilities */
-  | "SHOP_MANAGER"
   /** User role with specific capabilities */
   | "SUBSCRIBER";
 
@@ -4193,7 +4207,7 @@ export interface UserToCommentConnectionWhereArgs {
   contentIdIn?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   /** Array of content object IDs to exclude affiliated comments for. */
   contentIdNotIn?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
-  /** Content object name to retrieve affiliated comments for. */
+  /** Content object name (i.e. slug ) to retrieve affiliated comments for. */
   contentName?: InputMaybe<Scalars["String"]>;
   /** Content Object parent ID to retrieve affiliated comments for. */
   contentParent?: InputMaybe<Scalars["Int"]>;
@@ -4505,9 +4519,9 @@ export interface UserToPostConnectionWhereArgs {
   tagIn?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   /** Array of tag IDs, used to display objects from one tag OR another */
   tagNotIn?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
-  /** Array of tag slugs, used to display objects from one tag OR another */
+  /** Array of tag slugs, used to display objects from one tag AND another */
   tagSlugAnd?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
-  /** Array of tag slugs, used to exclude objects in specified tags */
+  /** Array of tag slugs, used to include objects in ANY specified tags */
   tagSlugIn?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
   /** Title of the object */
   title?: InputMaybe<Scalars["String"]>;
@@ -5002,6 +5016,7 @@ export declare const generatedSchema: {
     search: { __type: "String" };
     slug: { __type: "[String]" };
     termTaxonomId: { __type: "[ID]" };
+    termTaxonomyId: { __type: "[ID]" };
     updateTermMetaCache: { __type: "Boolean" };
   };
   CategoryToContentNodeConnection: {
@@ -7199,6 +7214,7 @@ export declare const generatedSchema: {
     search: { __type: "String" };
     slug: { __type: "[String]" };
     termTaxonomId: { __type: "[ID]" };
+    termTaxonomyId: { __type: "[ID]" };
     updateTermMetaCache: { __type: "Boolean" };
   };
   PostToCommentConnection: {
@@ -7274,6 +7290,7 @@ export declare const generatedSchema: {
     search: { __type: "String" };
     slug: { __type: "[String]" };
     termTaxonomId: { __type: "[ID]" };
+    termTaxonomyId: { __type: "[ID]" };
     updateTermMetaCache: { __type: "Boolean" };
   };
   PostToPreviewConnectionEdge: {
@@ -7355,6 +7372,7 @@ export declare const generatedSchema: {
     search: { __type: "String" };
     slug: { __type: "[String]" };
     termTaxonomId: { __type: "[ID]" };
+    termTaxonomyId: { __type: "[ID]" };
     updateTermMetaCache: { __type: "Boolean" };
   };
   PostToTermNodeConnection: {
@@ -7389,6 +7407,7 @@ export declare const generatedSchema: {
     slug: { __type: "[String]" };
     taxonomies: { __type: "[TaxonomyEnum]" };
     termTaxonomId: { __type: "[ID]" };
+    termTaxonomyId: { __type: "[ID]" };
     updateTermMetaCache: { __type: "Boolean" };
   };
   PostTypeLabelDetails: {
@@ -7798,6 +7817,7 @@ export declare const generatedSchema: {
     search: { __type: "String" };
     slug: { __type: "[String]" };
     termTaxonomId: { __type: "[ID]" };
+    termTaxonomyId: { __type: "[ID]" };
     updateTermMetaCache: { __type: "Boolean" };
   };
   RootQueryToCommentConnection: {
@@ -8197,6 +8217,7 @@ export declare const generatedSchema: {
     search: { __type: "String" };
     slug: { __type: "[String]" };
     termTaxonomId: { __type: "[ID]" };
+    termTaxonomyId: { __type: "[ID]" };
     updateTermMetaCache: { __type: "Boolean" };
   };
   RootQueryToProductCategoryConnection: {
@@ -8334,6 +8355,7 @@ export declare const generatedSchema: {
     search: { __type: "String" };
     slug: { __type: "[String]" };
     termTaxonomId: { __type: "[ID]" };
+    termTaxonomyId: { __type: "[ID]" };
     updateTermMetaCache: { __type: "Boolean" };
   };
   RootQueryToTaxonomyConnection: {
@@ -8379,6 +8401,7 @@ export declare const generatedSchema: {
     slug: { __type: "[String]" };
     taxonomies: { __type: "[TaxonomyEnum]" };
     termTaxonomId: { __type: "[ID]" };
+    termTaxonomyId: { __type: "[ID]" };
     updateTermMetaCache: { __type: "Boolean" };
   };
   RootQueryToThemeConnection: {
@@ -8723,11 +8746,19 @@ export declare const generatedSchema: {
     cursor: { __type: "String" };
     node: { __type: "ContentType" };
   };
-  Template_FullWidth: {
+  Template_Blank: {
     __typename: { __type: "String!" };
     templateName: { __type: "String" };
   };
-  Template_Homepage: {
+  Template_PageLargeHeader: {
+    __typename: { __type: "String!" };
+    templateName: { __type: "String" };
+  };
+  Template_PageNoSeparators: {
+    __typename: { __type: "String!" };
+    templateName: { __type: "String" };
+  };
+  Template_SinglePostNoSeparators: {
     __typename: { __type: "String!" };
     templateName: { __type: "String" };
   };
@@ -10734,8 +10765,10 @@ export declare const generatedSchema: {
     ContentRevisionUnion: ["Page", "Post"];
     ContentTemplate: [
       "DefaultTemplate",
-      "Template_FullWidth",
-      "Template_Homepage"
+      "Template_Blank",
+      "Template_PageLargeHeader",
+      "Template_PageNoSeparators",
+      "Template_SinglePostNoSeparators"
     ];
     EnqueuedAsset: ["EnqueuedScript", "EnqueuedStylesheet"];
     HierarchicalContentNode: ["MediaItem", "Page"];
@@ -12304,7 +12337,12 @@ export interface ContentRevisionUnion {
  * The template assigned to a node of content
  */
 export interface ContentTemplate {
-  __typename?: "DefaultTemplate" | "Template_FullWidth" | "Template_Homepage";
+  __typename?:
+    | "DefaultTemplate"
+    | "Template_Blank"
+    | "Template_PageLargeHeader"
+    | "Template_PageNoSeparators"
+    | "Template_SinglePostNoSeparators";
   /**
    * The name of the template
    */
@@ -18993,8 +19031,8 @@ export interface TaxonomyToContentTypeConnectionEdge {
 /**
  * The template assigned to the node
  */
-export interface Template_FullWidth {
-  __typename?: "Template_FullWidth";
+export interface Template_Blank {
+  __typename?: "Template_Blank";
   /**
    * The name of the template
    */
@@ -19004,8 +19042,30 @@ export interface Template_FullWidth {
 /**
  * The template assigned to the node
  */
-export interface Template_Homepage {
-  __typename?: "Template_Homepage";
+export interface Template_PageLargeHeader {
+  __typename?: "Template_PageLargeHeader";
+  /**
+   * The name of the template
+   */
+  templateName?: Maybe<ScalarsEnums["String"]>;
+}
+
+/**
+ * The template assigned to the node
+ */
+export interface Template_PageNoSeparators {
+  __typename?: "Template_PageNoSeparators";
+  /**
+   * The name of the template
+   */
+  templateName?: Maybe<ScalarsEnums["String"]>;
+}
+
+/**
+ * The template assigned to the node
+ */
+export interface Template_SinglePostNoSeparators {
+  __typename?: "Template_SinglePostNoSeparators";
   /**
    * The name of the template
    */
@@ -21620,8 +21680,10 @@ export interface SchemaObjectTypes {
   Taxonomy: Taxonomy;
   TaxonomyToContentTypeConnection: TaxonomyToContentTypeConnection;
   TaxonomyToContentTypeConnectionEdge: TaxonomyToContentTypeConnectionEdge;
-  Template_FullWidth: Template_FullWidth;
-  Template_Homepage: Template_Homepage;
+  Template_Blank: Template_Blank;
+  Template_PageLargeHeader: Template_PageLargeHeader;
+  Template_PageNoSeparators: Template_PageNoSeparators;
+  Template_SinglePostNoSeparators: Template_SinglePostNoSeparators;
   TermNodeToEnqueuedScriptConnection: TermNodeToEnqueuedScriptConnection;
   TermNodeToEnqueuedScriptConnectionEdge: TermNodeToEnqueuedScriptConnectionEdge;
   TermNodeToEnqueuedStylesheetConnection: TermNodeToEnqueuedStylesheetConnection;
@@ -21906,8 +21968,10 @@ export type SchemaObjectTypesNames =
   | "Taxonomy"
   | "TaxonomyToContentTypeConnection"
   | "TaxonomyToContentTypeConnectionEdge"
-  | "Template_FullWidth"
-  | "Template_Homepage"
+  | "Template_Blank"
+  | "Template_PageLargeHeader"
+  | "Template_PageNoSeparators"
+  | "Template_SinglePostNoSeparators"
   | "TermNodeToEnqueuedScriptConnection"
   | "TermNodeToEnqueuedScriptConnectionEdge"
   | "TermNodeToEnqueuedStylesheetConnection"
@@ -21995,8 +22059,10 @@ export interface $ContentRevisionUnion {
 
 export interface $ContentTemplate {
   DefaultTemplate?: DefaultTemplate;
-  Template_FullWidth?: Template_FullWidth;
-  Template_Homepage?: Template_Homepage;
+  Template_Blank?: Template_Blank;
+  Template_PageLargeHeader?: Template_PageLargeHeader;
+  Template_PageNoSeparators?: Template_PageNoSeparators;
+  Template_SinglePostNoSeparators?: Template_SinglePostNoSeparators;
 }
 
 export interface $DatabaseIdentifier {

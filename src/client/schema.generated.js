@@ -311,6 +311,7 @@ export const generatedSchema = {
     search: { __type: "String" },
     slug: { __type: "[String]" },
     termTaxonomId: { __type: "[ID]" },
+    termTaxonomyId: { __type: "[ID]" },
     updateTermMetaCache: { __type: "Boolean" },
   },
   CategoryToContentNodeConnection: {
@@ -2514,6 +2515,7 @@ export const generatedSchema = {
     search: { __type: "String" },
     slug: { __type: "[String]" },
     termTaxonomId: { __type: "[ID]" },
+    termTaxonomyId: { __type: "[ID]" },
     updateTermMetaCache: { __type: "Boolean" },
   },
   PostToCommentConnection: {
@@ -2589,6 +2591,7 @@ export const generatedSchema = {
     search: { __type: "String" },
     slug: { __type: "[String]" },
     termTaxonomId: { __type: "[ID]" },
+    termTaxonomyId: { __type: "[ID]" },
     updateTermMetaCache: { __type: "Boolean" },
   },
   PostToPreviewConnectionEdge: {
@@ -2670,6 +2673,7 @@ export const generatedSchema = {
     search: { __type: "String" },
     slug: { __type: "[String]" },
     termTaxonomId: { __type: "[ID]" },
+    termTaxonomyId: { __type: "[ID]" },
     updateTermMetaCache: { __type: "Boolean" },
   },
   PostToTermNodeConnection: {
@@ -2704,6 +2708,7 @@ export const generatedSchema = {
     slug: { __type: "[String]" },
     taxonomies: { __type: "[TaxonomyEnum]" },
     termTaxonomId: { __type: "[ID]" },
+    termTaxonomyId: { __type: "[ID]" },
     updateTermMetaCache: { __type: "Boolean" },
   },
   PostTypeLabelDetails: {
@@ -3113,6 +3118,7 @@ export const generatedSchema = {
     search: { __type: "String" },
     slug: { __type: "[String]" },
     termTaxonomId: { __type: "[ID]" },
+    termTaxonomyId: { __type: "[ID]" },
     updateTermMetaCache: { __type: "Boolean" },
   },
   RootQueryToCommentConnection: {
@@ -3512,6 +3518,7 @@ export const generatedSchema = {
     search: { __type: "String" },
     slug: { __type: "[String]" },
     termTaxonomId: { __type: "[ID]" },
+    termTaxonomyId: { __type: "[ID]" },
     updateTermMetaCache: { __type: "Boolean" },
   },
   RootQueryToProductCategoryConnection: {
@@ -3649,6 +3656,7 @@ export const generatedSchema = {
     search: { __type: "String" },
     slug: { __type: "[String]" },
     termTaxonomId: { __type: "[ID]" },
+    termTaxonomyId: { __type: "[ID]" },
     updateTermMetaCache: { __type: "Boolean" },
   },
   RootQueryToTaxonomyConnection: {
@@ -3694,6 +3702,7 @@ export const generatedSchema = {
     slug: { __type: "[String]" },
     taxonomies: { __type: "[TaxonomyEnum]" },
     termTaxonomId: { __type: "[ID]" },
+    termTaxonomyId: { __type: "[ID]" },
     updateTermMetaCache: { __type: "Boolean" },
   },
   RootQueryToThemeConnection: {
@@ -4038,11 +4047,19 @@ export const generatedSchema = {
     cursor: { __type: "String" },
     node: { __type: "ContentType" },
   },
-  Template_FullWidth: {
+  Template_Blank: {
     __typename: { __type: "String!" },
     templateName: { __type: "String" },
   },
-  Template_Homepage: {
+  Template_PageLargeHeader: {
+    __typename: { __type: "String!" },
+    templateName: { __type: "String" },
+  },
+  Template_PageNoSeparators: {
+    __typename: { __type: "String!" },
+    templateName: { __type: "String" },
+  },
+  Template_SinglePostNoSeparators: {
     __typename: { __type: "String!" },
     templateName: { __type: "String" },
   },
@@ -6049,8 +6066,10 @@ export const generatedSchema = {
     ContentRevisionUnion: ["Page", "Post"],
     ContentTemplate: [
       "DefaultTemplate",
-      "Template_FullWidth",
-      "Template_Homepage",
+      "Template_Blank",
+      "Template_PageLargeHeader",
+      "Template_PageNoSeparators",
+      "Template_SinglePostNoSeparators",
     ],
     EnqueuedAsset: ["EnqueuedScript", "EnqueuedStylesheet"],
     HierarchicalContentNode: ["MediaItem", "Page"],
