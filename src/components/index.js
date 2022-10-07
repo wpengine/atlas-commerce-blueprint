@@ -22,6 +22,7 @@ import SkipNavigationLink from './SkipNavigationLink';
 import TaxonomyTerms from './TaxonomyTerms';
 import ProductSummary from './ProductSummary';
 import ProductSort from './ProductSort';
+import BreadCrumbsMenu from './BreadCrumbsMenu';
 
 export {
   Button,
@@ -48,4 +49,5 @@ export {
   TaxonomyTerms,
   ProductSummary,
   ProductSort,
+  BreadCrumbsMenu,
 };
