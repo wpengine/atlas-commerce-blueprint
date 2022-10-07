@@ -36,7 +36,12 @@ async function fetchCart(body) {
   }
 
   if (data.cart_data) {
-    data.cart_data = JSON.parse(data.cart_data);
+    try {
+      data.cart_data = JSON.parse(data.cart_data);
+    } catch (e) {
+      console.err(e);
+      console.log('There was an issue retrieving the cart data');
+    }
   }
 
   return data;
@@ -68,7 +73,7 @@ export function AtlasEcomProvider({ children }) {
       router.events.off('routeChangeStart', handleRouteChange);
       document.removeEventListener('visibilitychange', handleVisibilityChange);
     };
-  }, []);
+  }, [router.events]);
 
   async function addToCart(lineItems) {
     const data = await fetchCart({ action: 'add', line_items: lineItems });
