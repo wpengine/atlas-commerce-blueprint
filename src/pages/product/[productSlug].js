@@ -45,8 +45,6 @@ export function ProductComponent({ product }) {
   const variantLookup = JSON.parse(product.variantLookupJson ?? '{}');
   const modifierLookup = JSON.parse(product.modifierLookupJson ?? '{}');
 
-  // console.log({ productFormFields, variantLookup, modifierLookup });
-
   const productName = product.name;
   const bigCommerceId = product.bigCommerceID;
   const baseVariantId = product.variants({ last: 1 })?.nodes[0]
@@ -145,8 +143,6 @@ export function ProductComponent({ product }) {
     (variantProduct?.calculatedPrice ?? product.calculatedPrice) +
     priceAdjuster;
 
-  // console.log({ values, variantProduct, inventoryLevel });
-
   function handleChange(event) {
     setValues((prevValues) => ({
       ...prevValues,
@@ -195,8 +191,6 @@ export function ProductComponent({ product }) {
         modifiers: modifierOptionValues,
       },
     ]).then((data) => {
-      // console.log({ 'addToCart()': data });
-
       setProductNotification(
         data.status === 200
           ? { message: `"${productName}" has been added to your cart.` }

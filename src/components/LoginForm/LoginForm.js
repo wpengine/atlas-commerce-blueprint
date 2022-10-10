@@ -6,7 +6,6 @@ import { useRouter } from 'next/router';
 
 export default function LoginForm() {
   // Pull the storeDomain url from the StoreSettings ACM model
-
   const { useQuery } = client;
   const storeSettings = useQuery().storeSettings({ first: 1 })?.nodes?.[0];
   const bigCommerceURL = 'https://' + storeSettings?.storeDomain;
@@ -103,7 +102,6 @@ export default function LoginForm() {
       if (data.status == 200) {
         window.open(data.redirect_to, '_blank');
         router.push('/');
-        //cookieCutter.set('token', "qqqqqqqq");
 
         // The token is bad
       } else {
@@ -120,7 +118,6 @@ export default function LoginForm() {
             expires: new Date(0),
           });
           setErrorMessage('Session expired, please log in again.');
-          //getRefreshToken();
         }
 
         // Missing Redirect
