@@ -8,15 +8,17 @@
     @media (min-width: $breakpoint-small) {
       margin-right: 2.5rem;
     }
-  
+
     :global {
-      .slick-prev, .slick-next {
-        &, &:before {
+      .slick-prev,
+      .slick-next {
+        &,
+        &:before {
           color: #000;
         }
       }
     }
-    
+
     .productGalleryThumbnail {
       cursor: pointer;
     }
@@ -32,7 +34,7 @@
     border-color: #43454b;
     color: #43454b;
     padding: 0.202em 0.6180469716em;
-    font-size: .875em;
+    font-size: 0.875em;
     text-transform: uppercase;
     font-weight: 600;
     display: inline-block;
@@ -43,48 +45,26 @@
   img {
     max-width: initial;
   }
-  
+
   .notification {
     display: flex;
     margin: 2.5em 0;
     padding: 1em 2em 1em 3.5em;
-    border-left: .75em solid rgba(0, 0, 0, .15);
+    border-left: 0.75em solid rgba(0, 0, 0, 0.15);
     color: #fff;
     background: #0f834d;
-    
+
     .message {
       margin-right: auto;
     }
-    
+
     a {
       color: inherit;
       text-decoration: underline;
     }
   }
-  
+
   .notificationError {
     background-color: #c00;
-  }
-  
-  .addToCart:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
-  
-  input.quantity {
-    width: 5em;
-    padding: .25em;
-    border-radius: 4px;
-    border-width: 1px;
-    
-    &:disabled {
-      cursor: not-allowed;
-    }
-  }
-  
-  .purchaseDisabled {
-    margin: 1em 0;
-    padding: .5em 1em;
-    background: #ddd;
   }
 }

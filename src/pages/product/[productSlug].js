@@ -31,9 +31,6 @@ export function ProductComponent({ product }) {
   const generalSettings = useQuery().generalSettings;
   const storeSettings = useQuery().storeSettings({ first: 1 })?.nodes?.[0];
 
-  const productCategories = product.productCategories().nodes;
-  const productBrand = product.brand?.node;
-
   const relatedProductIds = JSON.parse(product.relatedProducts ?? '[]');
   const relatedProducts = useQuery().products({
     where: { bigCommerceIDIn: relatedProductIds },
@@ -42,8 +39,6 @@ export function ProductComponent({ product }) {
   const productFormFields = JSON.parse(product.productFormFieldsJson ?? '[]');
   const variantLookup = JSON.parse(product.variantLookupJson ?? '{}');
   const modifierLookup = JSON.parse(product.modifierLookupJson ?? '{}');
-
-  // console.log({ productFormFields, variantLookup, modifierLookup });
 
   const productName = product.name;
   const bigCommerceId = product.bigCommerceID;
@@ -129,8 +124,6 @@ export function ProductComponent({ product }) {
     (variantProduct?.calculatedPrice ?? product.calculatedPrice) +
     priceAdjuster;
 
-  // console.log({ values, variantProduct, inventoryLevel });
-
   function handleChange(event) {
     setValues((prevValues) => ({
       ...prevValues,
@@ -179,8 +172,6 @@ export function ProductComponent({ product }) {
         modifiers: modifierOptionValues,
       },
     ]).then((data) => {
-      // console.log({ 'addToCart()': data });
-
       setProductNotification(
         data.status === 200
           ? { message: `"${productName}" has been added to your cart.` }
@@ -252,15 +243,13 @@ export function ProductComponent({ product }) {
               <p dangerouslySetInnerHTML={{ __html: product?.description }} />
 
               <ProductMeta
-                productCategories={productCategories}
-                productBrand={productBrand}
+                product={product}
                 sortedFormFields={sortedFormFields}
                 handleChange={handleChange}
                 handleSubmit={handleSubmit}
                 handleFieldChange={handleFieldChange}
                 variantProduct={variantProduct}
                 values={values}
-                product={product}
               />
             </div>
           </div>
