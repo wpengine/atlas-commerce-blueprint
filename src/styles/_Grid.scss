@@ -6,13 +6,16 @@
 .container {
   margin: 0 auto;
   max-width: $container-max-width;
-//   padding: 0 2rem;
   padding: 0 0;
   position: relative;
   width: 100%;
 
   &.small {
     max-width: $content-max-width;
+  }
+
+  @media (max-width: $breakpoint-medium) {
+    padding: 1.5rem;
   }
 }
 

@@ -17,6 +17,10 @@
   width: 400px;
   height: auto;
   margin: 0.8rem 0;
+
+  @media (max-width: $breakpoint-extra-small) {
+    width: 50%;
+  }
 }
 
 .logo h3 {
@@ -72,6 +76,10 @@
 
   @media (min-width: $breakpoint-small) {
     display: none;
+  }
+
+  @media (max-width: $breakpoint-extra-small) {
+    height: 50px;
   }
 }
 
@@ -261,5 +269,9 @@
         }
       }
     }
+  }
+
+  @media (max-width: $breakpoint-extra-small) {
+    width: 100%;
   }
 }
