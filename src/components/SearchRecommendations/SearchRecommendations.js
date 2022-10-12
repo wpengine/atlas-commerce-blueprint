@@ -10,10 +10,6 @@ import styles from './SearchRecommendations.module.scss';
  */
 export default function SearchRecommendations() {
   const { useQuery } = client;
-  // const recentPostNodes = useQuery().posts({
-  //   first: recommendedPostsLimit,
-  // })?.nodes;
-  //const categoryNodes = useQuery()?.categories()?.nodes;
   const categoryNodes = useQuery()?.productCategories()?.nodes;
 
   return (
