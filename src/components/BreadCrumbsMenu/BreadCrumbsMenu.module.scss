@@ -1,0 +1,28 @@
+.breadcrumbsContainer {
+  max-width: 80rem;
+  overflow: hidden;
+  padding: 0;
+  li:not(:last-child) {
+    &:after {
+      position: relative;
+      margin: 0 0.5rem;
+      opacity: 1;
+      content: '>';
+      color: #101010;
+    }
+  }
+  .breadcrumbs {
+    margin: 2.5rem 0;
+    list-style: none;
+    .breadcrumb {
+      float: left;
+      cursor: default;
+      &.isActive {
+        font-weight: 700;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}

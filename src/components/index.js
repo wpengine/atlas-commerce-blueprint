@@ -24,6 +24,7 @@ import ProductSummary from './ProductSummary';
 import ProductSort from './ProductSort';
 import ProductFormField from './ProductFormField';
 import ProductMeta from './ProductMeta';
+import BreadCrumbsMenu from './BreadCrumbsMenu';
 import ProductPrice from './ProductPrice';
 import ProductDescription from './ProductDescription';
 
@@ -54,6 +55,7 @@ export {
   ProductSort,
   ProductFormField,
   ProductMeta,
+  BreadCrumbsMenu,
   ProductPrice,
   ProductDescription,
 };
