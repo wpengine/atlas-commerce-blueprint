@@ -8,6 +8,8 @@ import {
   SEO,
   Button,
   ProductSummary,
+  ProductPrice,
+  ProductDescription,
 } from 'components';
 import ProductFormField from 'components/ProductFormField/ProductFormField';
 
@@ -44,8 +46,6 @@ export function ProductComponent({ product }) {
   const productFormFields = JSON.parse(product.productFormFieldsJson ?? '[]');
   const variantLookup = JSON.parse(product.variantLookupJson ?? '{}');
   const modifierLookup = JSON.parse(product.modifierLookupJson ?? '{}');
-
-  // console.log({ productFormFields, variantLookup, modifierLookup });
 
   const productName = product.name;
   const bigCommerceId = product.bigCommerceID;
@@ -145,8 +145,6 @@ export function ProductComponent({ product }) {
     (variantProduct?.calculatedPrice ?? product.calculatedPrice) +
     priceAdjuster;
 
-  // console.log({ values, variantProduct, inventoryLevel });
-
   function handleChange(event) {
     setValues((prevValues) => ({
       ...prevValues,
@@ -195,8 +193,6 @@ export function ProductComponent({ product }) {
         modifiers: modifierOptionValues,
       },
     ]).then((data) => {
-      // console.log({ 'addToCart()': data });
-
       setProductNotification(
         data.status === 200
           ? { message: `"${productName}" has been added to your cart.` }
@@ -249,23 +245,13 @@ export function ProductComponent({ product }) {
 
               <h1>{product?.name}</h1>
 
-              <p
-                className='price'
-                style={{
-                  fontSize: '1.41575em',
-                  margin: '1.41575em 0',
-                }}
-              >
-                {salePrice === 0 ? (
-                  '$' + calculatedPrice.toFixed(2)
-                ) : (
-                  <>
-                    <del>${price.toFixed(2)}</del> ${calculatedPrice.toFixed(2)}
-                  </>
-                )}
-              </p>
+              <ProductPrice
+                salePrice={salePrice}
+                price={price}
+                calculatedPrice={calculatedPrice}
+              />
 
-              <p dangerouslySetInnerHTML={{ __html: product?.description }} />
+              <ProductDescription description={product?.description} />
 
               <div className='product_meta'>
                 <p>SKU: {displayProduct.sku}</p>

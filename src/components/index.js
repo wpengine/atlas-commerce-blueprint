@@ -23,6 +23,8 @@ import TaxonomyTerms from './TaxonomyTerms';
 import ProductSummary from './ProductSummary';
 import ProductSort from './ProductSort';
 import BreadCrumbsMenu from './BreadCrumbsMenu';
+import ProductPrice from './ProductPrice';
+import ProductDescription from './ProductDescription';
 
 export {
   Button,
@@ -50,4 +52,6 @@ export {
   ProductSummary,
   ProductSort,
   BreadCrumbsMenu,
+  ProductPrice,
+  ProductDescription,
 };

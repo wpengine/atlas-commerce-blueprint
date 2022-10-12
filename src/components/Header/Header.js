@@ -41,10 +41,8 @@ export default function Header({ className, storeSettings }) {
 
   // If the auth token already exists, redirect to the BC Account page
   useEffect(() => {
-    //console.log("loaded");
     // Get token
     const authToken = cookieCutter.get('atlasecom-token-user');
-    //console.log(authToken);
 
     if (typeof authToken !== 'undefined') {
       console.log('token exists');

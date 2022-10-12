@@ -47,7 +47,6 @@ export default function useSearch() {
          * @see https://github.com/gqty-dev/gqty/issues/733
          */
         const metadata = await client.client.resolved(() => {
-          //const { nodes, pageInfo } = client.client.query.contentNodes({
           const { nodes, pageInfo } = client.client.query.products({
             first: appConfig?.postsPerPage,
             after: endCursor,
@@ -61,7 +60,6 @@ export default function useSearch() {
            * @see https://gqty.dev/docs/client/helper-functions#prepass
            */
           prepass(nodes, 'databaseId', 'id', 'uri', 'date', '__typename');
-          //prepass(nodes, '*');
 
           return { nodes, pageInfo };
         });
@@ -74,8 +72,6 @@ export default function useSearch() {
           metadata?.nodes?.map((node) =>
             prepass(
               node,
-              // `$on.${node?.__typename}.title`,
-              // `$on.${node?.__typename}.excerpt`,
               `$on.${node?.__typename}.name`,
               `$on.${node?.__typename}.description`
             )
@@ -93,7 +89,6 @@ export default function useSearch() {
               'description',
               'slug',
               '$on'
-
             ),
             pageInfo: getFields(metadata?.pageInfo),
           };
