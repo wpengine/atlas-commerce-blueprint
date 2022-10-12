@@ -7,6 +7,7 @@ import {
   Main,
   SEO,
   ProductSort,
+  BreadCrumbsMenu,
 } from 'components';
 import styles from 'styles/pages/_Shop.module.scss';
 import { pageTitle } from 'utils';
@@ -38,28 +39,11 @@ export function ShopComponent({ productCategory }) {
           <section className={styles.bannerHero}>
             <div className='hero-content-container row'>
               <div className={classNames(['column', styles.heroContent])}>
-                <nav className={styles.breadcrumbsContainer}>
-                  <ul className={styles.breadcrumbs}>
-                    <li className={styles.breadcrumb}>
-                      <a href='/'>
-                        <span>Home</span>
-                      </a>
-                    </li>
-                    <li className={styles.breadcrumb}>
-                      <a href='/product-category/'>
-                        <span>Product Category</span>
-                      </a>
-                    </li>
-                    <li
-                      className={classNames([
-                        styles.breadcrumb,
-                        styles.isActive,
-                      ])}
-                    >
-                      <span>{productCategory?.name}</span>
-                    </li>
-                  </ul>
-                </nav>
+                <BreadCrumbsMenu
+                  path='/product-category/'
+                  label='Product Category'
+                  title={productCategory?.name}
+                />
                 <h1 className='section-header'>{productCategory?.name}</h1>
                 <div
                   className='category-description'
