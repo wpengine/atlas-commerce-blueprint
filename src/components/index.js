@@ -24,6 +24,8 @@ import ProductSummary from './ProductSummary';
 import ProductSort from './ProductSort';
 import ProductFormField from './ProductFormField';
 import ProductMeta from './ProductMeta';
+import ProductPrice from './ProductPrice';
+import ProductDescription from './ProductDescription';
 
 export {
   Button,
@@ -52,4 +54,6 @@ export {
   ProductSort,
   ProductFormField,
   ProductMeta,
+  ProductPrice,
+  ProductDescription,
 };

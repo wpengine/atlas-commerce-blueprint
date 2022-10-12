@@ -8,6 +8,8 @@ import {
   SEO,
   ProductSummary,
   ProductMeta,
+  ProductPrice,
+  ProductDescription,
 } from 'components';
 
 import styles from 'styles/pages/_Product.module.scss';
@@ -224,23 +226,13 @@ export function ProductComponent({ product }) {
 
               <h1>{product?.name}</h1>
 
-              <p
-                className='price'
-                style={{
-                  fontSize: '1.41575em',
-                  margin: '1.41575em 0',
-                }}
-              >
-                {salePrice === 0 ? (
-                  '$' + calculatedPrice.toFixed(2)
-                ) : (
-                  <>
-                    <del>${price.toFixed(2)}</del> ${calculatedPrice.toFixed(2)}
-                  </>
-                )}
-              </p>
+              <ProductPrice
+                salePrice={salePrice}
+                price={price}
+                calculatedPrice={calculatedPrice}
+              />
 
-              <p dangerouslySetInnerHTML={{ __html: product?.description }} />
+              <ProductDescription description={product?.description} />
 
               <ProductMeta
                 product={product}
