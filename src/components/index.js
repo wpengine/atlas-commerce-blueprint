@@ -22,6 +22,8 @@ import SkipNavigationLink from './SkipNavigationLink';
 import TaxonomyTerms from './TaxonomyTerms';
 import ProductSummary from './ProductSummary';
 import ProductSort from './ProductSort';
+import ProductFormField from './ProductFormField';
+import ProductMeta from './ProductMeta';
 import BreadCrumbsMenu from './BreadCrumbsMenu';
 import ProductPrice from './ProductPrice';
 import ProductDescription from './ProductDescription';
@@ -51,6 +53,8 @@ export {
   TaxonomyTerms,
   ProductSummary,
   ProductSort,
+  ProductFormField,
+  ProductMeta,
   BreadCrumbsMenu,
   ProductPrice,
   ProductDescription,

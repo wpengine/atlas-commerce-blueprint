@@ -6,12 +6,11 @@ import {
   Notification,
   Main,
   SEO,
-  Button,
   ProductSummary,
+  ProductMeta,
   ProductPrice,
   ProductDescription,
 } from 'components';
-import ProductFormField from 'components/ProductFormField/ProductFormField';
 
 import styles from 'styles/pages/_Product.module.scss';
 import 'slick-carousel/slick/slick.css';
@@ -20,7 +19,6 @@ import 'slick-carousel/slick/slick-theme.css';
 import { pageTitle } from 'utils';
 
 import { useRouter } from 'next/router';
-import Link from 'next/link';
 
 import { useState, useMemo } from 'react';
 import Slider from 'react-slick';
@@ -34,9 +32,6 @@ export function ProductComponent({ product }) {
   const { useQuery } = client;
   const generalSettings = useQuery().generalSettings;
   const storeSettings = useQuery().storeSettings({ first: 1 })?.nodes?.[0];
-
-  const productCategories = product.productCategories().nodes;
-  const productBrand = product.brand?.node;
 
   const relatedProductIds = JSON.parse(product.relatedProducts ?? '[]');
   const relatedProducts = useQuery().products({
@@ -94,16 +89,6 @@ export function ProductComponent({ product }) {
     .join(';');
 
   const variantProduct = variantLookup[variantLookupId];
-  const displayProduct = variantProduct ?? product;
-
-  const inventoryTracking = product.inventoryTracking;
-  let inventoryLevel = product.inventoryLevel;
-
-  if (inventoryTracking === 'variant' && variantProduct) {
-    inventoryLevel = variantProduct.inventory;
-  } else if (inventoryTracking === 'none') {
-    inventoryLevel = null;
-  }
 
   if (variantProduct?.img) {
     productImages = [
@@ -115,11 +100,7 @@ export function ProductComponent({ product }) {
     ].concat(productImages.slice(1));
   }
 
-  let purchaseDisabled =
-    variantProduct?.purchasing_disabled || inventoryLevel === 0;
   let priceAdjuster = 0;
-  let purchaseDisabledMessage =
-    'The selected product combination is currently unavailable.';
 
   valuesKeys.forEach((key) => {
     let match;
@@ -253,70 +234,15 @@ export function ProductComponent({ product }) {
 
               <ProductDescription description={product?.description} />
 
-              <div className='product_meta'>
-                <p>SKU: {displayProduct.sku}</p>
-
-                {productCategories?.length ? (
-                  <p>
-                    Categories:{' '}
-                    {product
-                      .productCategories()
-                      .nodes.map((category, index) => (
-                        <span key={category.id}>
-                          {index === 0 ? '' : ', '}
-                          <Link
-                            href={`/product-category/${category.slug}`}
-                            key={category.id}
-                          >
-                            <a>{category.name}</a>
-                          </Link>
-                        </span>
-                      ))}
-                  </p>
-                ) : null}
-
-                {productBrand ? <p>Brand: {productBrand.name}</p> : null}
-
-                <form onSubmit={handleSubmit}>
-                  {sortedFormFields.map((field) => (
-                    <ProductFormField
-                      field={field}
-                      value={values[`${field.prodOptionType}[${field.id}]`]}
-                      onChange={handleFieldChange}
-                      key={field.id}
-                    />
-                  ))}
-
-                  <div>
-                    <label style={{ display: 'block' }}>Quantity:</label>
-                    <input
-                      type='number'
-                      min='1'
-                      max={inventoryLevel}
-                      step='1'
-                      name='quantity'
-                      value={values.quantity}
-                      onChange={handleChange}
-                      disabled={purchaseDisabled}
-                      className={styles.quantity}
-                    />
-                  </div>
-
-                  {purchaseDisabled ? (
-                    <div className={styles.purchaseDisabled}>
-                      {purchaseDisabledMessage}
-                    </div>
-                  ) : null}
-
-                  <Button
-                    styleType='secondary'
-                    className={styles.addToCart}
-                    disabled={purchaseDisabled}
-                  >
-                    Add to cart
-                  </Button>
-                </form>
-              </div>
+              <ProductMeta
+                product={product}
+                sortedFormFields={sortedFormFields}
+                handleChange={handleChange}
+                handleSubmit={handleSubmit}
+                handleFieldChange={handleFieldChange}
+                variantProduct={variantProduct}
+                values={values}
+              />
             </div>
           </div>
         </div>
