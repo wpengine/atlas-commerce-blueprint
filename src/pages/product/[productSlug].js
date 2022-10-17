@@ -28,6 +28,12 @@ import ReactImageMagnify from '@blacklab/react-image-magnify';
 
 import useAtlasEcom from 'hooks/useAtlasEcom';
 
+import {
+  computeVariantOrModificationFormFields,
+  lookupProductVariants,
+  checkPriceAdjuster,
+} from '../../helpers/productHelpers.js';
+
 export function ProductComponent({ product }) {
   const { useQuery } = client;
   const generalSettings = useQuery().generalSettings;
@@ -57,76 +63,34 @@ export function ProductComponent({ product }) {
 
   const [productNotification, setProductNotification] = useState();
 
-  const [variantOrModFields, setVariantOrModFields] = useState(() => {
-    const variantOrModFields = productFormFields.reduce(
-      (acc, variantOrModField) => {
-        acc[`${variantOrModField.prodOptionType}[${variantOrModField.id}]`] =
-          variantOrModField.option_values?.reduce((defaultValue, option) => {
-            if (option.is_default) {
-              return option.id;
-            }
-            return defaultValue;
-          }, null) ?? variantOrModField.config?.default_value;
-        return acc;
-      },
-      {}
-    );
-
-    return {
-      ...variantOrModFields,
-      quantity: 1,
-    };
-  });
+  const [variantOrModFields, setVariantOrModFields] = useState(
+    computeVariantOrModificationFormFields(productFormFields)
+  );
 
   const variantValueKeys = Object.keys(variantOrModFields);
 
-  const variantLookupId = variantValueKeys
-    .reduce((acc, key) => {
-      let match;
-      if ((match = key.match(/^variant\[(.*)\]$/))) {
-        acc.push(match[1] + '.' + variantOrModFields[key]);
-      }
-      return acc;
-    }, [])
-    .sort()
-    .join(';');
+  const productVariant = lookupProductVariants(
+    variantValueKeys,
+    variantLookup,
+    variantOrModFields
+  );
 
-  const variantProduct = variantLookup[variantLookupId];
-
-  if (variantProduct?.img) {
+  if (productVariant?.img) {
     productImages = [
       {
-        urlStandard: variantProduct.img,
-        urlZoom: variantProduct.img,
-        urlThumbnail: variantProduct.img,
+        urlStandard: productVariant.img,
+        urlZoom: productVariant.img,
+        urlThumbnail: productVariant.img,
       },
     ].concat(productImages.slice(1));
   }
 
-  let priceAdjuster = 0;
+  let priceAdjuster = checkPriceAdjuster(variantValueKeys, modifierLookup);
 
-  variantValueKeys.forEach((key) => {
-    let match;
-    if ((match = key.match(/^modifier\[(.*)\]$/))) {
-      const modifierLookupId = match[1] + '.' + variantOrModFields[key];
-      const modifier = modifierLookup[modifierLookupId];
-      if (modifier) {
-        if (modifier.purchasing_disabled?.status === true) {
-          purchaseDisabled = true;
-
-          if (modifier.purchasing_disabled.message) {
-            purchaseDisabledMessage = modifier.purchasing_disabled.message;
-          }
-        }
-        priceAdjuster += modifier.price_adjuster;
-      }
-    }
-  });
-
-  const salePrice = variantProduct?.salePrice ?? product.salePrice;
-  const price = (variantProduct?.price ?? product.price) + priceAdjuster;
+  const salePrice = productVariant?.salePrice ?? product.salePrice;
+  const price = (productVariant?.price ?? product.price) + priceAdjuster;
   const calculatedPrice =
-    (variantProduct?.calculatedPrice ?? product.calculatedPrice) +
+    (productVariant?.calculatedPrice ?? product.calculatedPrice) +
     priceAdjuster;
 
   function handleChange(event) {
@@ -172,7 +136,7 @@ export function ProductComponent({ product }) {
       {
         quantity: Number(variantOrModFields.quantity),
         product_id: bigCommerceId,
-        variant_id: variantProduct?.variant_id ?? baseVariantId,
+        variant_id: productVariant?.variant_id ?? baseVariantId,
         variant_option_values: variantOptionValues,
         modifiers: modifierOptionValues,
       },
@@ -243,8 +207,10 @@ export function ProductComponent({ product }) {
                 handleChange={handleChange}
                 handleSubmit={handleSubmit}
                 handleFieldChange={handleFieldChange}
-                variantProduct={variantProduct}
-                values={variantOrModFields}
+                productVariant={productVariant}
+                variantOrModFields={variantOrModFields}
+                variantValueKeys={variantValueKeys}
+                modifierLookup={modifierLookup}
               />
             </div>
           </div>
