@@ -57,31 +57,34 @@ export function ProductComponent({ product }) {
 
   const [productNotification, setProductNotification] = useState();
 
-  const [values, setValues] = useState(() => {
-    const fields = productFormFields.reduce((acc, field) => {
-      acc[`${field.prodOptionType}[${field.id}]`] =
-        field.option_values?.reduce((defaultValue, option) => {
-          if (option.is_default) {
-            return option.id;
-          }
-          return defaultValue;
-        }, null) ?? field.config?.default_value;
-      return acc;
-    }, {});
+  const [variantOrModFields, setVariantOrModFields] = useState(() => {
+    const variantOrModFields = productFormFields.reduce(
+      (acc, variantOrModField) => {
+        acc[`${variantOrModField.prodOptionType}[${variantOrModField.id}]`] =
+          variantOrModField.option_values?.reduce((defaultValue, option) => {
+            if (option.is_default) {
+              return option.id;
+            }
+            return defaultValue;
+          }, null) ?? variantOrModField.config?.default_value;
+        return acc;
+      },
+      {}
+    );
 
     return {
-      ...fields,
+      ...variantOrModFields,
       quantity: 1,
     };
   });
 
-  const valuesKeys = Object.keys(values);
+  const variantValueKeys = Object.keys(variantOrModFields);
 
-  const variantLookupId = valuesKeys
+  const variantLookupId = variantValueKeys
     .reduce((acc, key) => {
       let match;
       if ((match = key.match(/^variant\[(.*)\]$/))) {
-        acc.push(match[1] + '.' + values[key]);
+        acc.push(match[1] + '.' + variantOrModFields[key]);
       }
       return acc;
     }, [])
@@ -102,10 +105,10 @@ export function ProductComponent({ product }) {
 
   let priceAdjuster = 0;
 
-  valuesKeys.forEach((key) => {
+  variantValueKeys.forEach((key) => {
     let match;
     if ((match = key.match(/^modifier\[(.*)\]$/))) {
-      const modifierLookupId = match[1] + '.' + values[key];
+      const modifierLookupId = match[1] + '.' + variantOrModFields[key];
       const modifier = modifierLookup[modifierLookupId];
       if (modifier) {
         if (modifier.purchasing_disabled?.status === true) {
@@ -127,14 +130,14 @@ export function ProductComponent({ product }) {
     priceAdjuster;
 
   function handleChange(event) {
-    setValues((prevValues) => ({
+    setVariantOrModFields((prevValues) => ({
       ...prevValues,
       [event.target.name]: event.target.value,
     }));
   }
 
   function handleFieldChange(key, value) {
-    setValues((prevValues) => ({
+    setVariantOrModFields((prevValues) => ({
       ...prevValues,
       [key]: value,
     }));
@@ -146,9 +149,9 @@ export function ProductComponent({ product }) {
     const variantOptionValues = [];
     const modifierOptionValues = [];
 
-    Object.keys(values).forEach((key) => {
+    Object.keys(variantOrModFields).forEach((key) => {
       const match = key.match(/^(variant|modifier)\[(.*)\]$/);
-      const value = values[key];
+      const value = variantOrModFields[key];
       if (match) {
         if (match[1] === 'variant') {
           variantOptionValues.push({
@@ -167,7 +170,7 @@ export function ProductComponent({ product }) {
 
     addToCart([
       {
-        quantity: Number(values.quantity),
+        quantity: Number(variantOrModFields.quantity),
         product_id: bigCommerceId,
         variant_id: variantProduct?.variant_id ?? baseVariantId,
         variant_option_values: variantOptionValues,
@@ -241,7 +244,7 @@ export function ProductComponent({ product }) {
                 handleSubmit={handleSubmit}
                 handleFieldChange={handleFieldChange}
                 variantProduct={variantProduct}
-                values={values}
+                values={variantOrModFields}
               />
             </div>
           </div>
