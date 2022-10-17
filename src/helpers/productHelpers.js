@@ -1,3 +1,7 @@
+/**
+ * Checks the JSON provided from BigCommerce for the Variant and Modification options.
+ * @returns An Object containing either variant[id] or modification[id] keys and their values.
+ */
 export function computeVariantOrModificationFormFields(productFormFields) {
   const variantOrModFields = productFormFields.reduce(
     (acc, variantOrModField) => {
@@ -19,6 +23,10 @@ export function computeVariantOrModificationFormFields(productFormFields) {
   };
 }
 
+/**
+ * Checks the product variant lookup with the formatted variant and id combonation selected and returns the information about that variant to be rendered.
+ * @returns An Object containing the new product information with the variant selected.
+ */
 export function lookupProductVariants(
   variantValueKeys,
   variantLookup,
@@ -38,6 +46,10 @@ export function lookupProductVariants(
   return variantLookup[variantLookupId];
 }
 
+/**
+ * Checks for the price adjusted after applying modifications.
+ * @returns The adjusted price to be used in price calculations.
+ */
 export function checkPriceAdjuster(variantValueKeys, modifierLookup) {
   let priceAdjuster = 0;
 
@@ -55,6 +67,10 @@ export function checkPriceAdjuster(variantValueKeys, modifierLookup) {
   return priceAdjuster;
 }
 
+/**
+ * Checks if the purchase is disabled and its message after applying modifications.
+ * @returns An Object containing wether the purchase is disabled and the corresponding message after applying modifications.
+ */
 export function checkPurchaseDisabled(
   variantValueKeys,
   variantOrModFields,
