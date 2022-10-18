@@ -418,6 +418,8 @@ export type ContentTypeEnum =
   /** The Type of Content object */
   | "PRODUCTCATEGORY"
   /** The Type of Content object */
+  | "PRODUCTOPTIONVALUE"
+  /** The Type of Content object */
   | "STORESETTING"
   /** The Type of Content object */
   | "VARIANT";
@@ -839,6 +841,31 @@ export interface CreateProductInput {
   weight: Scalars["Float"];
 }
 
+/** Input for the createProductOptionValue mutation */
+export interface CreateProductOptionValueInput {
+  /** The userId to assign as the author of the object */
+  authorId?: InputMaybe<Scalars["ID"]>;
+  /** This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
+  clientMutationId?: InputMaybe<Scalars["String"]>;
+  /** The date of the object. Preferable to enter as year/month/day (e.g. 01/31/2017) as it will rearrange date as fit if it is not specified. Incomplete dates may have unintended results for example, "2017" as the input will use current date with timestamp 20:17  */
+  date?: InputMaybe<Scalars["String"]>;
+  json?: InputMaybe<Scalars["String"]>;
+  /** A field used for ordering posts. This is typically used with nav menu items or for special ordering of hierarchical content types. */
+  menuOrder?: InputMaybe<Scalars["Int"]>;
+  optionValueID: Scalars["Float"];
+  optionValueName?: InputMaybe<Scalars["String"]>;
+  parentOptionDisplayName?: InputMaybe<Scalars["String"]>;
+  parentOptionID?: InputMaybe<Scalars["Float"]>;
+  /** The password used to protect the content of the object */
+  password?: InputMaybe<Scalars["String"]>;
+  /** The slug of the object */
+  slug?: InputMaybe<Scalars["String"]>;
+  /** The status of the object */
+  status?: InputMaybe<PostStatusEnum>;
+  /** The title of the object */
+  title?: InputMaybe<Scalars["String"]>;
+}
+
 /** Input for the createStoreSetting mutation */
 export interface CreateStoreSettingInput {
   /** The userId to assign as the author of the object */
@@ -1107,6 +1134,16 @@ export interface DeleteProductInput {
   /** Whether the object should be force deleted instead of being moved to the trash */
   forceDelete?: InputMaybe<Scalars["Boolean"]>;
   /** The ID of the product to delete */
+  id: Scalars["ID"];
+}
+
+/** Input for the deleteProductOptionValue mutation */
+export interface DeleteProductOptionValueInput {
+  /** This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
+  clientMutationId?: InputMaybe<Scalars["String"]>;
+  /** Whether the object should be force deleted instead of being moved to the trash */
+  forceDelete?: InputMaybe<Scalars["Boolean"]>;
+  /** The ID of the productOptionValue to delete */
   id: Scalars["ID"];
 }
 
@@ -1673,7 +1710,7 @@ export interface PageToCommentConnectionWhereArgs {
   userId?: InputMaybe<Scalars["ID"]>;
 }
 
-/** Arguments for filtering the pageToRevisionConnection connection */
+/** Arguments for filtering the PageToRevisionConnection connection */
 export interface PageToRevisionConnectionWhereArgs {
   /** The user that's connected as the author of the object. Use the userId for the author object. */
   author?: InputMaybe<Scalars["Int"]>;
@@ -2152,7 +2189,7 @@ export interface PostToPostFormatConnectionWhereArgs {
   updateTermMetaCache?: InputMaybe<Scalars["Boolean"]>;
 }
 
-/** Arguments for filtering the postToRevisionConnection connection */
+/** Arguments for filtering the PostToRevisionConnection connection */
 export interface PostToRevisionConnectionWhereArgs {
   /** The user that's connected as the author of the object. Use the userId for the author object. */
   author?: InputMaybe<Scalars["Int"]>;
@@ -2325,6 +2362,17 @@ export type ProductCategoryIdType =
 
 /** The Type of Identifier used to fetch a single resource. Default is ID. */
 export type ProductIdType =
+  /** Identify a resource by the Database ID. */
+  | "DATABASE_ID"
+  /** Identify a resource by the (hashed) Global ID. */
+  | "ID"
+  /** Identify a resource by the slug. Available to non-hierarchcial Types where the slug is a unique identifier. */
+  | "SLUG"
+  /** Identify a resource by the URI. */
+  | "URI";
+
+/** The Type of Identifier used to fetch a single resource. Default is ID. */
+export type ProductOptionValueIdType =
   /** Identify a resource by the Database ID. */
   | "DATABASE_ID"
   /** Identify a resource by the (hashed) Global ID. */
@@ -3067,6 +3115,52 @@ export interface RootQueryToProductConnectionWhereArgs {
   bigCommerceID?: InputMaybe<Scalars["ID"]>;
   /** Array of Big Commerce IDs for the objects to retrieve */
   bigCommerceIDIn?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
+  /** Filter the connection based on dates */
+  dateQuery?: InputMaybe<DateQueryInput>;
+  /** True for objects with passwords; False for objects without passwords; null for all objects with or without passwords */
+  hasPassword?: InputMaybe<Scalars["Boolean"]>;
+  /** Specific database ID of the object */
+  id?: InputMaybe<Scalars["Int"]>;
+  /** Array of IDs for the objects to retrieve */
+  in?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
+  /** Get objects with a specific mimeType property */
+  mimeType?: InputMaybe<MimeTypeEnum>;
+  /** Slug / post_name of the object */
+  name?: InputMaybe<Scalars["String"]>;
+  /** Specify objects to retrieve. Use slugs */
+  nameIn?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+  /** Specify IDs NOT to retrieve. If this is used in the same query as "in", it will be ignored */
+  notIn?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
+  /** What paramater to use to order the objects by. */
+  orderby?: InputMaybe<Array<InputMaybe<PostObjectsConnectionOrderbyInput>>>;
+  /** Use ID to return only children. Use 0 to return only top-level items */
+  parent?: InputMaybe<Scalars["ID"]>;
+  /** Specify objects whose parent is in an array */
+  parentIn?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
+  /** Specify posts whose parent is not in an array */
+  parentNotIn?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
+  /** Show posts with a specific password. */
+  password?: InputMaybe<Scalars["String"]>;
+  /** Show Posts based on a keyword search */
+  search?: InputMaybe<Scalars["String"]>;
+  /** Retrieve posts where post status is in an array. */
+  stati?: InputMaybe<Array<InputMaybe<PostStatusEnum>>>;
+  /** Show posts with a specific status. */
+  status?: InputMaybe<PostStatusEnum>;
+  /** Title of the object */
+  title?: InputMaybe<Scalars["String"]>;
+}
+
+/** Arguments for filtering the RootQueryToProductOptionValueConnection connection */
+export interface RootQueryToProductOptionValueConnectionWhereArgs {
+  /** The user that's connected as the author of the object. Use the userId for the author object. */
+  author?: InputMaybe<Scalars["Int"]>;
+  /** Find objects connected to author(s) in the array of author's userIds */
+  authorIn?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
+  /** Find objects connected to the author by the author's nicename */
+  authorName?: InputMaybe<Scalars["String"]>;
+  /** Find objects NOT connected to author(s) in the array of author's userIds */
+  authorNotIn?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
   /** Filter the connection based on dates */
   dateQuery?: InputMaybe<DateQueryInput>;
   /** True for objects with passwords; False for objects without passwords; null for all objects with or without passwords */
@@ -3888,6 +3982,33 @@ export interface UpdateProductInput {
   weight?: InputMaybe<Scalars["Float"]>;
 }
 
+/** Input for the updateProductOptionValue mutation */
+export interface UpdateProductOptionValueInput {
+  /** The userId to assign as the author of the object */
+  authorId?: InputMaybe<Scalars["ID"]>;
+  /** This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
+  clientMutationId?: InputMaybe<Scalars["String"]>;
+  /** The date of the object. Preferable to enter as year/month/day (e.g. 01/31/2017) as it will rearrange date as fit if it is not specified. Incomplete dates may have unintended results for example, "2017" as the input will use current date with timestamp 20:17  */
+  date?: InputMaybe<Scalars["String"]>;
+  /** The ID of the productOptionValue object */
+  id: Scalars["ID"];
+  json?: InputMaybe<Scalars["String"]>;
+  /** A field used for ordering posts. This is typically used with nav menu items or for special ordering of hierarchical content types. */
+  menuOrder?: InputMaybe<Scalars["Int"]>;
+  optionValueID?: InputMaybe<Scalars["Float"]>;
+  optionValueName?: InputMaybe<Scalars["String"]>;
+  parentOptionDisplayName?: InputMaybe<Scalars["String"]>;
+  parentOptionID?: InputMaybe<Scalars["Float"]>;
+  /** The password used to protect the content of the object */
+  password?: InputMaybe<Scalars["String"]>;
+  /** The slug of the object */
+  slug?: InputMaybe<Scalars["String"]>;
+  /** The status of the object */
+  status?: InputMaybe<PostStatusEnum>;
+  /** The title of the object */
+  title?: InputMaybe<Scalars["String"]>;
+}
+
 /** Input for the updateSettings mutation */
 export interface UpdateSettingsInput {
   /** Opt into anonymous usage tracking to help us make Atlas Content Modeler better. */
@@ -4575,6 +4696,52 @@ export interface UserToProductCategoryConnectionWhereArgs {
 
 /** Arguments for filtering the UserToProductConnection connection */
 export interface UserToProductConnectionWhereArgs {
+  /** The user that's connected as the author of the object. Use the userId for the author object. */
+  author?: InputMaybe<Scalars["Int"]>;
+  /** Find objects connected to author(s) in the array of author's userIds */
+  authorIn?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
+  /** Find objects connected to the author by the author's nicename */
+  authorName?: InputMaybe<Scalars["String"]>;
+  /** Find objects NOT connected to author(s) in the array of author's userIds */
+  authorNotIn?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
+  /** Filter the connection based on dates */
+  dateQuery?: InputMaybe<DateQueryInput>;
+  /** True for objects with passwords; False for objects without passwords; null for all objects with or without passwords */
+  hasPassword?: InputMaybe<Scalars["Boolean"]>;
+  /** Specific database ID of the object */
+  id?: InputMaybe<Scalars["Int"]>;
+  /** Array of IDs for the objects to retrieve */
+  in?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
+  /** Get objects with a specific mimeType property */
+  mimeType?: InputMaybe<MimeTypeEnum>;
+  /** Slug / post_name of the object */
+  name?: InputMaybe<Scalars["String"]>;
+  /** Specify objects to retrieve. Use slugs */
+  nameIn?: InputMaybe<Array<InputMaybe<Scalars["String"]>>>;
+  /** Specify IDs NOT to retrieve. If this is used in the same query as "in", it will be ignored */
+  notIn?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
+  /** What paramater to use to order the objects by. */
+  orderby?: InputMaybe<Array<InputMaybe<PostObjectsConnectionOrderbyInput>>>;
+  /** Use ID to return only children. Use 0 to return only top-level items */
+  parent?: InputMaybe<Scalars["ID"]>;
+  /** Specify objects whose parent is in an array */
+  parentIn?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
+  /** Specify posts whose parent is not in an array */
+  parentNotIn?: InputMaybe<Array<InputMaybe<Scalars["ID"]>>>;
+  /** Show posts with a specific password. */
+  password?: InputMaybe<Scalars["String"]>;
+  /** Show Posts based on a keyword search */
+  search?: InputMaybe<Scalars["String"]>;
+  /** Retrieve posts where post status is in an array. */
+  stati?: InputMaybe<Array<InputMaybe<PostStatusEnum>>>;
+  /** Show posts with a specific status. */
+  status?: InputMaybe<PostStatusEnum>;
+  /** Title of the object */
+  title?: InputMaybe<Scalars["String"]>;
+}
+
+/** Arguments for filtering the UserToProductOptionValueConnection connection */
+export interface UserToProductOptionValueConnectionWhereArgs {
   /** The user that's connected as the author of the object. Use the userId for the author object. */
   author?: InputMaybe<Scalars["Int"]>;
   /** Find objects connected to author(s) in the array of author's userIds */
@@ -5718,6 +5885,26 @@ export declare const generatedSchema: {
     visible: { __type: "Boolean" };
     weight: { __type: "Float!" };
   };
+  CreateProductOptionValueInput: {
+    authorId: { __type: "ID" };
+    clientMutationId: { __type: "String" };
+    date: { __type: "String" };
+    json: { __type: "String" };
+    menuOrder: { __type: "Int" };
+    optionValueID: { __type: "Float!" };
+    optionValueName: { __type: "String" };
+    parentOptionDisplayName: { __type: "String" };
+    parentOptionID: { __type: "Float" };
+    password: { __type: "String" };
+    slug: { __type: "String" };
+    status: { __type: "PostStatusEnum" };
+    title: { __type: "String" };
+  };
+  CreateProductOptionValuePayload: {
+    __typename: { __type: "String!" };
+    clientMutationId: { __type: "String" };
+    productOptionValue: { __type: "ProductOptionValue" };
+  };
   CreateProductPayload: {
     __typename: { __type: "String!" };
     clientMutationId: { __type: "String" };
@@ -5963,6 +6150,17 @@ export declare const generatedSchema: {
     clientMutationId: { __type: "String" };
     forceDelete: { __type: "Boolean" };
     id: { __type: "ID!" };
+  };
+  DeleteProductOptionValueInput: {
+    clientMutationId: { __type: "String" };
+    forceDelete: { __type: "Boolean" };
+    id: { __type: "ID!" };
+  };
+  DeleteProductOptionValuePayload: {
+    __typename: { __type: "String!" };
+    clientMutationId: { __type: "String" };
+    deletedId: { __type: "ID" };
+    productOptionValue: { __type: "ProductOptionValue" };
   };
   DeleteProductPayload: {
     __typename: { __type: "String!" };
@@ -6590,6 +6788,7 @@ export declare const generatedSchema: {
     author: { __type: "NodeWithAuthorToUserConnectionEdge" };
     authorDatabaseId: { __type: "Int" };
     authorId: { __type: "ID" };
+    id: { __type: "ID!" };
     $on: { __type: "$NodeWithAuthor!" };
   };
   NodeWithAuthorToUserConnectionEdge: {
@@ -6600,6 +6799,7 @@ export declare const generatedSchema: {
     __typename: { __type: "String!" };
     commentCount: { __type: "Int" };
     commentStatus: { __type: "String" };
+    id: { __type: "ID!" };
     $on: { __type: "$NodeWithComments!" };
   };
   NodeWithContentEditor: {
@@ -6608,6 +6808,7 @@ export declare const generatedSchema: {
       __type: "String";
       __args: { format: "PostObjectFieldFormatEnum" };
     };
+    id: { __type: "ID!" };
     $on: { __type: "$NodeWithContentEditor!" };
   };
   NodeWithExcerpt: {
@@ -6616,47 +6817,15 @@ export declare const generatedSchema: {
       __type: "String";
       __args: { format: "PostObjectFieldFormatEnum" };
     };
+    id: { __type: "ID!" };
     $on: { __type: "$NodeWithExcerpt!" };
   };
   NodeWithFeaturedImage: {
     __typename: { __type: "String!" };
-    conditionalTags: { __type: "ConditionalTags" };
-    contentType: { __type: "ContentNodeToContentTypeConnectionEdge" };
-    contentTypeName: { __type: "String!" };
-    databaseId: { __type: "Int!" };
-    date: { __type: "String" };
-    dateGmt: { __type: "String" };
-    desiredSlug: { __type: "String" };
-    editingLockedBy: { __type: "ContentNodeToEditLockConnectionEdge" };
-    enclosure: { __type: "String" };
-    enqueuedScripts: {
-      __type: "ContentNodeToEnqueuedScriptConnection";
-      __args: { after: "String"; before: "String"; first: "Int"; last: "Int" };
-    };
-    enqueuedStylesheets: {
-      __type: "ContentNodeToEnqueuedStylesheetConnection";
-      __args: { after: "String"; before: "String"; first: "Int"; last: "Int" };
-    };
     featuredImage: { __type: "NodeWithFeaturedImageToMediaItemConnectionEdge" };
     featuredImageDatabaseId: { __type: "Int" };
     featuredImageId: { __type: "ID" };
-    guid: { __type: "String" };
     id: { __type: "ID!" };
-    isContentNode: { __type: "Boolean!" };
-    isPreview: { __type: "Boolean" };
-    isRestricted: { __type: "Boolean" };
-    isTermNode: { __type: "Boolean!" };
-    lastEditedBy: { __type: "ContentNodeToEditLastConnectionEdge" };
-    link: { __type: "String" };
-    modified: { __type: "String" };
-    modifiedGmt: { __type: "String" };
-    previewRevisionDatabaseId: { __type: "Int" };
-    previewRevisionId: { __type: "ID" };
-    slug: { __type: "String" };
-    status: { __type: "String" };
-    template: { __type: "ContentTemplate" };
-    templates: { __type: "[String]" };
-    uri: { __type: "String" };
     $on: { __type: "$NodeWithFeaturedImage!" };
   };
   NodeWithFeaturedImageToMediaItemConnectionEdge: {
@@ -6665,11 +6834,13 @@ export declare const generatedSchema: {
   };
   NodeWithPageAttributes: {
     __typename: { __type: "String!" };
+    id: { __type: "ID!" };
     menuOrder: { __type: "Int" };
     $on: { __type: "$NodeWithPageAttributes!" };
   };
   NodeWithRevisions: {
     __typename: { __type: "String!" };
+    id: { __type: "ID!" };
     isRevision: { __type: "Boolean" };
     revisionOf: { __type: "NodeWithRevisionsToContentNodeConnectionEdge" };
     $on: { __type: "$NodeWithRevisions!" };
@@ -6680,11 +6851,13 @@ export declare const generatedSchema: {
   };
   NodeWithTemplate: {
     __typename: { __type: "String!" };
+    id: { __type: "ID!" };
     template: { __type: "ContentTemplate" };
     $on: { __type: "$NodeWithTemplate!" };
   };
   NodeWithTitle: {
     __typename: { __type: "String!" };
+    id: { __type: "ID!" };
     title: {
       __type: "String";
       __args: { format: "PostObjectFieldFormatEnum" };
@@ -6693,6 +6866,7 @@ export declare const generatedSchema: {
   };
   NodeWithTrackbacks: {
     __typename: { __type: "String!" };
+    id: { __type: "ID!" };
     pingStatus: { __type: "String" };
     pinged: { __type: "[String]" };
     toPing: { __type: "[String]" };
@@ -7506,6 +7680,10 @@ export declare const generatedSchema: {
     };
     productFormFieldsJson: { __type: "String" };
     productId: { __type: "Int!" };
+    productOptionValues: {
+      __type: "ProductToProductOptionValueConnection";
+      __args: { after: "String"; before: "String"; first: "Int"; last: "Int" };
+    };
     productPageTitle: { __type: "String" };
     productSlug: { __type: "String" };
     productType: { __type: "String" };
@@ -7614,6 +7792,76 @@ export declare const generatedSchema: {
     cursor: { __type: "String" };
     node: { __type: "Product" };
   };
+  ProductOptionValue: {
+    __typename: { __type: "String!" };
+    author: { __type: "NodeWithAuthorToUserConnectionEdge" };
+    authorDatabaseId: { __type: "Int" };
+    authorId: { __type: "ID" };
+    conditionalTags: { __type: "ConditionalTags" };
+    contentType: { __type: "ContentNodeToContentTypeConnectionEdge" };
+    contentTypeName: { __type: "String!" };
+    databaseId: { __type: "Int!" };
+    date: { __type: "String" };
+    dateGmt: { __type: "String" };
+    desiredSlug: { __type: "String" };
+    editingLockedBy: { __type: "ContentNodeToEditLockConnectionEdge" };
+    enclosure: { __type: "String" };
+    enqueuedScripts: {
+      __type: "ContentNodeToEnqueuedScriptConnection";
+      __args: { after: "String"; before: "String"; first: "Int"; last: "Int" };
+    };
+    enqueuedStylesheets: {
+      __type: "ContentNodeToEnqueuedStylesheetConnection";
+      __args: { after: "String"; before: "String"; first: "Int"; last: "Int" };
+    };
+    guid: { __type: "String" };
+    id: { __type: "ID!" };
+    isContentNode: { __type: "Boolean!" };
+    isPreview: { __type: "Boolean" };
+    isRestricted: { __type: "Boolean" };
+    isTermNode: { __type: "Boolean!" };
+    json: { __type: "String" };
+    lastEditedBy: { __type: "ContentNodeToEditLastConnectionEdge" };
+    link: { __type: "String" };
+    modified: { __type: "String" };
+    modifiedGmt: { __type: "String" };
+    optionValueID: { __type: "Float" };
+    optionValueName: { __type: "String" };
+    parentOptionDisplayName: { __type: "String" };
+    parentOptionID: { __type: "Float" };
+    preview: { __type: "ProductOptionValueToPreviewConnectionEdge" };
+    previewRevisionDatabaseId: { __type: "Int" };
+    previewRevisionId: { __type: "ID" };
+    productOptionValueId: { __type: "Int!" };
+    products: {
+      __type: "ProductOptionValueToProductConnection";
+      __args: { after: "String"; before: "String"; first: "Int"; last: "Int" };
+    };
+    slug: { __type: "String" };
+    status: { __type: "String" };
+    template: { __type: "ContentTemplate" };
+    templates: { __type: "[String]" };
+    title: {
+      __type: "String";
+      __args: { format: "PostObjectFieldFormatEnum" };
+    };
+    uri: { __type: "String" };
+  };
+  ProductOptionValueToPreviewConnectionEdge: {
+    __typename: { __type: "String!" };
+    node: { __type: "ProductOptionValue" };
+  };
+  ProductOptionValueToProductConnection: {
+    __typename: { __type: "String!" };
+    edges: { __type: "[ProductOptionValueToProductConnectionEdge]" };
+    nodes: { __type: "[Product]" };
+    pageInfo: { __type: "WPPageInfo" };
+  };
+  ProductOptionValueToProductConnectionEdge: {
+    __typename: { __type: "String!" };
+    cursor: { __type: "String" };
+    node: { __type: "Product" };
+  };
   ProductToBrandConnectionEdge: {
     __typename: { __type: "String!" };
     node: { __type: "Brand" };
@@ -7654,6 +7902,17 @@ export declare const generatedSchema: {
     __typename: { __type: "String!" };
     cursor: { __type: "String" };
     node: { __type: "ProductCategory" };
+  };
+  ProductToProductOptionValueConnection: {
+    __typename: { __type: "String!" };
+    edges: { __type: "[ProductToProductOptionValueConnectionEdge]" };
+    nodes: { __type: "[ProductOptionValue]" };
+    pageInfo: { __type: "WPPageInfo" };
+  };
+  ProductToProductOptionValueConnectionEdge: {
+    __typename: { __type: "String!" };
+    cursor: { __type: "String" };
+    node: { __type: "ProductOptionValue" };
   };
   ProductToVariantConnection: {
     __typename: { __type: "String!" };
@@ -8272,6 +8531,40 @@ export declare const generatedSchema: {
     authorNotIn: { __type: "[ID]" };
     bigCommerceID: { __type: "ID" };
     bigCommerceIDIn: { __type: "[ID]" };
+    dateQuery: { __type: "DateQueryInput" };
+    hasPassword: { __type: "Boolean" };
+    id: { __type: "Int" };
+    in: { __type: "[ID]" };
+    mimeType: { __type: "MimeTypeEnum" };
+    name: { __type: "String" };
+    nameIn: { __type: "[String]" };
+    notIn: { __type: "[ID]" };
+    orderby: { __type: "[PostObjectsConnectionOrderbyInput]" };
+    parent: { __type: "ID" };
+    parentIn: { __type: "[ID]" };
+    parentNotIn: { __type: "[ID]" };
+    password: { __type: "String" };
+    search: { __type: "String" };
+    stati: { __type: "[PostStatusEnum]" };
+    status: { __type: "PostStatusEnum" };
+    title: { __type: "String" };
+  };
+  RootQueryToProductOptionValueConnection: {
+    __typename: { __type: "String!" };
+    edges: { __type: "[RootQueryToProductOptionValueConnectionEdge]" };
+    nodes: { __type: "[ProductOptionValue]" };
+    pageInfo: { __type: "WPPageInfo" };
+  };
+  RootQueryToProductOptionValueConnectionEdge: {
+    __typename: { __type: "String!" };
+    cursor: { __type: "String" };
+    node: { __type: "ProductOptionValue" };
+  };
+  RootQueryToProductOptionValueConnectionWhereArgs: {
+    author: { __type: "Int" };
+    authorIn: { __type: "[ID]" };
+    authorName: { __type: "String" };
+    authorNotIn: { __type: "[ID]" };
     dateQuery: { __type: "DateQueryInput" };
     hasPassword: { __type: "Boolean" };
     id: { __type: "Int" };
@@ -9117,6 +9410,27 @@ export declare const generatedSchema: {
     visible: { __type: "Boolean" };
     weight: { __type: "Float" };
   };
+  UpdateProductOptionValueInput: {
+    authorId: { __type: "ID" };
+    clientMutationId: { __type: "String" };
+    date: { __type: "String" };
+    id: { __type: "ID!" };
+    json: { __type: "String" };
+    menuOrder: { __type: "Int" };
+    optionValueID: { __type: "Float" };
+    optionValueName: { __type: "String" };
+    parentOptionDisplayName: { __type: "String" };
+    parentOptionID: { __type: "Float" };
+    password: { __type: "String" };
+    slug: { __type: "String" };
+    status: { __type: "PostStatusEnum" };
+    title: { __type: "String" };
+  };
+  UpdateProductOptionValuePayload: {
+    __typename: { __type: "String!" };
+    clientMutationId: { __type: "String" };
+    productOptionValue: { __type: "ProductOptionValue" };
+  };
   UpdateProductPayload: {
     __typename: { __type: "String!" };
     clientMutationId: { __type: "String" };
@@ -9372,6 +9686,16 @@ export declare const generatedSchema: {
         first: "Int";
         last: "Int";
         where: "UserToProductCategoryConnectionWhereArgs";
+      };
+    };
+    productOptionValues: {
+      __type: "UserToProductOptionValueConnection";
+      __args: {
+        after: "String";
+        before: "String";
+        first: "Int";
+        last: "Int";
+        where: "UserToProductOptionValueConnectionWhereArgs";
       };
     };
     products: {
@@ -9845,6 +10169,40 @@ export declare const generatedSchema: {
     status: { __type: "PostStatusEnum" };
     title: { __type: "String" };
   };
+  UserToProductOptionValueConnection: {
+    __typename: { __type: "String!" };
+    edges: { __type: "[UserToProductOptionValueConnectionEdge]" };
+    nodes: { __type: "[ProductOptionValue]" };
+    pageInfo: { __type: "WPPageInfo" };
+  };
+  UserToProductOptionValueConnectionEdge: {
+    __typename: { __type: "String!" };
+    cursor: { __type: "String" };
+    node: { __type: "ProductOptionValue" };
+  };
+  UserToProductOptionValueConnectionWhereArgs: {
+    author: { __type: "Int" };
+    authorIn: { __type: "[ID]" };
+    authorName: { __type: "String" };
+    authorNotIn: { __type: "[ID]" };
+    dateQuery: { __type: "DateQueryInput" };
+    hasPassword: { __type: "Boolean" };
+    id: { __type: "Int" };
+    in: { __type: "[ID]" };
+    mimeType: { __type: "MimeTypeEnum" };
+    name: { __type: "String" };
+    nameIn: { __type: "[String]" };
+    notIn: { __type: "[ID]" };
+    orderby: { __type: "[PostObjectsConnectionOrderbyInput]" };
+    parent: { __type: "ID" };
+    parentIn: { __type: "[ID]" };
+    parentNotIn: { __type: "[ID]" };
+    password: { __type: "String" };
+    search: { __type: "String" };
+    stati: { __type: "[PostStatusEnum]" };
+    status: { __type: "PostStatusEnum" };
+    title: { __type: "String" };
+  };
   UserToStoreSettingConnection: {
     __typename: { __type: "String!" };
     edges: { __type: "[UserToStoreSettingConnectionEdge]" };
@@ -10052,6 +10410,10 @@ export declare const generatedSchema: {
       __type: "CreateProductCategoryPayload";
       __args: { input: "CreateProductCategoryInput!" };
     };
+    createProductOptionValue: {
+      __type: "CreateProductOptionValuePayload";
+      __args: { input: "CreateProductOptionValueInput!" };
+    };
     createStoreSetting: {
       __type: "CreateStoreSettingPayload";
       __args: { input: "CreateStoreSettingInput!" };
@@ -10115,6 +10477,10 @@ export declare const generatedSchema: {
     deleteProductCategory: {
       __type: "DeleteProductCategoryPayload";
       __args: { input: "DeleteProductCategoryInput!" };
+    };
+    deleteProductOptionValue: {
+      __type: "DeleteProductOptionValuePayload";
+      __args: { input: "DeleteProductOptionValueInput!" };
     };
     deleteStoreSetting: {
       __type: "DeleteStoreSettingPayload";
@@ -10200,6 +10566,10 @@ export declare const generatedSchema: {
     updateProductCategory: {
       __type: "UpdateProductCategoryPayload";
       __args: { input: "UpdateProductCategoryInput!" };
+    };
+    updateProductOptionValue: {
+      __type: "UpdateProductOptionValuePayload";
+      __args: { input: "UpdateProductOptionValueInput!" };
     };
     updateSettings: {
       __type: "UpdateSettingsPayload";
@@ -10504,6 +10874,33 @@ export declare const generatedSchema: {
         uri: "String";
       };
     };
+    productOptionValue: {
+      __type: "ProductOptionValue";
+      __args: {
+        asPreview: "Boolean";
+        id: "ID!";
+        idType: "ProductOptionValueIdType";
+      };
+    };
+    productOptionValueBy: {
+      __type: "ProductOptionValue";
+      __args: {
+        id: "ID";
+        productOptionValueId: "Int";
+        slug: "String";
+        uri: "String";
+      };
+    };
+    productOptionValues: {
+      __type: "RootQueryToProductOptionValueConnection";
+      __args: {
+        after: "String";
+        before: "String";
+        first: "Int";
+        last: "Int";
+        where: "RootQueryToProductOptionValueConnectionWhereArgs";
+      };
+    };
     products: {
       __type: "RootQueryToProductConnection";
       __args: {
@@ -10650,6 +11047,7 @@ export declare const generatedSchema: {
       "Post",
       "Product",
       "ProductCategory",
+      "ProductOptionValue",
       "StoreSetting",
       "Variant"
     ];
@@ -10668,6 +11066,7 @@ export declare const generatedSchema: {
       "PostFormat",
       "Product",
       "ProductCategory",
+      "ProductOptionValue",
       "StoreSetting",
       "Tag",
       "User",
@@ -10693,6 +11092,7 @@ export declare const generatedSchema: {
       "PostFormat",
       "Product",
       "ProductCategory",
+      "ProductOptionValue",
       "StoreSetting",
       "Tag",
       "Taxonomy",
@@ -10711,6 +11111,7 @@ export declare const generatedSchema: {
       "Post",
       "Product",
       "ProductCategory",
+      "ProductOptionValue",
       "StoreSetting",
       "Variant"
     ];
@@ -10724,6 +11125,7 @@ export declare const generatedSchema: {
       "Post",
       "Product",
       "ProductCategory",
+      "ProductOptionValue",
       "StoreSetting",
       "Variant"
     ];
@@ -10737,6 +11139,7 @@ export declare const generatedSchema: {
       "Post",
       "Product",
       "ProductCategory",
+      "ProductOptionValue",
       "StoreSetting",
       "Variant"
     ];
@@ -10753,6 +11156,7 @@ export declare const generatedSchema: {
       "PostFormat",
       "Product",
       "ProductCategory",
+      "ProductOptionValue",
       "StoreSetting",
       "Tag",
       "User",
@@ -10990,7 +11394,7 @@ export interface Banner {
   modifiedGmt?: Maybe<ScalarsEnums["String"]>;
   name?: Maybe<ScalarsEnums["String"]>;
   /**
-   * Connection between the banner type and the banner type
+   * Connection between the Banner type and the banner type
    */
   preview?: Maybe<BannerToPreviewConnectionEdge>;
   /**
@@ -11030,7 +11434,7 @@ export interface Banner {
 }
 
 /**
- * Connection between the banner type and the banner type
+ * Connection between the Banner type and the banner type
  */
 export interface BannerToPreviewConnectionEdge {
   __typename?: "BannerToPreviewConnectionEdge";
@@ -11187,7 +11591,7 @@ export interface Brand {
   modifiedGmt?: Maybe<ScalarsEnums["String"]>;
   name?: Maybe<ScalarsEnums["String"]>;
   /**
-   * Connection between the brand type and the brand type
+   * Connection between the Brand type and the brand type
    */
   preview?: Maybe<BrandToPreviewConnectionEdge>;
   /**
@@ -11249,7 +11653,7 @@ export interface Brand {
 }
 
 /**
- * Connection between the brand type and the brand type
+ * Connection between the Brand type and the brand type
  */
 export interface BrandToPreviewConnectionEdge {
   __typename?: "BrandToPreviewConnectionEdge";
@@ -11325,7 +11729,7 @@ export interface Category {
    */
   categoryId?: Maybe<ScalarsEnums["Int"]>;
   /**
-   * Connection between the category type and the category type
+   * Connection between the category type and its children categories.
    */
   children: (args?: {
     /**
@@ -11354,7 +11758,7 @@ export interface Category {
    */
   conditionalTags?: Maybe<ConditionalTags>;
   /**
-   * Connection between the category type and the ContentNode type
+   * Connection between the Category type and the ContentNode type
    */
   contentNodes: (args?: {
     /**
@@ -11457,7 +11861,7 @@ export interface Category {
    */
   name?: Maybe<ScalarsEnums["String"]>;
   /**
-   * Connection between the category type and the category type
+   * Connection between the category type and its parent category.
    */
   parent?: Maybe<CategoryToParentCategoryConnectionEdge>;
   /**
@@ -11469,7 +11873,7 @@ export interface Category {
    */
   parentId?: Maybe<ScalarsEnums["ID"]>;
   /**
-   * Connection between the category type and the post type
+   * Connection between the Category type and the post type
    */
   posts: (args?: {
     /**
@@ -11498,7 +11902,7 @@ export interface Category {
    */
   slug?: Maybe<ScalarsEnums["String"]>;
   /**
-   * Connection between the category type and the Taxonomy type
+   * Connection between the Category type and the Taxonomy type
    */
   taxonomy?: Maybe<CategoryToTaxonomyConnectionEdge>;
   /**
@@ -11521,7 +11925,7 @@ export interface Category {
 }
 
 /**
- * Connection between the category type and the category type
+ * Connection between the Category type and the category type
  */
 export interface CategoryToAncestorsCategoryConnection {
   __typename?: "CategoryToAncestorsCategoryConnection";
@@ -11555,7 +11959,7 @@ export interface CategoryToAncestorsCategoryConnectionEdge {
 }
 
 /**
- * Connection between the category type and the category type
+ * Connection between the Category type and the category type
  */
 export interface CategoryToCategoryConnection {
   __typename?: "CategoryToCategoryConnection";
@@ -11589,7 +11993,7 @@ export interface CategoryToCategoryConnectionEdge {
 }
 
 /**
- * Connection between the category type and the ContentNode type
+ * Connection between the Category type and the ContentNode type
  */
 export interface CategoryToContentNodeConnection {
   __typename?: "CategoryToContentNodeConnection";
@@ -11623,7 +12027,7 @@ export interface CategoryToContentNodeConnectionEdge {
 }
 
 /**
- * Connection between the category type and the category type
+ * Connection between the Category type and the category type
  */
 export interface CategoryToParentCategoryConnectionEdge {
   __typename?: "CategoryToParentCategoryConnectionEdge";
@@ -11634,7 +12038,7 @@ export interface CategoryToParentCategoryConnectionEdge {
 }
 
 /**
- * Connection between the category type and the post type
+ * Connection between the Category type and the post type
  */
 export interface CategoryToPostConnection {
   __typename?: "CategoryToPostConnection";
@@ -11668,7 +12072,7 @@ export interface CategoryToPostConnectionEdge {
 }
 
 /**
- * Connection between the category type and the Taxonomy type
+ * Connection between the Category type and the Taxonomy type
  */
 export interface CategoryToTaxonomyConnectionEdge {
   __typename?: "CategoryToTaxonomyConnectionEdge";
@@ -12072,6 +12476,7 @@ export interface ContentNode {
     | "Post"
     | "Product"
     | "ProductCategory"
+    | "ProductOptionValue"
     | "StoreSetting"
     | "Variant";
   /**
@@ -12766,6 +13171,21 @@ export interface CreateProductCategoryPayload {
 }
 
 /**
+ * The payload for the createProductOptionValue mutation
+ */
+export interface CreateProductOptionValuePayload {
+  __typename?: "CreateProductOptionValuePayload";
+  /**
+   * If a &#039;clientMutationId&#039; input is provided to the mutation, it will be returned as output on the mutation. This ID can be used by the client to track the progress of mutations and catch possible duplicate mutation submissions.
+   */
+  clientMutationId?: Maybe<ScalarsEnums["String"]>;
+  /**
+   * The Post object mutation type.
+   */
+  productOptionValue?: Maybe<ProductOptionValue>;
+}
+
+/**
  * The payload for the createProduct mutation
  */
 export interface CreateProductPayload {
@@ -12859,6 +13279,7 @@ export interface DatabaseIdentifier {
     | "PostFormat"
     | "Product"
     | "ProductCategory"
+    | "ProductOptionValue"
     | "StoreSetting"
     | "Tag"
     | "User"
@@ -13088,6 +13509,25 @@ export interface DeleteProductCategoryPayload {
    * The object before it was deleted
    */
   productCategory?: Maybe<ProductCategory>;
+}
+
+/**
+ * The payload for the deleteProductOptionValue mutation
+ */
+export interface DeleteProductOptionValuePayload {
+  __typename?: "DeleteProductOptionValuePayload";
+  /**
+   * If a &#039;clientMutationId&#039; input is provided to the mutation, it will be returned as output on the mutation. This ID can be used by the client to track the progress of mutations and catch possible duplicate mutation submissions.
+   */
+  clientMutationId?: Maybe<ScalarsEnums["String"]>;
+  /**
+   * The ID of the deleted object
+   */
+  deletedId?: Maybe<ScalarsEnums["ID"]>;
+  /**
+   * The object before it was deleted
+   */
+  productOptionValue?: Maybe<ProductOptionValue>;
 }
 
 /**
@@ -13680,7 +14120,7 @@ export interface Image {
    */
   modifiedGmt?: Maybe<ScalarsEnums["String"]>;
   /**
-   * Connection between the image type and the image type
+   * Connection between the Image type and the image type
    */
   preview?: Maybe<ImageToPreviewConnectionEdge>;
   /**
@@ -13726,7 +14166,7 @@ export interface Image {
 }
 
 /**
- * Connection between the image type and the image type
+ * Connection between the Image type and the image type
  */
 export interface ImageToPreviewConnectionEdge {
   __typename?: "ImageToPreviewConnectionEdge";
@@ -13861,7 +14301,7 @@ export interface MediaItem {
    */
   commentStatus?: Maybe<ScalarsEnums["String"]>;
   /**
-   * Connection between the mediaItem type and the Comment type
+   * Connection between the MediaItem type and the Comment type
    */
   comments: (args?: {
     /**
@@ -14173,7 +14613,7 @@ export interface MediaItemMeta {
 }
 
 /**
- * Connection between the mediaItem type and the Comment type
+ * Connection between the MediaItem type and the Comment type
  */
 export interface MediaItemToCommentConnection {
   __typename?: "MediaItemToCommentConnection";
@@ -14689,7 +15129,7 @@ export interface Modifier {
    */
   name?: Maybe<ScalarsEnums["String"]>;
   /**
-   * Connection between the modifier type and the modifier type
+   * Connection between the Modifier type and the modifier type
    */
   preview?: Maybe<ModifierToPreviewConnectionEdge>;
   /**
@@ -14735,7 +15175,7 @@ export interface Modifier {
 }
 
 /**
- * Connection between the modifier type and the modifier type
+ * Connection between the Modifier type and the modifier type
  */
 export interface ModifierToPreviewConnectionEdge {
   __typename?: "ModifierToPreviewConnectionEdge";
@@ -14769,6 +15209,7 @@ export interface Node {
     | "PostFormat"
     | "Product"
     | "ProductCategory"
+    | "ProductOptionValue"
     | "StoreSetting"
     | "Tag"
     | "Taxonomy"
@@ -14797,6 +15238,7 @@ export interface NodeWithAuthor {
     | "Post"
     | "Product"
     | "ProductCategory"
+    | "ProductOptionValue"
     | "StoreSetting"
     | "Variant";
   /**
@@ -14811,6 +15253,10 @@ export interface NodeWithAuthor {
    * The globally unique identifier of the author of the node
    */
   authorId?: Maybe<ScalarsEnums["ID"]>;
+  /**
+   * The globally unique ID for the object
+   */
+  id: ScalarsEnums["ID"];
   $on: $NodeWithAuthor;
 }
 
@@ -14838,6 +15284,10 @@ export interface NodeWithComments {
    * Whether the comments are open or closed for this particular post.
    */
   commentStatus?: Maybe<ScalarsEnums["String"]>;
+  /**
+   * The globally unique ID for the object
+   */
+  id: ScalarsEnums["ID"];
   $on: $NodeWithComments;
 }
 
@@ -14855,6 +15305,10 @@ export interface NodeWithContentEditor {
      */
     format?: Maybe<PostObjectFieldFormatEnum>;
   }) => Maybe<ScalarsEnums["String"]>;
+  /**
+   * The globally unique ID for the object
+   */
+  id: ScalarsEnums["ID"];
   $on: $NodeWithContentEditor;
 }
 
@@ -14872,6 +15326,10 @@ export interface NodeWithExcerpt {
      */
     format?: Maybe<PostObjectFieldFormatEnum>;
   }) => Maybe<ScalarsEnums["String"]>;
+  /**
+   * The globally unique ID for the object
+   */
+  id: ScalarsEnums["ID"];
   $on: $NodeWithExcerpt;
 }
 
@@ -14880,84 +15338,6 @@ export interface NodeWithExcerpt {
  */
 export interface NodeWithFeaturedImage {
   __typename?: "Page" | "Post";
-  /**
-   * @deprecated Deprecated in favor of using Next.js pages
-   */
-  conditionalTags?: Maybe<ConditionalTags>;
-  /**
-   * Connection between the ContentNode type and the ContentType type
-   */
-  contentType?: Maybe<ContentNodeToContentTypeConnectionEdge>;
-  /**
-   * The name of the Content Type the node belongs to
-   */
-  contentTypeName: ScalarsEnums["String"];
-  /**
-   * The unique identifier stored in the database
-   */
-  databaseId: ScalarsEnums["Int"];
-  /**
-   * Post publishing date.
-   */
-  date?: Maybe<ScalarsEnums["String"]>;
-  /**
-   * The publishing date set in GMT.
-   */
-  dateGmt?: Maybe<ScalarsEnums["String"]>;
-  /**
-   * The desired slug of the post
-   */
-  desiredSlug?: Maybe<ScalarsEnums["String"]>;
-  /**
-   * If a user has edited the node within the past 15 seconds, this will return the user that last edited. Null if the edit lock doesn&#039;t exist or is greater than 15 seconds
-   */
-  editingLockedBy?: Maybe<ContentNodeToEditLockConnectionEdge>;
-  /**
-   * The RSS enclosure for the object
-   */
-  enclosure?: Maybe<ScalarsEnums["String"]>;
-  /**
-   * Connection between the ContentNode type and the EnqueuedScript type
-   */
-  enqueuedScripts: (args?: {
-    /**
-     * Cursor used along with the "first" argument to reference where in the dataset to get data
-     */
-    after?: Maybe<Scalars["String"]>;
-    /**
-     * Cursor used along with the "last" argument to reference where in the dataset to get data
-     */
-    before?: Maybe<Scalars["String"]>;
-    /**
-     * The number of items to return after the referenced "after" cursor
-     */
-    first?: Maybe<Scalars["Int"]>;
-    /**
-     * The number of items to return before the referenced "before" cursor
-     */
-    last?: Maybe<Scalars["Int"]>;
-  }) => Maybe<ContentNodeToEnqueuedScriptConnection>;
-  /**
-   * Connection between the ContentNode type and the EnqueuedStylesheet type
-   */
-  enqueuedStylesheets: (args?: {
-    /**
-     * Cursor used along with the "first" argument to reference where in the dataset to get data
-     */
-    after?: Maybe<Scalars["String"]>;
-    /**
-     * Cursor used along with the "last" argument to reference where in the dataset to get data
-     */
-    before?: Maybe<Scalars["String"]>;
-    /**
-     * The number of items to return after the referenced "after" cursor
-     */
-    first?: Maybe<Scalars["Int"]>;
-    /**
-     * The number of items to return before the referenced "before" cursor
-     */
-    last?: Maybe<Scalars["Int"]>;
-  }) => Maybe<ContentNodeToEnqueuedStylesheetConnection>;
   /**
    * Connection between the NodeWithFeaturedImage type and the MediaItem type
    */
@@ -14971,70 +15351,9 @@ export interface NodeWithFeaturedImage {
    */
   featuredImageId?: Maybe<ScalarsEnums["ID"]>;
   /**
-   * The global unique identifier for this post. This currently matches the value stored in WP_Post-&gt;guid and the guid column in the &quot;post_objects&quot; database table.
-   */
-  guid?: Maybe<ScalarsEnums["String"]>;
-  /**
-   * The unique resource identifier path
+   * The globally unique ID for the object
    */
   id: ScalarsEnums["ID"];
-  /**
-   * Whether the node is a Content Node
-   */
-  isContentNode: ScalarsEnums["Boolean"];
-  /**
-   * Whether the object is a node in the preview state
-   */
-  isPreview?: Maybe<ScalarsEnums["Boolean"]>;
-  /**
-   * Whether the object is restricted from the current viewer
-   */
-  isRestricted?: Maybe<ScalarsEnums["Boolean"]>;
-  /**
-   * Whether the node is a Term
-   */
-  isTermNode: ScalarsEnums["Boolean"];
-  /**
-   * The user that most recently edited the node
-   */
-  lastEditedBy?: Maybe<ContentNodeToEditLastConnectionEdge>;
-  /**
-   * The permalink of the post
-   */
-  link?: Maybe<ScalarsEnums["String"]>;
-  /**
-   * The local modified time for a post. If a post was recently updated the modified field will change to match the corresponding time.
-   */
-  modified?: Maybe<ScalarsEnums["String"]>;
-  /**
-   * The GMT modified time for a post. If a post was recently updated the modified field will change to match the corresponding time in GMT.
-   */
-  modifiedGmt?: Maybe<ScalarsEnums["String"]>;
-  /**
-   * The database id of the preview node
-   */
-  previewRevisionDatabaseId?: Maybe<ScalarsEnums["Int"]>;
-  /**
-   * Whether the object is a node in the preview state
-   */
-  previewRevisionId?: Maybe<ScalarsEnums["ID"]>;
-  /**
-   * The uri slug for the post. This is equivalent to the WP_Post-&gt;post_name field and the post_name column in the database for the &quot;post_objects&quot; table.
-   */
-  slug?: Maybe<ScalarsEnums["String"]>;
-  /**
-   * The current status of the object
-   */
-  status?: Maybe<ScalarsEnums["String"]>;
-  /**
-   * The template assigned to a node of content
-   */
-  template?: Maybe<ContentTemplate>;
-  templates?: Maybe<Array<Maybe<ScalarsEnums["String"]>>>;
-  /**
-   * The unique resource identifier path
-   */
-  uri?: Maybe<ScalarsEnums["String"]>;
   $on: $NodeWithFeaturedImage;
 }
 
@@ -15055,6 +15374,10 @@ export interface NodeWithFeaturedImageToMediaItemConnectionEdge {
 export interface NodeWithPageAttributes {
   __typename?: "Page";
   /**
+   * The globally unique ID for the object
+   */
+  id: ScalarsEnums["ID"];
+  /**
    * A field used for ordering posts. This is typically used with nav menu items or for special ordering of hierarchical content types.
    */
   menuOrder?: Maybe<ScalarsEnums["Int"]>;
@@ -15066,6 +15389,10 @@ export interface NodeWithPageAttributes {
  */
 export interface NodeWithRevisions {
   __typename?: "Page" | "Post";
+  /**
+   * The globally unique ID for the object
+   */
+  id: ScalarsEnums["ID"];
   /**
    * True if the node is a revision of another node
    */
@@ -15102,8 +15429,13 @@ export interface NodeWithTemplate {
     | "Post"
     | "Product"
     | "ProductCategory"
+    | "ProductOptionValue"
     | "StoreSetting"
     | "Variant";
+  /**
+   * The globally unique ID for the object
+   */
+  id: ScalarsEnums["ID"];
   /**
    * The template assigned to the node
    */
@@ -15125,8 +15457,13 @@ export interface NodeWithTitle {
     | "Post"
     | "Product"
     | "ProductCategory"
+    | "ProductOptionValue"
     | "StoreSetting"
     | "Variant";
+  /**
+   * The globally unique ID for the object
+   */
+  id: ScalarsEnums["ID"];
   /**
    * The title of the post. This is currently just the raw title. An amendment to support rendered title needs to be made.
    */
@@ -15144,6 +15481,10 @@ export interface NodeWithTitle {
  */
 export interface NodeWithTrackbacks {
   __typename?: "Post";
+  /**
+   * The globally unique ID for the object
+   */
+  id: ScalarsEnums["ID"];
   /**
    * Whether the pings are open or closed for this particular post.
    */
@@ -15235,7 +15576,7 @@ export interface Page {
    */
   commentStatus?: Maybe<ScalarsEnums["String"]>;
   /**
-   * Connection between the page type and the Comment type
+   * Connection between the Page type and the Comment type
    */
   comments: (args?: {
     /**
@@ -15436,7 +15777,7 @@ export interface Page {
    */
   parentId?: Maybe<ScalarsEnums["ID"]>;
   /**
-   * Connection between the page type and the page type
+   * Connection between the Page type and the page type
    */
   preview?: Maybe<PageToPreviewConnectionEdge>;
   /**
@@ -15452,7 +15793,7 @@ export interface Page {
    */
   revisionOf?: Maybe<NodeWithRevisionsToContentNodeConnectionEdge>;
   /**
-   * Connection between the page type and the page type
+   * Connection between the Page type and the page type
    */
   revisions: (args?: {
     /**
@@ -15485,7 +15826,7 @@ export interface Page {
    */
   status?: Maybe<ScalarsEnums["String"]>;
   /**
-   * The template assigned to a node of content
+   * The template assigned to the node
    */
   template?: Maybe<ContentTemplate>;
   templates?: Maybe<Array<Maybe<ScalarsEnums["String"]>>>;
@@ -15505,7 +15846,7 @@ export interface Page {
 }
 
 /**
- * Connection between the page type and the Comment type
+ * Connection between the Page type and the Comment type
  */
 export interface PageToCommentConnection {
   __typename?: "PageToCommentConnection";
@@ -15539,7 +15880,7 @@ export interface PageToCommentConnectionEdge {
 }
 
 /**
- * Connection between the page type and the page type
+ * Connection between the Page type and the page type
  */
 export interface PageToPreviewConnectionEdge {
   __typename?: "PageToPreviewConnectionEdge";
@@ -15550,12 +15891,12 @@ export interface PageToPreviewConnectionEdge {
 }
 
 /**
- * Connection between the page type and the page type
+ * Connection between the Page type and the page type
  */
 export interface PageToRevisionConnection {
   __typename?: "PageToRevisionConnection";
   /**
-   * Edges for the pageToRevisionConnection connection
+   * Edges for the PageToRevisionConnection connection
    */
   edges?: Maybe<Array<Maybe<PageToRevisionConnectionEdge>>>;
   /**
@@ -15644,7 +15985,7 @@ export interface Post {
    */
   authorId?: Maybe<ScalarsEnums["ID"]>;
   /**
-   * Connection between the post type and the category type
+   * Connection between the Post type and the category type
    */
   categories: (args?: {
     /**
@@ -15677,7 +16018,7 @@ export interface Post {
    */
   commentStatus?: Maybe<ScalarsEnums["String"]>;
   /**
-   * Connection between the post type and the Comment type
+   * Connection between the Post type and the Comment type
    */
   comments: (args?: {
     /**
@@ -15866,7 +16207,7 @@ export interface Post {
    */
   pinged?: Maybe<Array<Maybe<ScalarsEnums["String"]>>>;
   /**
-   * Connection between the post type and the postFormat type
+   * Connection between the Post type and the postFormat type
    */
   postFormats: (args?: {
     /**
@@ -15896,7 +16237,7 @@ export interface Post {
    */
   postId: ScalarsEnums["Int"];
   /**
-   * Connection between the post type and the post type
+   * Connection between the Post type and the post type
    */
   preview?: Maybe<PostToPreviewConnectionEdge>;
   /**
@@ -15912,7 +16253,7 @@ export interface Post {
    */
   revisionOf?: Maybe<NodeWithRevisionsToContentNodeConnectionEdge>;
   /**
-   * Connection between the post type and the post type
+   * Connection between the Post type and the post type
    */
   revisions: (args?: {
     /**
@@ -15945,7 +16286,7 @@ export interface Post {
    */
   status?: Maybe<ScalarsEnums["String"]>;
   /**
-   * Connection between the post type and the tag type
+   * Connection between the Post type and the tag type
    */
   tags: (args?: {
     /**
@@ -15970,12 +16311,12 @@ export interface Post {
     where?: Maybe<PostToTagConnectionWhereArgs>;
   }) => Maybe<PostToTagConnection>;
   /**
-   * The template assigned to a node of content
+   * The template assigned to the node
    */
   template?: Maybe<ContentTemplate>;
   templates?: Maybe<Array<Maybe<ScalarsEnums["String"]>>>;
   /**
-   * Connection between the post type and the TermNode type
+   * Connection between the Post type and the TermNode type
    */
   terms: (args?: {
     /**
@@ -16028,7 +16369,7 @@ export interface PostFormat {
    */
   conditionalTags?: Maybe<ConditionalTags>;
   /**
-   * Connection between the postFormat type and the ContentNode type
+   * Connection between the PostFormat type and the ContentNode type
    */
   contentNodes: (args?: {
     /**
@@ -16136,7 +16477,7 @@ export interface PostFormat {
    */
   postFormatId?: Maybe<ScalarsEnums["Int"]>;
   /**
-   * Connection between the postFormat type and the post type
+   * Connection between the PostFormat type and the post type
    */
   posts: (args?: {
     /**
@@ -16165,7 +16506,7 @@ export interface PostFormat {
    */
   slug?: Maybe<ScalarsEnums["String"]>;
   /**
-   * Connection between the postFormat type and the Taxonomy type
+   * Connection between the PostFormat type and the Taxonomy type
    */
   taxonomy?: Maybe<PostFormatToTaxonomyConnectionEdge>;
   /**
@@ -16188,7 +16529,7 @@ export interface PostFormat {
 }
 
 /**
- * Connection between the postFormat type and the ContentNode type
+ * Connection between the PostFormat type and the ContentNode type
  */
 export interface PostFormatToContentNodeConnection {
   __typename?: "PostFormatToContentNodeConnection";
@@ -16222,7 +16563,7 @@ export interface PostFormatToContentNodeConnectionEdge {
 }
 
 /**
- * Connection between the postFormat type and the post type
+ * Connection between the PostFormat type and the post type
  */
 export interface PostFormatToPostConnection {
   __typename?: "PostFormatToPostConnection";
@@ -16256,7 +16597,7 @@ export interface PostFormatToPostConnectionEdge {
 }
 
 /**
- * Connection between the postFormat type and the Taxonomy type
+ * Connection between the PostFormat type and the Taxonomy type
  */
 export interface PostFormatToTaxonomyConnectionEdge {
   __typename?: "PostFormatToTaxonomyConnectionEdge";
@@ -16267,7 +16608,7 @@ export interface PostFormatToTaxonomyConnectionEdge {
 }
 
 /**
- * Connection between the post type and the category type
+ * Connection between the Post type and the category type
  */
 export interface PostToCategoryConnection {
   __typename?: "PostToCategoryConnection";
@@ -16301,7 +16642,7 @@ export interface PostToCategoryConnectionEdge {
 }
 
 /**
- * Connection between the post type and the Comment type
+ * Connection between the Post type and the Comment type
  */
 export interface PostToCommentConnection {
   __typename?: "PostToCommentConnection";
@@ -16335,7 +16676,7 @@ export interface PostToCommentConnectionEdge {
 }
 
 /**
- * Connection between the post type and the postFormat type
+ * Connection between the Post type and the postFormat type
  */
 export interface PostToPostFormatConnection {
   __typename?: "PostToPostFormatConnection";
@@ -16369,7 +16710,7 @@ export interface PostToPostFormatConnectionEdge {
 }
 
 /**
- * Connection between the post type and the post type
+ * Connection between the Post type and the post type
  */
 export interface PostToPreviewConnectionEdge {
   __typename?: "PostToPreviewConnectionEdge";
@@ -16380,12 +16721,12 @@ export interface PostToPreviewConnectionEdge {
 }
 
 /**
- * Connection between the post type and the post type
+ * Connection between the Post type and the post type
  */
 export interface PostToRevisionConnection {
   __typename?: "PostToRevisionConnection";
   /**
-   * Edges for the postToRevisionConnection connection
+   * Edges for the PostToRevisionConnection connection
    */
   edges?: Maybe<Array<Maybe<PostToRevisionConnectionEdge>>>;
   /**
@@ -16414,7 +16755,7 @@ export interface PostToRevisionConnectionEdge {
 }
 
 /**
- * Connection between the post type and the tag type
+ * Connection between the Post type and the tag type
  */
 export interface PostToTagConnection {
   __typename?: "PostToTagConnection";
@@ -16448,7 +16789,7 @@ export interface PostToTagConnectionEdge {
 }
 
 /**
- * Connection between the post type and the TermNode type
+ * Connection between the Post type and the TermNode type
  */
 export interface PostToTermNodeConnection {
   __typename?: "PostToTermNodeConnection";
@@ -16790,7 +17131,7 @@ export interface Product {
   }) => Maybe<ProductToModifierConnection>;
   name?: Maybe<ScalarsEnums["String"]>;
   /**
-   * Connection between the product type and the product type
+   * Connection between the Product type and the product type
    */
   preview?: Maybe<ProductToPreviewConnectionEdge>;
   /**
@@ -16832,6 +17173,27 @@ export interface Product {
    * @deprecated Deprecated in favor of the databaseId field
    */
   productId: ScalarsEnums["Int"];
+  /**
+   * Connection between the product type and the productOptionValue type
+   */
+  productOptionValues: (args?: {
+    /**
+     * Cursor used along with the "first" argument to reference where in the dataset to get data
+     */
+    after?: Maybe<Scalars["String"]>;
+    /**
+     * Cursor used along with the "last" argument to reference where in the dataset to get data
+     */
+    before?: Maybe<Scalars["String"]>;
+    /**
+     * The number of items to return after the referenced "after" cursor
+     */
+    first?: Maybe<Scalars["Int"]>;
+    /**
+     * The number of items to return before the referenced "before" cursor
+     */
+    last?: Maybe<Scalars["Int"]>;
+  }) => Maybe<ProductToProductOptionValueConnection>;
   productPageTitle?: Maybe<ScalarsEnums["String"]>;
   productSlug?: Maybe<ScalarsEnums["String"]>;
   productType?: Maybe<ScalarsEnums["String"]>;
@@ -17045,7 +17407,7 @@ export interface ProductCategory {
   modifiedGmt?: Maybe<ScalarsEnums["String"]>;
   name?: Maybe<ScalarsEnums["String"]>;
   /**
-   * Connection between the productCategory type and the productCategory type
+   * Connection between the ProductCategory type and the productCategory type
    */
   preview?: Maybe<ProductCategoryToPreviewConnectionEdge>;
   /**
@@ -17115,7 +17477,7 @@ export interface ProductCategory {
 }
 
 /**
- * Connection between the productCategory type and the productCategory type
+ * Connection between the ProductCategory type and the productCategory type
  */
 export interface ProductCategoryToPreviewConnectionEdge {
   __typename?: "ProductCategoryToPreviewConnectionEdge";
@@ -17149,6 +17511,257 @@ export interface ProductCategoryToProductConnection {
  */
 export interface ProductCategoryToProductConnectionEdge {
   __typename?: "ProductCategoryToProductConnectionEdge";
+  /**
+   * A cursor for use in pagination
+   */
+  cursor?: Maybe<ScalarsEnums["String"]>;
+  /**
+   * The item at the end of the edge
+   */
+  node?: Maybe<Product>;
+}
+
+/**
+ * The productOptionValue type
+ */
+export interface ProductOptionValue {
+  __typename?: "ProductOptionValue";
+  /**
+   * Connection between the NodeWithAuthor type and the User type
+   */
+  author?: Maybe<NodeWithAuthorToUserConnectionEdge>;
+  /**
+   * The database identifier of the author of the node
+   */
+  authorDatabaseId?: Maybe<ScalarsEnums["Int"]>;
+  /**
+   * The globally unique identifier of the author of the node
+   */
+  authorId?: Maybe<ScalarsEnums["ID"]>;
+  /**
+   * @deprecated Deprecated in favor of using Next.js pages
+   */
+  conditionalTags?: Maybe<ConditionalTags>;
+  /**
+   * Connection between the ContentNode type and the ContentType type
+   */
+  contentType?: Maybe<ContentNodeToContentTypeConnectionEdge>;
+  /**
+   * The name of the Content Type the node belongs to
+   */
+  contentTypeName: ScalarsEnums["String"];
+  /**
+   * The unique identifier stored in the database
+   */
+  databaseId: ScalarsEnums["Int"];
+  /**
+   * Post publishing date.
+   */
+  date?: Maybe<ScalarsEnums["String"]>;
+  /**
+   * The publishing date set in GMT.
+   */
+  dateGmt?: Maybe<ScalarsEnums["String"]>;
+  /**
+   * The desired slug of the post
+   */
+  desiredSlug?: Maybe<ScalarsEnums["String"]>;
+  /**
+   * If a user has edited the node within the past 15 seconds, this will return the user that last edited. Null if the edit lock doesn&#039;t exist or is greater than 15 seconds
+   */
+  editingLockedBy?: Maybe<ContentNodeToEditLockConnectionEdge>;
+  /**
+   * The RSS enclosure for the object
+   */
+  enclosure?: Maybe<ScalarsEnums["String"]>;
+  /**
+   * Connection between the ContentNode type and the EnqueuedScript type
+   */
+  enqueuedScripts: (args?: {
+    /**
+     * Cursor used along with the "first" argument to reference where in the dataset to get data
+     */
+    after?: Maybe<Scalars["String"]>;
+    /**
+     * Cursor used along with the "last" argument to reference where in the dataset to get data
+     */
+    before?: Maybe<Scalars["String"]>;
+    /**
+     * The number of items to return after the referenced "after" cursor
+     */
+    first?: Maybe<Scalars["Int"]>;
+    /**
+     * The number of items to return before the referenced "before" cursor
+     */
+    last?: Maybe<Scalars["Int"]>;
+  }) => Maybe<ContentNodeToEnqueuedScriptConnection>;
+  /**
+   * Connection between the ContentNode type and the EnqueuedStylesheet type
+   */
+  enqueuedStylesheets: (args?: {
+    /**
+     * Cursor used along with the "first" argument to reference where in the dataset to get data
+     */
+    after?: Maybe<Scalars["String"]>;
+    /**
+     * Cursor used along with the "last" argument to reference where in the dataset to get data
+     */
+    before?: Maybe<Scalars["String"]>;
+    /**
+     * The number of items to return after the referenced "after" cursor
+     */
+    first?: Maybe<Scalars["Int"]>;
+    /**
+     * The number of items to return before the referenced "before" cursor
+     */
+    last?: Maybe<Scalars["Int"]>;
+  }) => Maybe<ContentNodeToEnqueuedStylesheetConnection>;
+  /**
+   * The global unique identifier for this post. This currently matches the value stored in WP_Post-&gt;guid and the guid column in the &quot;post_objects&quot; database table.
+   */
+  guid?: Maybe<ScalarsEnums["String"]>;
+  /**
+   * The globally unique identifier of the productoptionvalue object.
+   */
+  id: ScalarsEnums["ID"];
+  /**
+   * Whether the node is a Content Node
+   */
+  isContentNode: ScalarsEnums["Boolean"];
+  /**
+   * Whether the object is a node in the preview state
+   */
+  isPreview?: Maybe<ScalarsEnums["Boolean"]>;
+  /**
+   * Whether the object is restricted from the current viewer
+   */
+  isRestricted?: Maybe<ScalarsEnums["Boolean"]>;
+  /**
+   * Whether the node is a Term
+   */
+  isTermNode: ScalarsEnums["Boolean"];
+  json?: Maybe<ScalarsEnums["String"]>;
+  /**
+   * The user that most recently edited the node
+   */
+  lastEditedBy?: Maybe<ContentNodeToEditLastConnectionEdge>;
+  /**
+   * The permalink of the post
+   */
+  link?: Maybe<ScalarsEnums["String"]>;
+  /**
+   * The local modified time for a post. If a post was recently updated the modified field will change to match the corresponding time.
+   */
+  modified?: Maybe<ScalarsEnums["String"]>;
+  /**
+   * The GMT modified time for a post. If a post was recently updated the modified field will change to match the corresponding time in GMT.
+   */
+  modifiedGmt?: Maybe<ScalarsEnums["String"]>;
+  optionValueID?: Maybe<ScalarsEnums["Float"]>;
+  optionValueName?: Maybe<ScalarsEnums["String"]>;
+  parentOptionDisplayName?: Maybe<ScalarsEnums["String"]>;
+  parentOptionID?: Maybe<ScalarsEnums["Float"]>;
+  /**
+   * Connection between the ProductOptionValue type and the productOptionValue type
+   */
+  preview?: Maybe<ProductOptionValueToPreviewConnectionEdge>;
+  /**
+   * The database id of the preview node
+   */
+  previewRevisionDatabaseId?: Maybe<ScalarsEnums["Int"]>;
+  /**
+   * Whether the object is a node in the preview state
+   */
+  previewRevisionId?: Maybe<ScalarsEnums["ID"]>;
+  /**
+   * The id field matches the WP_Post-&gt;ID field.
+   * @deprecated Deprecated in favor of the databaseId field
+   */
+  productOptionValueId: ScalarsEnums["Int"];
+  /**
+   * Connection between the productOptionValue type and the product type
+   */
+  products: (args?: {
+    /**
+     * Cursor used along with the "first" argument to reference where in the dataset to get data
+     */
+    after?: Maybe<Scalars["String"]>;
+    /**
+     * Cursor used along with the "last" argument to reference where in the dataset to get data
+     */
+    before?: Maybe<Scalars["String"]>;
+    /**
+     * The number of items to return after the referenced "after" cursor
+     */
+    first?: Maybe<Scalars["Int"]>;
+    /**
+     * The number of items to return before the referenced "before" cursor
+     */
+    last?: Maybe<Scalars["Int"]>;
+  }) => Maybe<ProductOptionValueToProductConnection>;
+  /**
+   * The uri slug for the post. This is equivalent to the WP_Post-&gt;post_name field and the post_name column in the database for the &quot;post_objects&quot; table.
+   */
+  slug?: Maybe<ScalarsEnums["String"]>;
+  /**
+   * The current status of the object
+   */
+  status?: Maybe<ScalarsEnums["String"]>;
+  /**
+   * The template assigned to the node
+   */
+  template?: Maybe<ContentTemplate>;
+  templates?: Maybe<Array<Maybe<ScalarsEnums["String"]>>>;
+  /**
+   * The title of the post. This is currently just the raw title. An amendment to support rendered title needs to be made.
+   */
+  title: (args?: {
+    /**
+     * Format of the field output
+     */
+    format?: Maybe<PostObjectFieldFormatEnum>;
+  }) => Maybe<ScalarsEnums["String"]>;
+  /**
+   * The unique resource identifier path
+   */
+  uri?: Maybe<ScalarsEnums["String"]>;
+}
+
+/**
+ * Connection between the ProductOptionValue type and the productOptionValue type
+ */
+export interface ProductOptionValueToPreviewConnectionEdge {
+  __typename?: "ProductOptionValueToPreviewConnectionEdge";
+  /**
+   * The node of the connection, without the edges
+   */
+  node?: Maybe<ProductOptionValue>;
+}
+
+/**
+ * Connection between the productOptionValue type and the product type
+ */
+export interface ProductOptionValueToProductConnection {
+  __typename?: "ProductOptionValueToProductConnection";
+  /**
+   * Edges for the ProductOptionValueToProductConnection connection
+   */
+  edges?: Maybe<Array<Maybe<ProductOptionValueToProductConnectionEdge>>>;
+  /**
+   * The nodes of the connection, without the edges
+   */
+  nodes?: Maybe<Array<Maybe<Product>>>;
+  /**
+   * Information about pagination in a connection.
+   */
+  pageInfo?: Maybe<WPPageInfo>;
+}
+
+/**
+ * An edge in a connection
+ */
+export interface ProductOptionValueToProductConnectionEdge {
+  __typename?: "ProductOptionValueToProductConnectionEdge";
   /**
    * A cursor for use in pagination
    */
@@ -17239,7 +17852,7 @@ export interface ProductToModifierConnectionEdge {
 }
 
 /**
- * Connection between the product type and the product type
+ * Connection between the Product type and the product type
  */
 export interface ProductToPreviewConnectionEdge {
   __typename?: "ProductToPreviewConnectionEdge";
@@ -17281,6 +17894,40 @@ export interface ProductToProductCategoryConnectionEdge {
    * The item at the end of the edge
    */
   node?: Maybe<ProductCategory>;
+}
+
+/**
+ * Connection between the product type and the productOptionValue type
+ */
+export interface ProductToProductOptionValueConnection {
+  __typename?: "ProductToProductOptionValueConnection";
+  /**
+   * Edges for the ProductToProductOptionValueConnection connection
+   */
+  edges?: Maybe<Array<Maybe<ProductToProductOptionValueConnectionEdge>>>;
+  /**
+   * The nodes of the connection, without the edges
+   */
+  nodes?: Maybe<Array<Maybe<ProductOptionValue>>>;
+  /**
+   * Information about pagination in a connection.
+   */
+  pageInfo?: Maybe<WPPageInfo>;
+}
+
+/**
+ * An edge in a connection
+ */
+export interface ProductToProductOptionValueConnectionEdge {
+  __typename?: "ProductToProductOptionValueConnectionEdge";
+  /**
+   * A cursor for use in pagination
+   */
+  cursor?: Maybe<ScalarsEnums["String"]>;
+  /**
+   * The item at the end of the edge
+   */
+  node?: Maybe<ProductOptionValue>;
 }
 
 /**
@@ -18070,6 +18717,40 @@ export interface RootQueryToProductConnectionEdge {
 }
 
 /**
+ * Connection between the RootQuery type and the productOptionValue type
+ */
+export interface RootQueryToProductOptionValueConnection {
+  __typename?: "RootQueryToProductOptionValueConnection";
+  /**
+   * Edges for the RootQueryToProductOptionValueConnection connection
+   */
+  edges?: Maybe<Array<Maybe<RootQueryToProductOptionValueConnectionEdge>>>;
+  /**
+   * The nodes of the connection, without the edges
+   */
+  nodes?: Maybe<Array<Maybe<ProductOptionValue>>>;
+  /**
+   * Information about pagination in a connection.
+   */
+  pageInfo?: Maybe<WPPageInfo>;
+}
+
+/**
+ * An edge in a connection
+ */
+export interface RootQueryToProductOptionValueConnectionEdge {
+  __typename?: "RootQueryToProductOptionValueConnectionEdge";
+  /**
+   * A cursor for use in pagination
+   */
+  cursor?: Maybe<ScalarsEnums["String"]>;
+  /**
+   * The item at the end of the edge
+   */
+  node?: Maybe<ProductOptionValue>;
+}
+
+/**
  * Connection between the RootQuery type and the storeSetting type
  */
 export interface RootQueryToStoreSettingConnection {
@@ -18578,7 +19259,7 @@ export interface StoreSetting {
   modifiedGmt?: Maybe<ScalarsEnums["String"]>;
   notificationBanner?: Maybe<ScalarsEnums["String"]>;
   /**
-   * Connection between the storeSetting type and the storeSetting type
+   * Connection between the StoreSetting type and the storeSetting type
    */
   preview?: Maybe<StoreSettingToPreviewConnectionEdge>;
   /**
@@ -18632,7 +19313,7 @@ export interface StoreSetting {
 }
 
 /**
- * Connection between the storeSetting type and the storeSetting type
+ * Connection between the StoreSetting type and the storeSetting type
  */
 export interface StoreSettingToPreviewConnectionEdge {
   __typename?: "StoreSettingToPreviewConnectionEdge";
@@ -18652,7 +19333,7 @@ export interface Tag {
    */
   conditionalTags?: Maybe<ConditionalTags>;
   /**
-   * Connection between the tag type and the ContentNode type
+   * Connection between the Tag type and the ContentNode type
    */
   contentNodes: (args?: {
     /**
@@ -18755,7 +19436,7 @@ export interface Tag {
    */
   name?: Maybe<ScalarsEnums["String"]>;
   /**
-   * Connection between the tag type and the post type
+   * Connection between the Tag type and the post type
    */
   posts: (args?: {
     /**
@@ -18789,7 +19470,7 @@ export interface Tag {
    */
   tagId?: Maybe<ScalarsEnums["Int"]>;
   /**
-   * Connection between the tag type and the Taxonomy type
+   * Connection between the Tag type and the Taxonomy type
    */
   taxonomy?: Maybe<TagToTaxonomyConnectionEdge>;
   /**
@@ -18812,7 +19493,7 @@ export interface Tag {
 }
 
 /**
- * Connection between the tag type and the ContentNode type
+ * Connection between the Tag type and the ContentNode type
  */
 export interface TagToContentNodeConnection {
   __typename?: "TagToContentNodeConnection";
@@ -18846,7 +19527,7 @@ export interface TagToContentNodeConnectionEdge {
 }
 
 /**
- * Connection between the tag type and the post type
+ * Connection between the Tag type and the post type
  */
 export interface TagToPostConnection {
   __typename?: "TagToPostConnection";
@@ -18880,7 +19561,7 @@ export interface TagToPostConnectionEdge {
 }
 
 /**
- * Connection between the tag type and the Taxonomy type
+ * Connection between the Tag type and the Taxonomy type
  */
 export interface TagToTaxonomyConnectionEdge {
   __typename?: "TagToTaxonomyConnectionEdge";
@@ -19319,6 +20000,7 @@ export interface UniformResourceIdentifiable {
     | "PostFormat"
     | "Product"
     | "ProductCategory"
+    | "ProductOptionValue"
     | "StoreSetting"
     | "Tag"
     | "User"
@@ -19514,6 +20196,21 @@ export interface UpdateProductCategoryPayload {
    * The Post object mutation type.
    */
   productCategory?: Maybe<ProductCategory>;
+}
+
+/**
+ * The payload for the updateProductOptionValue mutation
+ */
+export interface UpdateProductOptionValuePayload {
+  __typename?: "UpdateProductOptionValuePayload";
+  /**
+   * If a &#039;clientMutationId&#039; input is provided to the mutation, it will be returned as output on the mutation. This ID can be used by the client to track the progress of mutations and catch possible duplicate mutation submissions.
+   */
+  clientMutationId?: Maybe<ScalarsEnums["String"]>;
+  /**
+   * The Post object mutation type.
+   */
+  productOptionValue?: Maybe<ProductOptionValue>;
 }
 
 /**
@@ -19984,6 +20681,31 @@ export interface User {
      */
     where?: Maybe<UserToProductCategoryConnectionWhereArgs>;
   }) => Maybe<UserToProductCategoryConnection>;
+  /**
+   * Connection between the User type and the productOptionValue type
+   */
+  productOptionValues: (args?: {
+    /**
+     * Cursor used along with the "first" argument to reference where in the dataset to get data
+     */
+    after?: Maybe<Scalars["String"]>;
+    /**
+     * Cursor used along with the "last" argument to reference where in the dataset to get data
+     */
+    before?: Maybe<Scalars["String"]>;
+    /**
+     * The number of items to return after the referenced "after" cursor
+     */
+    first?: Maybe<Scalars["Int"]>;
+    /**
+     * The number of items to return before the referenced "before" cursor
+     */
+    last?: Maybe<Scalars["Int"]>;
+    /**
+     * Arguments for filtering the connection
+     */
+    where?: Maybe<UserToProductOptionValueConnectionWhereArgs>;
+  }) => Maybe<UserToProductOptionValueConnection>;
   /**
    * Connection between the User type and the product type
    */
@@ -20603,6 +21325,40 @@ export interface UserToProductConnectionEdge {
 }
 
 /**
+ * Connection between the User type and the productOptionValue type
+ */
+export interface UserToProductOptionValueConnection {
+  __typename?: "UserToProductOptionValueConnection";
+  /**
+   * Edges for the UserToProductOptionValueConnection connection
+   */
+  edges?: Maybe<Array<Maybe<UserToProductOptionValueConnectionEdge>>>;
+  /**
+   * The nodes of the connection, without the edges
+   */
+  nodes?: Maybe<Array<Maybe<ProductOptionValue>>>;
+  /**
+   * Information about pagination in a connection.
+   */
+  pageInfo?: Maybe<WPPageInfo>;
+}
+
+/**
+ * An edge in a connection
+ */
+export interface UserToProductOptionValueConnectionEdge {
+  __typename?: "UserToProductOptionValueConnectionEdge";
+  /**
+   * A cursor for use in pagination
+   */
+  cursor?: Maybe<ScalarsEnums["String"]>;
+  /**
+   * The item at the end of the edge
+   */
+  node?: Maybe<ProductOptionValue>;
+}
+
+/**
  * Connection between the User type and the storeSetting type
  */
 export interface UserToStoreSettingConnection {
@@ -20846,7 +21602,7 @@ export interface Variant {
    */
   modifiedGmt?: Maybe<ScalarsEnums["String"]>;
   /**
-   * Connection between the variant type and the variant type
+   * Connection between the Variant type and the variant type
    */
   preview?: Maybe<VariantToPreviewConnectionEdge>;
   /**
@@ -20896,7 +21652,7 @@ export interface Variant {
 }
 
 /**
- * Connection between the variant type and the variant type
+ * Connection between the Variant type and the variant type
  */
 export interface VariantToPreviewConnectionEdge {
   __typename?: "VariantToPreviewConnectionEdge";
@@ -20978,6 +21734,9 @@ export interface Mutation {
   createProductCategory: (args: {
     input: CreateProductCategoryInput;
   }) => Maybe<CreateProductCategoryPayload>;
+  createProductOptionValue: (args: {
+    input: CreateProductOptionValueInput;
+  }) => Maybe<CreateProductOptionValuePayload>;
   createStoreSetting: (args: {
     input: CreateStoreSettingInput;
   }) => Maybe<CreateStoreSettingPayload>;
@@ -21014,6 +21773,9 @@ export interface Mutation {
   deleteProductCategory: (args: {
     input: DeleteProductCategoryInput;
   }) => Maybe<DeleteProductCategoryPayload>;
+  deleteProductOptionValue: (args: {
+    input: DeleteProductOptionValueInput;
+  }) => Maybe<DeleteProductOptionValuePayload>;
   deleteStoreSetting: (args: {
     input: DeleteStoreSettingInput;
   }) => Maybe<DeleteStoreSettingPayload>;
@@ -21068,6 +21830,9 @@ export interface Mutation {
   updateProductCategory: (args: {
     input: UpdateProductCategoryInput;
   }) => Maybe<UpdateProductCategoryPayload>;
+  updateProductOptionValue: (args: {
+    input: UpdateProductOptionValueInput;
+  }) => Maybe<UpdateProductOptionValuePayload>;
   updateSettings: (args: {
     input: UpdateSettingsInput;
   }) => Maybe<UpdateSettingsPayload>;
@@ -21331,6 +22096,24 @@ export interface Query {
     slug?: Maybe<Scalars["String"]>;
     uri?: Maybe<Scalars["String"]>;
   }) => Maybe<ProductCategory>;
+  productOptionValue: (args: {
+    asPreview?: Maybe<Scalars["Boolean"]>;
+    id: Scalars["ID"];
+    idType?: Maybe<ProductOptionValueIdType>;
+  }) => Maybe<ProductOptionValue>;
+  productOptionValueBy: (args?: {
+    id?: Maybe<Scalars["ID"]>;
+    productOptionValueId?: Maybe<Scalars["Int"]>;
+    slug?: Maybe<Scalars["String"]>;
+    uri?: Maybe<Scalars["String"]>;
+  }) => Maybe<ProductOptionValue>;
+  productOptionValues: (args?: {
+    after?: Maybe<Scalars["String"]>;
+    before?: Maybe<Scalars["String"]>;
+    first?: Maybe<Scalars["Int"]>;
+    last?: Maybe<Scalars["Int"]>;
+    where?: Maybe<RootQueryToProductOptionValueConnectionWhereArgs>;
+  }) => Maybe<RootQueryToProductOptionValueConnection>;
   products: (args?: {
     after?: Maybe<Scalars["String"]>;
     before?: Maybe<Scalars["String"]>;
@@ -21508,6 +22291,7 @@ export interface SchemaObjectTypes {
   CreatePostFormatPayload: CreatePostFormatPayload;
   CreatePostPayload: CreatePostPayload;
   CreateProductCategoryPayload: CreateProductCategoryPayload;
+  CreateProductOptionValuePayload: CreateProductOptionValuePayload;
   CreateProductPayload: CreateProductPayload;
   CreateStoreSettingPayload: CreateStoreSettingPayload;
   CreateTagPayload: CreateTagPayload;
@@ -21525,6 +22309,7 @@ export interface SchemaObjectTypes {
   DeletePostFormatPayload: DeletePostFormatPayload;
   DeletePostPayload: DeletePostPayload;
   DeleteProductCategoryPayload: DeleteProductCategoryPayload;
+  DeleteProductOptionValuePayload: DeleteProductOptionValuePayload;
   DeleteProductPayload: DeleteProductPayload;
   DeleteStoreSettingPayload: DeleteStoreSettingPayload;
   DeleteTagPayload: DeleteTagPayload;
@@ -21595,6 +22380,10 @@ export interface SchemaObjectTypes {
   ProductCategoryToPreviewConnectionEdge: ProductCategoryToPreviewConnectionEdge;
   ProductCategoryToProductConnection: ProductCategoryToProductConnection;
   ProductCategoryToProductConnectionEdge: ProductCategoryToProductConnectionEdge;
+  ProductOptionValue: ProductOptionValue;
+  ProductOptionValueToPreviewConnectionEdge: ProductOptionValueToPreviewConnectionEdge;
+  ProductOptionValueToProductConnection: ProductOptionValueToProductConnection;
+  ProductOptionValueToProductConnectionEdge: ProductOptionValueToProductConnectionEdge;
   ProductToBrandConnectionEdge: ProductToBrandConnectionEdge;
   ProductToImageConnection: ProductToImageConnection;
   ProductToImageConnectionEdge: ProductToImageConnectionEdge;
@@ -21603,6 +22392,8 @@ export interface SchemaObjectTypes {
   ProductToPreviewConnectionEdge: ProductToPreviewConnectionEdge;
   ProductToProductCategoryConnection: ProductToProductCategoryConnection;
   ProductToProductCategoryConnectionEdge: ProductToProductCategoryConnectionEdge;
+  ProductToProductOptionValueConnection: ProductToProductOptionValueConnection;
+  ProductToProductOptionValueConnectionEdge: ProductToProductOptionValueConnectionEdge;
   ProductToVariantConnection: ProductToVariantConnection;
   ProductToVariantConnectionEdge: ProductToVariantConnectionEdge;
   Query: Query;
@@ -21650,6 +22441,8 @@ export interface SchemaObjectTypes {
   RootQueryToProductCategoryConnectionEdge: RootQueryToProductCategoryConnectionEdge;
   RootQueryToProductConnection: RootQueryToProductConnection;
   RootQueryToProductConnectionEdge: RootQueryToProductConnectionEdge;
+  RootQueryToProductOptionValueConnection: RootQueryToProductOptionValueConnection;
+  RootQueryToProductOptionValueConnectionEdge: RootQueryToProductOptionValueConnectionEdge;
   RootQueryToStoreSettingConnection: RootQueryToStoreSettingConnection;
   RootQueryToStoreSettingConnectionEdge: RootQueryToStoreSettingConnectionEdge;
   RootQueryToTagConnection: RootQueryToTagConnection;
@@ -21700,6 +22493,7 @@ export interface SchemaObjectTypes {
   UpdatePostFormatPayload: UpdatePostFormatPayload;
   UpdatePostPayload: UpdatePostPayload;
   UpdateProductCategoryPayload: UpdateProductCategoryPayload;
+  UpdateProductOptionValuePayload: UpdateProductOptionValuePayload;
   UpdateProductPayload: UpdateProductPayload;
   UpdateSettingsPayload: UpdateSettingsPayload;
   UpdateStoreSettingPayload: UpdateStoreSettingPayload;
@@ -21734,6 +22528,8 @@ export interface SchemaObjectTypes {
   UserToProductCategoryConnectionEdge: UserToProductCategoryConnectionEdge;
   UserToProductConnection: UserToProductConnection;
   UserToProductConnectionEdge: UserToProductConnectionEdge;
+  UserToProductOptionValueConnection: UserToProductOptionValueConnection;
+  UserToProductOptionValueConnectionEdge: UserToProductOptionValueConnectionEdge;
   UserToStoreSettingConnection: UserToStoreSettingConnection;
   UserToStoreSettingConnectionEdge: UserToStoreSettingConnectionEdge;
   UserToUserRoleConnection: UserToUserRoleConnection;
@@ -21796,6 +22592,7 @@ export type SchemaObjectTypesNames =
   | "CreatePostFormatPayload"
   | "CreatePostPayload"
   | "CreateProductCategoryPayload"
+  | "CreateProductOptionValuePayload"
   | "CreateProductPayload"
   | "CreateStoreSettingPayload"
   | "CreateTagPayload"
@@ -21813,6 +22610,7 @@ export type SchemaObjectTypesNames =
   | "DeletePostFormatPayload"
   | "DeletePostPayload"
   | "DeleteProductCategoryPayload"
+  | "DeleteProductOptionValuePayload"
   | "DeleteProductPayload"
   | "DeleteStoreSettingPayload"
   | "DeleteTagPayload"
@@ -21883,6 +22681,10 @@ export type SchemaObjectTypesNames =
   | "ProductCategoryToPreviewConnectionEdge"
   | "ProductCategoryToProductConnection"
   | "ProductCategoryToProductConnectionEdge"
+  | "ProductOptionValue"
+  | "ProductOptionValueToPreviewConnectionEdge"
+  | "ProductOptionValueToProductConnection"
+  | "ProductOptionValueToProductConnectionEdge"
   | "ProductToBrandConnectionEdge"
   | "ProductToImageConnection"
   | "ProductToImageConnectionEdge"
@@ -21891,6 +22693,8 @@ export type SchemaObjectTypesNames =
   | "ProductToPreviewConnectionEdge"
   | "ProductToProductCategoryConnection"
   | "ProductToProductCategoryConnectionEdge"
+  | "ProductToProductOptionValueConnection"
+  | "ProductToProductOptionValueConnectionEdge"
   | "ProductToVariantConnection"
   | "ProductToVariantConnectionEdge"
   | "Query"
@@ -21938,6 +22742,8 @@ export type SchemaObjectTypesNames =
   | "RootQueryToProductCategoryConnectionEdge"
   | "RootQueryToProductConnection"
   | "RootQueryToProductConnectionEdge"
+  | "RootQueryToProductOptionValueConnection"
+  | "RootQueryToProductOptionValueConnectionEdge"
   | "RootQueryToStoreSettingConnection"
   | "RootQueryToStoreSettingConnectionEdge"
   | "RootQueryToTagConnection"
@@ -21988,6 +22794,7 @@ export type SchemaObjectTypesNames =
   | "UpdatePostFormatPayload"
   | "UpdatePostPayload"
   | "UpdateProductCategoryPayload"
+  | "UpdateProductOptionValuePayload"
   | "UpdateProductPayload"
   | "UpdateSettingsPayload"
   | "UpdateStoreSettingPayload"
@@ -22022,6 +22829,8 @@ export type SchemaObjectTypesNames =
   | "UserToProductCategoryConnectionEdge"
   | "UserToProductConnection"
   | "UserToProductConnectionEdge"
+  | "UserToProductOptionValueConnection"
+  | "UserToProductOptionValueConnectionEdge"
   | "UserToStoreSettingConnection"
   | "UserToStoreSettingConnectionEdge"
   | "UserToUserRoleConnection"
@@ -22048,6 +22857,7 @@ export interface $ContentNode {
   Post?: Post;
   Product?: Product;
   ProductCategory?: ProductCategory;
+  ProductOptionValue?: ProductOptionValue;
   StoreSetting?: StoreSetting;
   Variant?: Variant;
 }
@@ -22080,6 +22890,7 @@ export interface $DatabaseIdentifier {
   PostFormat?: PostFormat;
   Product?: Product;
   ProductCategory?: ProductCategory;
+  ProductOptionValue?: ProductOptionValue;
   StoreSetting?: StoreSetting;
   Tag?: Tag;
   User?: User;
@@ -22134,6 +22945,7 @@ export interface $Node {
   PostFormat?: PostFormat;
   Product?: Product;
   ProductCategory?: ProductCategory;
+  ProductOptionValue?: ProductOptionValue;
   StoreSetting?: StoreSetting;
   Tag?: Tag;
   Taxonomy?: Taxonomy;
@@ -22153,6 +22965,7 @@ export interface $NodeWithAuthor {
   Post?: Post;
   Product?: Product;
   ProductCategory?: ProductCategory;
+  ProductOptionValue?: ProductOptionValue;
   StoreSetting?: StoreSetting;
   Variant?: Variant;
 }
@@ -22196,6 +23009,7 @@ export interface $NodeWithTemplate {
   Post?: Post;
   Product?: Product;
   ProductCategory?: ProductCategory;
+  ProductOptionValue?: ProductOptionValue;
   StoreSetting?: StoreSetting;
   Variant?: Variant;
 }
@@ -22210,6 +23024,7 @@ export interface $NodeWithTitle {
   Post?: Post;
   Product?: Product;
   ProductCategory?: ProductCategory;
+  ProductOptionValue?: ProductOptionValue;
   StoreSetting?: StoreSetting;
   Variant?: Variant;
 }
@@ -22237,6 +23052,7 @@ export interface $UniformResourceIdentifiable {
   PostFormat?: PostFormat;
   Product?: Product;
   ProductCategory?: ProductCategory;
+  ProductOptionValue?: ProductOptionValue;
   StoreSetting?: StoreSetting;
   Tag?: Tag;
   User?: User;
@@ -22290,6 +23106,7 @@ export interface ScalarsEnums extends MakeNullable<Scalars> {
   PostStatusEnum: PostStatusEnum | undefined;
   ProductCategoryIdType: ProductCategoryIdType | undefined;
   ProductIdType: ProductIdType | undefined;
+  ProductOptionValueIdType: ProductOptionValueIdType | undefined;
   RelationEnum: RelationEnum | undefined;
   StoreSettingIdType: StoreSettingIdType | undefined;
   TagIdType: TagIdType | undefined;
