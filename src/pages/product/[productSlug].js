@@ -28,6 +28,12 @@ import ReactImageMagnify from '@blacklab/react-image-magnify';
 
 import useAtlasEcom from 'hooks/useAtlasEcom';
 
+import {
+  computeVariantOrModificationFormFields,
+  lookupProductVariants,
+  checkPriceAdjuster,
+} from '../../helpers/productHelpers.js';
+
 export function ProductComponent({ product }) {
   const { useQuery } = client;
   const generalSettings = useQuery().generalSettings;
@@ -57,84 +63,45 @@ export function ProductComponent({ product }) {
 
   const [productNotification, setProductNotification] = useState();
 
-  const [values, setValues] = useState(() => {
-    const fields = productFormFields.reduce((acc, field) => {
-      acc[`${field.prodOptionType}[${field.id}]`] =
-        field.option_values?.reduce((defaultValue, option) => {
-          if (option.is_default) {
-            return option.id;
-          }
-          return defaultValue;
-        }, null) ?? field.config?.default_value;
-      return acc;
-    }, {});
+  const [variantOrModFields, setVariantOrModFields] = useState(
+    computeVariantOrModificationFormFields(productFormFields)
+  );
 
-    return {
-      ...fields,
-      quantity: 1,
-    };
-  });
+  const variantValueKeys = Object.keys(variantOrModFields);
 
-  const valuesKeys = Object.keys(values);
+  const productVariant = lookupProductVariants(
+    variantValueKeys,
+    variantLookup,
+    variantOrModFields
+  );
 
-  const variantLookupId = valuesKeys
-    .reduce((acc, key) => {
-      let match;
-      if ((match = key.match(/^variant\[(.*)\]$/))) {
-        acc.push(match[1] + '.' + values[key]);
-      }
-      return acc;
-    }, [])
-    .sort()
-    .join(';');
-
-  const variantProduct = variantLookup[variantLookupId];
-
-  if (variantProduct?.img) {
+  if (productVariant?.img) {
     productImages = [
       {
-        urlStandard: variantProduct.img,
-        urlZoom: variantProduct.img,
-        urlThumbnail: variantProduct.img,
+        urlStandard: productVariant.img,
+        urlZoom: productVariant.img,
+        urlThumbnail: productVariant.img,
       },
     ].concat(productImages.slice(1));
   }
 
-  let priceAdjuster = 0;
+  let priceAdjuster = checkPriceAdjuster(variantValueKeys, modifierLookup);
 
-  valuesKeys.forEach((key) => {
-    let match;
-    if ((match = key.match(/^modifier\[(.*)\]$/))) {
-      const modifierLookupId = match[1] + '.' + values[key];
-      const modifier = modifierLookup[modifierLookupId];
-      if (modifier) {
-        if (modifier.purchasing_disabled?.status === true) {
-          purchaseDisabled = true;
-
-          if (modifier.purchasing_disabled.message) {
-            purchaseDisabledMessage = modifier.purchasing_disabled.message;
-          }
-        }
-        priceAdjuster += modifier.price_adjuster;
-      }
-    }
-  });
-
-  const salePrice = variantProduct?.salePrice ?? product.salePrice;
-  const price = (variantProduct?.price ?? product.price) + priceAdjuster;
+  const salePrice = productVariant?.salePrice ?? product.salePrice;
+  const price = (productVariant?.price ?? product.price) + priceAdjuster;
   const calculatedPrice =
-    (variantProduct?.calculatedPrice ?? product.calculatedPrice) +
+    (productVariant?.calculatedPrice ?? product.calculatedPrice) +
     priceAdjuster;
 
   function handleChange(event) {
-    setValues((prevValues) => ({
+    setVariantOrModFields((prevValues) => ({
       ...prevValues,
       [event.target.name]: event.target.value,
     }));
   }
 
   function handleFieldChange(key, value) {
-    setValues((prevValues) => ({
+    setVariantOrModFields((prevValues) => ({
       ...prevValues,
       [key]: value,
     }));
@@ -146,9 +113,9 @@ export function ProductComponent({ product }) {
     const variantOptionValues = [];
     const modifierOptionValues = [];
 
-    Object.keys(values).forEach((key) => {
+    Object.keys(variantOrModFields).forEach((key) => {
       const match = key.match(/^(variant|modifier)\[(.*)\]$/);
-      const value = values[key];
+      const value = variantOrModFields[key];
       if (match) {
         if (match[1] === 'variant') {
           variantOptionValues.push({
@@ -167,9 +134,9 @@ export function ProductComponent({ product }) {
 
     addToCart([
       {
-        quantity: Number(values.quantity),
+        quantity: Number(variantOrModFields.quantity),
         product_id: bigCommerceId,
-        variant_id: variantProduct?.variant_id ?? baseVariantId,
+        variant_id: productVariant?.variant_id ?? baseVariantId,
         variant_option_values: variantOptionValues,
         modifiers: modifierOptionValues,
       },
@@ -240,8 +207,10 @@ export function ProductComponent({ product }) {
                 handleChange={handleChange}
                 handleSubmit={handleSubmit}
                 handleFieldChange={handleFieldChange}
-                variantProduct={variantProduct}
-                values={values}
+                productVariant={productVariant}
+                variantOrModFields={variantOrModFields}
+                variantValueKeys={variantValueKeys}
+                modifierLookup={modifierLookup}
               />
             </div>
           </div>

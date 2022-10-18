@@ -6,13 +6,16 @@
 .container {
   margin: 0 auto;
   max-width: $container-max-width;
-//   padding: 0 2rem;
   padding: 0 0;
   position: relative;
   width: 100%;
 
   &.small {
     max-width: $content-max-width;
+  }
+
+  @media (max-width: $breakpoint-medium) {
+    padding: 1.5rem;
   }
 }
 
@@ -128,6 +131,11 @@
     &.column-25 {
       flex: 0 0 25%;
       max-width: 25%;
+
+      @media (max-width: $breakpoint-extra-small) {
+        flex: 0 0 100%;
+        max-width: 100%;
+      }
     }
 
     &.column-33,
@@ -139,6 +147,11 @@
     &.column-40 {
       flex: 0 0 40%;
       max-width: 40%;
+
+      @media (max-width: $breakpoint-extra-small) {
+        flex: 0 0 100%;
+        max-width: 100%;
+      }
     }
 
     &.column-50 {

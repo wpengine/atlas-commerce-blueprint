@@ -3,32 +3,45 @@ import { ProductFormField, Button } from 'components';
 import Link from 'next/link';
 import styles from './ProductMeta.module.scss';
 
+import { checkPurchaseDisabled } from '../../helpers/productHelpers.js';
+
 const ProductMeta = ({
   product,
   sortedFormFields,
   handleChange,
   handleSubmit,
   handleFieldChange,
-  variantProduct,
-  values,
+  productVariant,
+  variantOrModFields,
+  variantValueKeys,
+  modifierLookup,
 }) => {
   const inventoryTracking = product.inventoryTracking;
   let inventoryLevel = product.inventoryLevel;
 
-  if (inventoryTracking === 'variant' && variantProduct) {
-    inventoryLevel = variantProduct.inventory;
+  if (inventoryTracking === 'variant' && productVariant) {
+    inventoryLevel = productVariant.inventory;
   } else if (inventoryTracking === 'none') {
     inventoryLevel = null;
   }
 
-  let purchaseDisabled =
-    variantProduct?.purchasing_disabled || inventoryLevel === 0;
+  const modifierPurchaseDisabled = checkPurchaseDisabled(
+    variantValueKeys,
+    variantOrModFields,
+    modifierLookup
+  );
 
-  const displayProduct = variantProduct ?? product;
+  let purchaseDisabled =
+    modifierPurchaseDisabled.purchaseDisabled ||
+    productVariant?.purchasing_disabled ||
+    inventoryLevel === 0;
+
+  const displayProduct = productVariant ?? product;
   const productBrand = product.brand?.node;
   const productCategories = product.productCategories().nodes;
 
   let purchaseDisabledMessage =
+    modifierPurchaseDisabled.purchaseDisabledMessage ||
     'The selected product combination is currently unavailable.';
 
   return (
@@ -58,7 +71,7 @@ const ProductMeta = ({
         {sortedFormFields.map((field) => (
           <ProductFormField
             field={field}
-            value={values[`${field.prodOptionType}[${field.id}]`]}
+            value={variantOrModFields[`${field.prodOptionType}[${field.id}]`]}
             onChange={handleFieldChange}
             key={field.id}
           />
@@ -72,7 +85,7 @@ const ProductMeta = ({
             max={inventoryLevel}
             step='1'
             name='quantity'
-            value={values.quantity}
+            value={variantOrModFields.quantity}
             onChange={handleChange}
             disabled={purchaseDisabled}
             className={styles.quantity}
