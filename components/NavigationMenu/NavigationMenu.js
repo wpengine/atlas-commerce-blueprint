@@ -8,7 +8,7 @@ import stylesFromWP from './NavigationMenuClassesFromWP.module.scss';
 let cx = classNames.bind(styles);
 let cxFromWp = classNames.bind(stylesFromWP);
 
-export default function NavigationMenu({ menuItems, className }) {
+export default function NavigationMenu({ id, menuItems, className }) {
   if (!menuItems) {
     return null;
   }
@@ -40,9 +40,10 @@ export default function NavigationMenu({ menuItems, className }) {
 
   return (
     <nav
-      className={cx(['component', className])}
-      role="navigation"
-      aria-label={`${menuItems[0]?.menu?.node?.name} menu`}>
+      className={cx(className)}
+      role='navigation'
+      aria-label={`${menuItems[0]?.menu?.node?.name} menu`}
+    >
       {renderMenu(hierarchicalMenuItems)}
     </nav>
   );

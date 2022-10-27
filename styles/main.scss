@@ -1,0 +1,25 @@
+// Theme Modules
+// ––––––––––––––––––––––––––––––––––––––––––––––––––
+@use 'sass:math';
+
+// new-faust-styles
+// @import 'breakpoints';
+// @import 'css-variables';
+// @import 'base';
+// @import 'utilities';
+
+@import 'Variables';
+@import 'Base';
+@import 'Spacing';
+@import 'Typography';
+@import 'Grid';
+@import 'Utility';
+@import 'Gutenberg';
+@import 'ProductSummary';
+
+.notificationBanner a {
+  text-decoration: none;
+  border-bottom: 1px solid;
+  padding-bottom: 1px;
+  color: inherit;
+}

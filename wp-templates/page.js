@@ -2,12 +2,12 @@ import { gql } from '@apollo/client';
 import * as MENUS from '../constants/menus';
 import { BlogInfoFragment } from '../fragments/GeneralSettings';
 import {
+  Banner,
   Header,
   Footer,
   Main,
   Container,
   ContentWrapper,
-  EntryHeader,
   NavigationMenu,
   FeaturedImage,
   SEO,
@@ -37,13 +37,9 @@ export default function Component(props) {
         description={siteDescription}
         menuItems={primaryMenu}
       />
+      <Banner />
       <Main>
-        <>
-          <EntryHeader title={title} image={featuredImage?.node} />
-          <Container>
-            <ContentWrapper content={content} />
-          </Container>
-        </>
+        <ContentWrapper content={content} />
       </Main>
       <Footer title={siteTitle} menuItems={footerMenu} />
     </>

@@ -2,6 +2,7 @@ import { gql } from '@apollo/client';
 import * as MENUS from '../constants/menus';
 import { BlogInfoFragment } from '../fragments/GeneralSettings';
 import {
+  Banner,
   Header,
   Footer,
   Main,
@@ -37,6 +38,7 @@ export default function Component(props) {
         description={siteDescription}
         menuItems={primaryMenu}
       />
+      <Banner />
       <Main>
         <>
           <EntryHeader
