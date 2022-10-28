@@ -18,6 +18,11 @@ export const ProductQuery = gql`
         relatedProducts
         variantLookupJson
         modifierLookupJson
+        variants(last: 1) {
+          nodes {
+            bigCommerceVariantID
+          }
+        }
         images {
           edges {
             node {

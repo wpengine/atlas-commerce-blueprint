@@ -63,8 +63,7 @@ export default function Page({
 
   const productName = product?.name;
   const bigCommerceId = product?.bigCommerceID;
-  // const baseVariantId = product?.variants({ last: 1 })?.nodes[0]
-  //   ?.bigCommerceVariantID;
+  const baseVariantId = product?.variants?.nodes[0].bigCommerceVariantID;
   let productImages = product?.images?.edges ?? []; // make request for these
 
   const sortedFormFields = useMemo(
