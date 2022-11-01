@@ -46,15 +46,6 @@ export default function Component(props) {
   );
 }
 
-Component.variables = ({ databaseId }, ctx) => {
-  return {
-    databaseId,
-    headerLocation: MENUS.PRIMARY_LOCATION,
-    footerLocation: MENUS.FOOTER_LOCATION,
-    asPreview: ctx?.asPreview,
-  };
-};
-
 Component.query = gql`
   ${BlogInfoFragment}
   ${NavigationMenu.fragments.entry}
@@ -85,3 +76,12 @@ Component.query = gql`
     }
   }
 `;
+
+Component.variables = ({ databaseId }, ctx) => {
+  return {
+    databaseId,
+    headerLocation: MENUS.PRIMARY_LOCATION,
+    footerLocation: MENUS.FOOTER_LOCATION,
+    asPreview: ctx?.asPreview,
+  };
+};

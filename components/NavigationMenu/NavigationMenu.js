@@ -8,7 +8,7 @@ import stylesFromWP from './NavigationMenuClassesFromWP.module.scss';
 let cx = classNames.bind(styles);
 let cxFromWp = classNames.bind(stylesFromWP);
 
-export default function NavigationMenu({ id, menuItems, className }) {
+export default function NavigationMenu({ menuItems, className }) {
   if (!menuItems) {
     return null;
   }
@@ -21,11 +21,6 @@ export default function NavigationMenu({ id, menuItems, className }) {
       <ul className={cx('menu')}>
         {items.map((item) => {
           const { id, path, label, children, cssClasses } = item;
-
-          // @TODO - Remove guard clause after ghost menu items are no longer appended to array.
-          if (!item.hasOwnProperty('__typename')) {
-            return null;
-          }
 
           return (
             <li key={id} className={cxFromWp(cssClasses)}>

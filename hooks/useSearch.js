@@ -36,14 +36,7 @@ export default function useSearch() {
   const [
     fetchResults,
     { data: searchData, loading: searchLoading, error: searchError },
-  ] = useLazyQuery(SearchProductQuery, {
-    variables: {
-      query: debouncedSearchQuery,
-      first: appConfig?.postsPerPage,
-      // after: psgeInfo?.endCursor,
-      after: undefined,
-    },
-  });
+  ] = useLazyQuery(SearchProductQuery);
 
   /**
    * Fetch initial results. This can happen either upon first search. Or after
@@ -54,13 +47,14 @@ export default function useSearch() {
 
     clearResults();
 
-    await fetchResults();
-
-    setSearchResults(searchData?.products?.nodes);
-    setError(searchError);
-    // setPageInfo(res?.pageInfo);
-
-    setIsLoading(false);
+    fetchResults({
+      variables: {
+        query: debouncedSearchQuery,
+        first: appConfig?.postsPerPage,
+        // after: psgeInfo?.endCursor,
+        after: undefined,
+      },
+    });
   }, [debouncedSearchQuery, fetchResults]);
 
   function clearResults() {
@@ -85,6 +79,19 @@ export default function useSearch() {
 
     setIsLoading(false);
   }
+
+  useEffect(() => {
+    if (searchData) {
+      setSearchResults(searchData?.products?.nodes);
+      // setPageInfo(res?.pageInfo);
+
+      setIsLoading(false);
+    }
+
+    if (searchError) {
+      setError(searchError);
+    }
+  }, [searchData, searchError]);
 
   /**
    * Populate the search input with the searchQuery url param if it exists.

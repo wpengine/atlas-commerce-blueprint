@@ -1,9 +1,8 @@
 import { useState, useMemo } from 'react';
 import { gql, useQuery } from '@apollo/client';
 import { getWordPressProps } from '@faustwp/core';
-import { BlogInfoFragment } from '../../fragments/GeneralSettings';
-import { ProductsFragment } from '../../fragments/Products';
-import { ProductQuery } from '../../queries/Product';
+import { BlogInfoFragment } from '../fragments/GeneralSettings';
+import { ProductFragment } from '../fragments/Products';
 import {
   Banner,
   Header,
@@ -20,39 +19,32 @@ import {
   ProductPrice,
   ProductDescription,
   ProductGallery,
-} from '../../components';
+} from '../components';
 import {
   computeVariantOrModificationFormFields,
   lookupProductVariants,
   checkPriceAdjuster,
-} from '../../helpers/productHelpers.js';
-import * as MENUS from '../../constants/menus';
-import useAtlasEcom from '../../hooks/useAtlasEcom';
+} from '../helpers/productHelpers.js';
+import * as MENUS from '../constants/menus';
+import useAtlasEcom from '../hooks/useAtlasEcom';
 import classNames from 'classnames';
-import styles from '../../styles/pages/_Product.module.scss';
+import styles from '../styles/pages/_Product.module.scss';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
 const cx = classNames.bind(styles);
 
-export default function Page({
-  __TEMPLATE_QUERY_DATA__: templateData,
-  params,
-}) {
-  // Needs to be called here because querying custom post types (Products and Banners etc)
-  // doesnt seem to work when generating props
-  const { data: productData, loading: productLoading } = useQuery(
-    ProductQuery,
-    {
-      variables: { slug: params.productSlug },
-    }
-  );
+export default function Component(props) {
+  // Loading state for previews
+  if (props.loading) {
+    return <>Loading...</>;
+  }
 
   const { title: siteTitle, description: siteDescription } =
-    templateData?.generalSettings;
-  const primaryMenu = templateData?.headerMenuItems?.nodes ?? [];
-  const footerMenu = templateData?.footerMenuItems?.nodes ?? [];
-  const product = productData?.products?.nodes[0] ?? {};
+    props?.data?.generalSettings;
+  const primaryMenu = props?.data?.headerMenuItems?.nodes ?? [];
+  const footerMenu = props?.data?.footerMenuItems?.nodes ?? [];
+  const product = props?.data?.product ?? {};
 
   const relatedProductIds = JSON.parse(product?.relatedProducts ?? '[]');
   const relatedProducts = null; // make request for these
@@ -63,7 +55,7 @@ export default function Page({
 
   const productName = product?.name;
   const bigCommerceId = product?.bigCommerceID;
-  const baseVariantId = product?.variants?.nodes[0].bigCommerceVariantID;
+  const baseVariantId = '';
   let productImages = product?.images?.edges ?? []; // make request for these
 
   const sortedFormFields = useMemo(
@@ -242,50 +234,18 @@ export default function Page({
   );
 }
 
-export async function getStaticProps(ctx) {
-  const wpProps = await getWordPressProps({ ctx });
-  wpProps.props.params = ctx.params;
-
-  return wpProps;
-}
-
-export async function getStaticPaths() {
-  return {
-    paths: [],
-    fallback: 'blocking',
-  };
-}
-
-Page.query = gql`
+Component.query = gql`
   ${BlogInfoFragment}
+  ${ProductFragment}
   ${NavigationMenu.fragments.entry}
-  ${FeaturedImage.fragments.entry}
-  query GetProductPage(
-    $uri: String!
+  query GetProduct(
+    $databaseId: ID!
     $headerLocation: MenuLocationEnum
     $footerLocation: MenuLocationEnum
+    $asPreview: Boolean = false
   ) {
-    nodeByUri(uri: $uri) {
-      ... on Category {
-        name
-        posts {
-          edges {
-            node {
-              id
-              title
-              content
-              date
-              uri
-              ...FeaturedImageFragment
-              author {
-                node {
-                  name
-                }
-              }
-            }
-          }
-        }
-      }
+    product(id: $databaseId, idType: DATABASE_ID, asPreview: $asPreview) {
+      ...ProductFragment
     }
     generalSettings {
       ...BlogInfoFragment
@@ -303,10 +263,11 @@ Page.query = gql`
   }
 `;
 
-Page.variables = ({ uri, params }, ctx) => {
+Component.variables = ({ databaseId }, ctx) => {
   return {
-    uri,
+    databaseId,
     headerLocation: MENUS.PRIMARY_LOCATION,
     footerLocation: MENUS.FOOTER_LOCATION,
+    asPreview: ctx?.asPreview,
   };
 };

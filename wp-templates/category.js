@@ -14,6 +14,11 @@ import {
 } from '../components';
 
 export default function Component(props) {
+  // Loading state for previews
+  if (props.loading) {
+    return <>Loading...</>;
+  }
+
   const { title: siteTitle, description: siteDescription } =
     props?.data?.generalSettings;
   const primaryMenu = props?.data?.headerMenuItems?.nodes ?? [];

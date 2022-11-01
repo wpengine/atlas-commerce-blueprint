@@ -8,7 +8,6 @@ import {
   Footer,
   Header,
   Main,
-  Notification,
   NavigationMenu,
   FeaturedImage,
   SearchInput,
@@ -16,16 +15,21 @@ import {
   SearchResults,
   SEO,
 } from '../components';
+import * as MENUS from '../constants/menus';
 import useSearch from '../hooks/useSearch';
 import styles from '../styles/pages/_Search.module.scss';
 
-export default function Page({ __TEMPLATE_QUERY_DATA__: templateData }) {
-  const { title: siteTitle, description: siteDescription } =
-    templateData?.generalSettings;
-  const primaryMenu = templateData?.headerMenuItems?.nodes ?? [];
-  const footerMenu = templateData?.footerMenuItems?.nodes ?? [];
-  const { title, content, featuredImage } = templateData?.page ?? { title: '' };
-  const storeSettings = templateData?.storeSettings?.nodes ?? [];
+export default function Page(props) {
+  // Loading state for previews
+  if (props.loading) {
+    return <>Loading...</>;
+  }
+
+  const { title: siteTitle, description: siteDescription } = props?.data
+    ?.generalSettings ?? { '': '' };
+  const primaryMenu = props?.data?.headerMenuItems?.nodes ?? [];
+  const footerMenu = props?.data?.footerMenuItems?.nodes ?? [];
+  const storeSettings = props?.data?.storeSettings?.nodes ?? [];
 
   const {
     searchQuery,
@@ -37,9 +41,6 @@ export default function Page({ __TEMPLATE_QUERY_DATA__: templateData }) {
     error,
   } = useSearch();
 
-  // console.log(searchQuery);
-  // console.log(searchResults);
-
   return (
     <>
       <SEO title={siteTitle} description={siteDescription} />
@@ -47,7 +48,7 @@ export default function Page({ __TEMPLATE_QUERY_DATA__: templateData }) {
         title={siteTitle}
         description={siteDescription}
         menuItems={primaryMenu}
-        storeSettings={templateData?.storeSettings}
+        storeSettings={props?.data?.storeSettings}
       />
       <Banner />
       <Main>
@@ -89,7 +90,7 @@ export default function Page({ __TEMPLATE_QUERY_DATA__: templateData }) {
         </div>
       </Main>
 
-      <Footer storeSettings={storeSettings} />
+      <Footer storeSettings={storeSettings} menuItems={footerMenu} />
     </>
   );
 }
@@ -102,39 +103,23 @@ Page.query = gql`
   ${BlogInfoFragment}
   ${NavigationMenu.fragments.entry}
   ${FeaturedImage.fragments.entry}
-  query GetSearchPage(
-    $uri: String!
+  query GetPageData(
+    $databaseId: ID!
     $headerLocation: MenuLocationEnum
     $footerLocation: MenuLocationEnum
+    $asPreview: Boolean = false
   ) {
-    nodeByUri(uri: $uri) {
-      ... on Category {
-        name
-        posts {
-          edges {
-            node {
-              id
-              title
-              content
-              date
-              uri
-              ...FeaturedImageFragment
-              author {
-                node {
-                  name
-                }
-              }
-            }
-          }
-        }
-      }
+    page(id: $databaseId, idType: DATABASE_ID, asPreview: $asPreview) {
+      title
+      content
+      ...FeaturedImageFragment
     }
     generalSettings {
       ...BlogInfoFragment
     }
-    storeSettings {
+    footerMenuItems: menuItems(where: { location: $footerLocation }) {
       nodes {
-        ...StoreSettingsFragment
+        ...NavigationMenuItemFragment
       }
     }
     headerMenuItems: menuItems(where: { location: $headerLocation }) {
@@ -142,18 +127,14 @@ Page.query = gql`
         ...NavigationMenuItemFragment
       }
     }
-    footerMenuItems: menuItems(where: { location: $footerLocation }) {
-      nodes {
-        ...NavigationMenuItemFragment
-      }
-    }
   }
 `;
 
-Page.variables = ({ uri }, ctx) => {
+Page.variables = ({ databaseId }, ctx) => {
   return {
-    uri,
+    databaseId,
     headerLocation: MENUS.PRIMARY_LOCATION,
     footerLocation: MENUS.FOOTER_LOCATION,
+    asPreview: ctx?.asPreview,
   };
 };

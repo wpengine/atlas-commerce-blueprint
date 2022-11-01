@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { FaBars, FaSearch } from 'react-icons/fa';
 import { NavigationMenu, SkipNavigationLink } from '../../components';
-import * as MENUS from '../../constants/menus';
 import Link from 'next/link';
 import className from 'classnames/bind';
 import cookieCutter from 'cookie-cutter';
@@ -225,7 +224,7 @@ function CartQuickView({ storeSettings }) {
                   href={cartData?.redirect_urls.cart_url}
                   className={styles['button']}
                   target='_blank'
-                  rel='no-referrer'
+                  rel='noreferrer'
                 >
                   View cart
                 </a>

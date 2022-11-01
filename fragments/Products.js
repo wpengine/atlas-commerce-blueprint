@@ -26,3 +26,38 @@ export const ProductsFragment = gql`
     }
   }
 `;
+
+export const ProductFragment = gql`
+  fragment ProductFragment on Product {
+    id
+    name
+    sku
+    price
+    salePrice
+    calculatedPrice
+    reviewsRating
+    totalSold
+    bigCommerceID
+    slug
+    productFormFieldsJson
+    relatedProducts
+    variantLookupJson
+    modifierLookupJson
+    variants(last: 1) {
+      nodes {
+        bigCommerceVariantID
+      }
+    }
+    images {
+      edges {
+        node {
+          id
+          description
+          urlStandard
+          urlZoom
+          urlThumbnail
+        }
+      }
+    }
+  }
+`;

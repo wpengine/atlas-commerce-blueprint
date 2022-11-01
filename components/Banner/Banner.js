@@ -5,7 +5,7 @@ import { BannerQuery } from '../../queries/Banners';
  * @return {React.ReactElement} The Banner component.
  */
 export default function Banner() {
-  const { data: bannerData, loading: bannerLoading } = useQuery(BannerQuery);
+  const { data: bannerData } = useQuery(BannerQuery);
 
   const notificationBanner = bannerData?.banners?.nodes[0];
 

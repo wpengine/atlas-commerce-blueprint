@@ -6,7 +6,8 @@
     "dev": "faust dev",
     "build": "faust build",
     "generate": "faust generatePossibleTypes",
-    "start": "faust start"
+    "start": "faust start",
+    "lint": "next lint"
   },
   "dependencies": {
     "@apollo/client": "^3.6.6",
@@ -26,5 +27,10 @@
     "sass": "^1.54.9",
     "slick-carousel": "^1.8.1",
     "use-debounce": "^8.0.4"
+  },
+  "devDependencies": {
+    "eslint": "8.26.0",
+    "eslint-config-next": "13.0.1",
+    "eslint-plugin-unused-imports": "^2.0.0"
   }
 }

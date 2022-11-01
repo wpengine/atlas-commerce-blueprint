@@ -14,9 +14,8 @@ import Link from 'next/link';
 
 const cx = classNames.bind(styles);
 
-export default function ProductSummary({ product, imageAltText }) {
+export default function ProductSummary({ product }) {
   const productHref = `/product/${product?.slug}`;
-  // const image = product.images({ first: 1 })?.nodes?.[0]?.urlStandard;
   console.log(product);
   const image = product?.images?.edges[0]?.node?.urlStandard;
 
