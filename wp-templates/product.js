@@ -1,6 +1,5 @@
 import { useState, useMemo } from 'react';
-import { gql, useQuery } from '@apollo/client';
-import { getWordPressProps } from '@faustwp/core';
+import { gql } from '@apollo/client';
 import { BlogInfoFragment } from '../fragments/GeneralSettings';
 import { ProductFragment } from '../fragments/Products';
 import {
@@ -9,10 +8,7 @@ import {
   Footer,
   Main,
   Container,
-  EntryHeader,
   NavigationMenu,
-  Post,
-  FeaturedImage,
   SEO,
   ProductSummary,
   ProductMeta,
@@ -35,13 +31,8 @@ import 'slick-carousel/slick/slick-theme.css';
 const cx = classNames.bind(styles);
 
 export default function Component(props) {
-  // Loading state for previews
-  if (props.loading) {
-    return <>Loading...</>;
-  }
-
   const { title: siteTitle, description: siteDescription } =
-    props?.data?.generalSettings;
+    props?.data?.generalSettings ?? {};
   const primaryMenu = props?.data?.headerMenuItems?.nodes ?? [];
   const footerMenu = props?.data?.footerMenuItems?.nodes ?? [];
   const product = props?.data?.product ?? {};
@@ -153,6 +144,11 @@ export default function Component(props) {
 
       window.scrollTo(0, 0);
     });
+  }
+
+  // Loading state for previews
+  if (props.loading) {
+    return <>Loading...</>;
   }
 
   return (

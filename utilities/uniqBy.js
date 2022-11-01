@@ -15,6 +15,7 @@ const uniqBy = (arr, pred) => {
         map.has(key) || map.set(key, item);
 
         return map;
+        // eslint-disable-next-line no-undef
       }, new Map())
       .values(),
   ];

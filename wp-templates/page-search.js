@@ -20,11 +20,6 @@ import useSearch from '../hooks/useSearch';
 import styles from '../styles/pages/_Search.module.scss';
 
 export default function Page(props) {
-  // Loading state for previews
-  if (props.loading) {
-    return <>Loading...</>;
-  }
-
   const { title: siteTitle, description: siteDescription } = props?.data
     ?.generalSettings ?? { '': '' };
   const primaryMenu = props?.data?.headerMenuItems?.nodes ?? [];
@@ -40,6 +35,11 @@ export default function Page(props) {
     pageInfo,
     error,
   } = useSearch();
+
+  // Loading state for previews
+  if (props.loading) {
+    return <>Loading...</>;
+  }
 
   return (
     <>

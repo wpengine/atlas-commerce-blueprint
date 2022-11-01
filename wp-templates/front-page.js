@@ -1,4 +1,4 @@
-import { gql, useQuery } from '@apollo/client';
+import { gql } from '@apollo/client';
 import * as MENUS from '../constants/menus';
 import { BlogInfoFragment } from '../fragments/GeneralSettings';
 import { StoreSettingsFragment } from '../fragments/StoreSettings';
@@ -7,25 +7,23 @@ import {
   Header,
   Footer,
   Main,
-  Container,
   ContentWrapper,
   NavigationMenu,
-  Hero,
   FeaturedImage,
   SEO,
 } from '../components';
 
 export default function Component(props) {
+  const { title: siteTitle, description: siteDescription } =
+    props?.data?.generalSettings ?? {};
+  const primaryMenu = props?.data?.headerMenuItems?.nodes ?? [];
+  const footerMenu = props?.data?.footerMenuItems?.nodes ?? [];
+  const { content } = props?.data?.page ?? { title: '' };
+
   // Loading state for previews
   if (props.loading) {
     return <>Loading...</>;
   }
-
-  const { title: siteTitle, description: siteDescription } =
-    props?.data?.generalSettings;
-  const primaryMenu = props?.data?.headerMenuItems?.nodes ?? [];
-  const footerMenu = props?.data?.footerMenuItems?.nodes ?? [];
-  const { title, content, featuredImage } = props?.data?.page ?? { title: '' };
 
   return (
     <>
