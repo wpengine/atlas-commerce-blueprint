@@ -161,7 +161,7 @@ export default function Component(props) {
       />
       <Banner />
       <Main>
-        <Container className={cx(styles.product)}>
+        <Container classes={cx(styles.product)}>
           {productNotification ? (
             <div
               className={cx(
