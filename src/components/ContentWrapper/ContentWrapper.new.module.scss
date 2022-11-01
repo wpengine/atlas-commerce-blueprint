@@ -1,0 +1,61 @@
+@import 'styles/Variables';
+
+.content {
+  :global {
+    .wp-block-atlas-commerce-blocks-hero {
+      #atlas-commerce-blocks-hero {
+        .gb-layout-column-wrap {
+          max-width: 1200px;
+          width: 66%;
+
+          @media (max-width: $breakpoint-extra-small) {
+            max-width: 100%;
+            width: 100%;
+          }
+        }
+      }
+    }
+
+    .wc-block-grid {
+      width: percentage(10/12);
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 8%;
+
+      .wc-block-grid__products {
+        display: flex;
+        flex-wrap: wrap;
+        height: auto !important;
+
+        ._wc-block-grid__product {
+          width: 100% !important;
+          height: auto !important;
+          padding: 20px;
+
+          @media (min-width: 768px) {
+            width: 50% !important;
+          }
+
+          @media (min-width: 992px) {
+            width: 33.33% !important;
+          }
+
+          .price {
+            padding: 0.75em 0;
+          }
+        }
+      }
+    }
+
+    .wp-block-column {
+      padding: 0 1em;
+    }
+
+    // Very temporary!
+    .gb-block-layout-column-inner {
+      > h2:first-child {
+        margin-top: 1.5em;
+      }
+    }
+  }
+}
