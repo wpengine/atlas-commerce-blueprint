@@ -20,6 +20,7 @@ import {
 const cx = classNames.bind(styles);
 
 export default function Component(props) {
+  console.log(props);
   const { title: siteTitle, description: siteDescription } =
     props?.data?.generalSettings ?? {};
   const primaryMenu = props?.data?.headerMenuItems?.nodes ?? [];
@@ -87,7 +88,7 @@ Component.query = gql`
         ...NavigationMenuItemFragment
       }
     }
-    products {
+    products(first: 100) {
       nodes {
         ...ProductsFragment
       }
