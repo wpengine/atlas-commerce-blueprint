@@ -1,6 +1,7 @@
 import { gql } from '@apollo/client';
 import * as MENUS from '../constants/menus';
 import { BlogInfoFragment } from '../fragments/GeneralSettings';
+import { StoreSettingsFragment } from '../fragments/StoreSettings';
 import {
   Banner,
   Header,
@@ -37,6 +38,7 @@ export default function Component(props) {
         title={siteTitle}
         description={siteDescription}
         menuItems={primaryMenu}
+        storeSettings={props?.data?.storeSettings}
       />
       <Banner />
       <Main>
@@ -61,6 +63,7 @@ Component.query = gql`
   ${BlogInfoFragment}
   ${NavigationMenu.fragments.entry}
   ${FeaturedImage.fragments.entry}
+  ${StoreSettingsFragment}
   query GetPost(
     $databaseId: ID!
     $headerLocation: MenuLocationEnum
@@ -80,6 +83,11 @@ Component.query = gql`
     }
     generalSettings {
       ...BlogInfoFragment
+    }
+    storeSettings {
+      nodes {
+        ...StoreSettingsFragment
+      }
     }
     headerMenuItems: menuItems(where: { location: $headerLocation }) {
       nodes {

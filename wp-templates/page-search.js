@@ -2,6 +2,7 @@ import React from 'react';
 import { gql } from '@apollo/client';
 import { getWordPressProps } from '@faustwp/core';
 import { BlogInfoFragment } from '../fragments/GeneralSettings';
+import { StoreSettingsFragment } from '../fragments/StoreSettings';
 import {
   Banner,
   Button,
@@ -25,6 +26,7 @@ export default function Page(props) {
   const primaryMenu = props?.data?.headerMenuItems?.nodes ?? [];
   const footerMenu = props?.data?.footerMenuItems?.nodes ?? [];
   const storeSettings = props?.data?.storeSettings?.nodes ?? [];
+  const productCategories = props?.data?.productCategories?.edges ?? [];
 
   const {
     searchQuery,
@@ -86,7 +88,9 @@ export default function Page(props) {
             </div>
           )}
 
-          {!isLoading && searchResults === null && <SearchRecommendations />}
+          {!isLoading && searchResults === null && (
+            <SearchRecommendations categories={productCategories} />
+          )}
         </div>
       </Main>
 
@@ -103,6 +107,7 @@ Page.query = gql`
   ${BlogInfoFragment}
   ${NavigationMenu.fragments.entry}
   ${FeaturedImage.fragments.entry}
+  ${StoreSettingsFragment}
   query GetPageData(
     $databaseId: ID!
     $headerLocation: MenuLocationEnum
@@ -117,6 +122,11 @@ Page.query = gql`
     generalSettings {
       ...BlogInfoFragment
     }
+    storeSettings {
+      nodes {
+        ...StoreSettingsFragment
+      }
+    }
     footerMenuItems: menuItems(where: { location: $footerLocation }) {
       nodes {
         ...NavigationMenuItemFragment
@@ -125,6 +135,16 @@ Page.query = gql`
     headerMenuItems: menuItems(where: { location: $headerLocation }) {
       nodes {
         ...NavigationMenuItemFragment
+      }
+    }
+    productCategories {
+      edges {
+        node {
+          databaseId
+          id
+          name
+          slug
+        }
       }
     }
   }

@@ -6,17 +6,15 @@ import styles from './SearchRecommendations.module.scss';
  *
  * @returns {React.ReactElement} The SearchRecommendations component.
  */
-export default function SearchRecommendations() {
-  const categoryNodes = [];
-
+export default function SearchRecommendations({ categories }) {
   return (
     <div className={styles.recommendations}>
       <h4>Browse by Category</h4>
       <ul>
-        {categoryNodes?.map((node) => (
-          <li key={node?.databaseId ?? 0}>
-            <Link href={'/product-category/' + node?.slug ?? '#'}>
-              <a>{node.name}</a>
+        {categories?.map((category) => (
+          <li key={category?.node?.databaseId ?? 0}>
+            <Link href={'/productcategory/' + category?.node?.slug ?? '#'}>
+              <a>{category?.node.name}</a>
             </Link>
           </li>
         ))}

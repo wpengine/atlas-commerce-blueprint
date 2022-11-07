@@ -44,7 +44,7 @@ const ProductMeta = ({
     'The selected product combination is currently unavailable.';
 
   return (
-    <div className='product_meta'>
+    <div className={styles.productMeta}>
       <p>SKU: {displayProduct?.sku}</p>
 
       {productCategories?.length ? (
@@ -97,11 +97,7 @@ const ProductMeta = ({
           </div>
         ) : null}
 
-        <Button
-          styleType='secondary'
-          className={styles.addToCart}
-          disabled={purchaseDisabled}
-        >
+        <Button className={styles.addToCart} disabled={purchaseDisabled}>
           Add to cart
         </Button>
       </form>

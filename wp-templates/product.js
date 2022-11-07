@@ -2,6 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { gql } from '@apollo/client';
 import { BlogInfoFragment } from '../fragments/GeneralSettings';
 import { ProductFragment } from '../fragments/Products';
+import { StoreSettingsFragment } from '../fragments/StoreSettings';
 import {
   Banner,
   Header,
@@ -163,6 +164,7 @@ export default function Component(props) {
         title={siteTitle}
         description={siteDescription}
         menuItems={primaryMenu}
+        storeSettings={props?.data?.storeSettings}
       />
       <Banner />
       <Main>
@@ -228,6 +230,7 @@ Component.query = gql`
   ${BlogInfoFragment}
   ${ProductFragment}
   ${NavigationMenu.fragments.entry}
+  ${StoreSettingsFragment}
   query GetProduct(
     $databaseId: ID!
     $headerLocation: MenuLocationEnum
@@ -239,6 +242,11 @@ Component.query = gql`
     }
     generalSettings {
       ...BlogInfoFragment
+    }
+    storeSettings {
+      nodes {
+        ...StoreSettingsFragment
+      }
     }
     headerMenuItems: menuItems(where: { location: $headerLocation }) {
       nodes {

@@ -37,8 +37,8 @@ export default function Header({
   var storeLogo = null;
   try {
     storeLogo =
-      storeSettings?.storeLogo != undefined
-        ? JSON.parse(storeSettings?.storeLogo)
+      storeSettings?.nodes[0].storeLogo != undefined
+        ? JSON.parse(storeSettings?.nodes[0].storeLogo)
         : '';
   } catch (err) {
     console.log('error', err);
@@ -78,7 +78,7 @@ export default function Header({
           <div className={styles['logo']}>
             <Link href='/'>
               <a title='Home'>
-                {storeLogo.url && <img src={storeLogo?.url} alt='Store Logo' />}
+                {storeLogo.url && <img src={storeLogo.url} alt='Store Logo' />}
                 <h3 style={{ color: storeSettings?.storeSecondaryColor }}>
                   {title}
                 </h3>
