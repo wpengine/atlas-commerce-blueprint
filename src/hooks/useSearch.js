@@ -21,7 +21,7 @@ export default function useSearch() {
     searchInputDebounceMs
   );
   const [searchResults, setSearchResults] = useState(null);
-  // const [pageInfo, setPageInfo] = useState(null);
+  const [pageInfo, setPageInfo] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const router = useRouter();
@@ -51,7 +51,7 @@ export default function useSearch() {
       variables: {
         query: debouncedSearchQuery,
         first: appConfig?.postsPerPage,
-        // after: psgeInfo?.endCursor,
+        // after: pageInfo?.endCursor,
         after: undefined,
       },
     });
