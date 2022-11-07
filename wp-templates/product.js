@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
 import { gql } from '@apollo/client';
 import { BlogInfoFragment } from '../fragments/GeneralSettings';
 import { ProductFragment } from '../fragments/Products';
@@ -10,11 +10,11 @@ import {
   Container,
   NavigationMenu,
   SEO,
-  ProductSummary,
   ProductMeta,
   ProductPrice,
   ProductDescription,
   ProductGallery,
+  RelatedProducts,
 } from '../components';
 import {
   computeVariantOrModificationFormFields,
@@ -37,8 +37,13 @@ export default function Component(props) {
   const footerMenu = props?.data?.footerMenuItems?.nodes ?? [];
   const product = props?.data?.product ?? {};
 
-  const relatedProductIds = JSON.parse(product?.relatedProducts ?? '[]');
-  const relatedProducts = null; // make request for these
+  let relatedProductIds = [];
+  try {
+    relatedProductIds = JSON.parse(product?.relatedProducts);
+  } catch (err) {
+    console.error(err);
+    console.log('There was an error parsing the related product ids');
+  }
 
   const productFormFields = JSON.parse(product?.productFormFieldsJson ?? '[]');
   const variantLookup = JSON.parse(product?.variantLookupJson ?? '{}');
@@ -210,20 +215,9 @@ export default function Component(props) {
             </div>
           </div>
         </Container>
-
-        {relatedProducts?.length > 0 ? (
-          <div className={cx('container', 'related-products')}>
-            <h1>Related Products</h1>
-            <div className='row row-wrap'>
-              {relatedProducts.map((product) => (
-                <ProductSummary
-                  product={product}
-                  key={`related-product-${product.slug}`}
-                />
-              ))}
-            </div>
-          </div>
-        ) : null}
+        {relatedProductIds.length && relatedProductIds[0] !== -1 && (
+          <RelatedProducts relatedProductIds={relatedProductIds} />
+        )}
       </Main>
       <Footer title={siteTitle} menuItems={footerMenu} />
     </>

@@ -16,7 +16,6 @@ const cx = classNames.bind(styles);
 
 export default function ProductSummary({ product }) {
   const productHref = `/product/${product?.slug}`;
-  console.log(product);
   const image = product?.images?.edges[0]?.node?.urlStandard;
 
   return (

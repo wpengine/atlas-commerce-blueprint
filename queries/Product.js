@@ -72,3 +72,36 @@ export const SearchProductQuery = gql`
     }
   }
 `;
+
+export const RelatedProductsQuery = gql`
+  query RelatedProducts($relatedProductIds: [ID]!) {
+    products(where: { bigCommerceIDIn: $relatedProductIds }) {
+      nodes {
+        id
+        name
+        sku
+        price
+        salePrice
+        calculatedPrice
+        reviewsRating
+        totalSold
+        bigCommerceID
+        slug
+        productFormFieldsJson
+        variantLookupJson
+        modifierLookupJson
+        images {
+          edges {
+            node {
+              id
+              description
+              urlStandard
+              urlZoom
+              urlThumbnail
+            }
+          }
+        }
+      }
+    }
+  }
+`;
