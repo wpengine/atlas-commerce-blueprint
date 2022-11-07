@@ -37,7 +37,7 @@ const ProductMeta = ({
 
   const displayProduct = productVariant ?? product;
   const productBrand = product.brand?.node;
-  const productCategories = null; // make request for these
+  const productCategories = product.productCategories?.edges; // make request for these
 
   let purchaseDisabledMessage =
     modifierPurchaseDisabled.purchaseDisabledMessage ||
@@ -50,14 +50,14 @@ const ProductMeta = ({
       {productCategories?.length ? (
         <p>
           Categories:{' '}
-          {product.productCategories().nodes.map((category, index) => (
-            <span key={category.id}>
+          {productCategories.map((category, index) => (
+            <span key={category.node.id}>
               {index === 0 ? '' : ', '}
               <Link
-                href={`/product-category/${category.slug}`}
-                key={category.id}
+                href={`/productcategory/${category.node.slug}`}
+                key={category.node.id}
               >
-                <a>{category.name}</a>
+                <a>{category.node.name}</a>
               </Link>
             </span>
           ))}

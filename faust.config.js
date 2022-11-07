@@ -20,11 +20,32 @@ class ProductTemplatePlugin {
   }
 }
 
+class ProductCategoryTemplatePlugin {
+  constructor() {}
+
+  apply(hooks) {
+    hooks.addFilter(
+      'possibleTemplatesList',
+      'ProductCategoryTemplate',
+      (templates, data) => {
+        console.log(data);
+        if (data?.seedNode?.__typename === 'ProductCategory') {
+          return Array.from(new Set(['product-category', ...templates]));
+        }
+        return templates;
+      }
+    );
+  }
+}
+
 /**
  * @type {import('@faustwp/core').FaustConfig}
  **/
 export default setConfig({
   templates,
-  experimentalPlugins: [new ProductTemplatePlugin()],
+  experimentalPlugins: [
+    new ProductTemplatePlugin(),
+    new ProductCategoryTemplatePlugin(),
+  ],
   possibleTypes,
 });

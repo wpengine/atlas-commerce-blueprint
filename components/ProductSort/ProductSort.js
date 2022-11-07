@@ -2,18 +2,21 @@ import { useState, useMemo } from 'react';
 import { ProductSummary } from '../../components';
 import SortUI from './SortUI';
 
-export default function ProductSort({ products }) {
+export default function ProductSort({ products, isCategoryList }) {
   const productsMap = useMemo(
     () =>
-      products.map((product, index) => ({
-        product,
-        index,
-        price: product.salePrice === 0 ? product.price : product.salePrice,
-        rating: product.reviewsRating,
-        popularity: product.totalSold,
-        latest: product.bigCommerceID,
-      })),
-    [products]
+      products.map((productData, index) => {
+        const product = isCategoryList ? productData.node : productData;
+        return {
+          product,
+          index,
+          price: product.salePrice === 0 ? product.price : product.salePrice,
+          rating: product.reviewsRating,
+          popularity: product.totalSold,
+          latest: product.bigCommerceID,
+        };
+      }),
+    [products, isCategoryList]
   );
 
   const [sortOrder, setSortOrder] = useState('index');

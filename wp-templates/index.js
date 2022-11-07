@@ -6,6 +6,7 @@ import single from './single';
 import shop from './page-shop';
 import search from './page-search';
 import product from './product';
+import productCategory from './product-category';
 
 export default {
   category,
@@ -13,6 +14,7 @@ export default {
   'front-page': frontPage,
   'page-shop': shop,
   'page-search': search,
+  'product-category': productCategory,
   page,
   single,
   product,
