@@ -69,6 +69,7 @@ Component.query = gql`
     $headerLocation: MenuLocationEnum
     $footerLocation: MenuLocationEnum
     $slug: ID!
+    $asPreview: Boolean = false
   ) {
     generalSettings {
       ...BlogInfoFragment
@@ -88,7 +89,7 @@ Component.query = gql`
         ...NavigationMenuItemFragment
       }
     }
-    productCategory(id: $slug, idType: SLUG) {
+    productCategory(id: $slug, idType: SLUG, asPreview: $asPreview) {
       id
       name
       products {
@@ -102,11 +103,12 @@ Component.query = gql`
   }
 `;
 
-Component.variables = ({ databaseId, slug }) => {
+Component.variables = ({ databaseId, slug }, ctx) => {
   return {
     databaseId,
     slug,
     headerLocation: MENUS.PRIMARY_LOCATION,
     footerLocation: MENUS.FOOTER_LOCATION,
+    asPreview: ctx?.asPreview,
   };
 };
