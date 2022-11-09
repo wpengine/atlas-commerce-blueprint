@@ -4,6 +4,7 @@ export const ProductsFragment = gql`
   fragment ProductsFragment on Product {
     id
     name
+    description
     price
     salePrice
     reviewsRating
@@ -32,6 +33,7 @@ export const ProductFragment = gql`
     id
     name
     sku
+    description
     price
     salePrice
     calculatedPrice

@@ -52,7 +52,7 @@ export default function Component(props) {
 
   const productName = product?.name;
   const bigCommerceId = product?.bigCommerceID;
-  const baseVariantId = '';
+  const baseVariantId = product?.variants?.nodes[0]?.bigCommerceVariantID;
   let productImages = product?.images?.edges ?? []; // make request for these
 
   const sortedFormFields = useMemo(

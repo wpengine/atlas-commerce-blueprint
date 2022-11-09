@@ -7,6 +7,7 @@ export const ProductQuery = gql`
         id
         name
         sku
+        description
         price
         salePrice
         calculatedPrice
@@ -46,6 +47,7 @@ export const SearchProductQuery = gql`
         id
         name
         sku
+        description
         price
         salePrice
         calculatedPrice
@@ -80,6 +82,7 @@ export const RelatedProductsQuery = gql`
         id
         name
         sku
+        description
         price
         salePrice
         calculatedPrice
