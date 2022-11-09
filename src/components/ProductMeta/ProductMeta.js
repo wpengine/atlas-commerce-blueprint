@@ -54,7 +54,7 @@ const ProductMeta = ({
             <span key={category.node.id}>
               {index === 0 ? '' : ', '}
               <Link
-                href={`/productcategory/${category.node.slug}`}
+                href={`/product-category/${category.node.slug}`}
                 key={category.node.id}
               >
                 <a>{category.node.name}</a>
