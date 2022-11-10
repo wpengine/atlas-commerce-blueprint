@@ -6,6 +6,7 @@ import {
   Header,
   Footer,
   Main,
+  Banner,
   Container,
   EntryHeader,
   NavigationMenu,
@@ -35,6 +36,7 @@ export default function Component(props) {
         menuItems={primaryMenu}
         storeSettings={props?.data?.storeSettings}
       />
+      <Banner />
       <Main>
         <>
           <EntryHeader title={`Tag: ${name}`} />
