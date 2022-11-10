@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { ProductSummary } from '../../components';
+import { ProductSummary } from '@components';
 import SortUI from './SortUI';
 
 export default function ProductSort({ products, isCategoryList }) {

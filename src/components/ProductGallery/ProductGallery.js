@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import ReactImageMagnify from '@blacklab/react-image-magnify';
 import Slider from 'react-slick';
-import styles from '../../styles/pages/_Product.module.scss';
+import styles from '@styles/pages/_Product.module.scss';
 
 function ProductGallery({ images }) {
   const [productIndex, setProductIndex] = useState(0);

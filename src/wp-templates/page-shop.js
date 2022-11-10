@@ -1,11 +1,11 @@
 import { gql } from '@apollo/client';
-import * as MENUS from '../constants/menus';
-import { BlogInfoFragment } from '../fragments/GeneralSettings';
-import { ProductsFragment } from '../fragments/Products';
-import { StoreSettingsFragment } from '../fragments/StoreSettings';
-import { BannerFragment } from '../fragments/Banners';
+import * as MENUS from '@constants/menus';
+import { BlogInfoFragment } from '@fragments/GeneralSettings';
+import { ProductsFragment } from '@fragments/Products';
+import { StoreSettingsFragment } from '@fragments/StoreSettings';
+import { BannerFragment } from '@fragments/Banners';
 import classNames from 'classnames/bind';
-import styles from '../styles/pages/_Shop.module.scss';
+import styles from '@styles/pages/_Shop.module.scss';
 import {
   Banner,
   Header,
@@ -17,7 +17,7 @@ import {
   FeaturedImage,
   ProductSort,
   SEO,
-} from '../components';
+} from '@components';
 
 const cx = classNames.bind(styles);
 

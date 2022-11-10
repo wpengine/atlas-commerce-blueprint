@@ -1,6 +1,6 @@
 import React from 'react';
 import { checkPurchaseDisabled } from '../../helpers/productHelpers.js';
-import { ProductFormField, Button } from '../../components';
+import { ProductFormField, Button } from '@components';
 import Link from 'next/link';
 import styles from './ProductMeta.module.scss';
 

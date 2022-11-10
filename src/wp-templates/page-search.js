@@ -1,8 +1,8 @@
 import React from 'react';
 import { gql } from '@apollo/client';
 import { getWordPressProps } from '@faustwp/core';
-import { BlogInfoFragment } from '../fragments/GeneralSettings';
-import { StoreSettingsFragment } from '../fragments/StoreSettings';
+import { BlogInfoFragment } from '@fragments/GeneralSettings';
+import { StoreSettingsFragment } from '@fragments/StoreSettings';
 import {
   Banner,
   Button,
@@ -15,10 +15,10 @@ import {
   SearchRecommendations,
   SearchResults,
   SEO,
-} from '../components';
-import * as MENUS from '../constants/menus';
+} from '@components';
+import * as MENUS from '@constants/menus';
 import useSearch from '../hooks/useSearch';
-import styles from '../styles/pages/_Search.module.scss';
+import styles from '@styles/pages/_Search.module.scss';
 
 export default function Page(props) {
   const { title: siteTitle, description: siteDescription } = props?.data

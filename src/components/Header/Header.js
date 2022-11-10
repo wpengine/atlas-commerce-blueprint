@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { FaBars, FaSearch } from 'react-icons/fa';
-import { NavigationMenu, SkipNavigationLink } from '../../components';
+import { NavigationMenu, SkipNavigationLink } from '@components';
 import Link from 'next/link';
 import className from 'classnames/bind';
 import cookieCutter from 'cookie-cutter';
-import useAtlasEcom from '../../hooks/useAtlasEcom';
+import useAtlasEcom from '@hooks/useAtlasEcom';
 
 import styles from './Header.module.scss';
 

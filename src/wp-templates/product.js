@@ -1,9 +1,9 @@
 import React, { useState, useMemo } from 'react';
 import { gql } from '@apollo/client';
-import { BlogInfoFragment } from '../fragments/GeneralSettings';
-import { ProductFragment } from '../fragments/Products';
-import { StoreSettingsFragment } from '../fragments/StoreSettings';
-import { BannerFragment } from '../fragments/Banners';
+import { BlogInfoFragment } from '@fragments/GeneralSettings';
+import { ProductFragment } from '@fragments/Products';
+import { StoreSettingsFragment } from '@fragments/StoreSettings';
+import { BannerFragment } from '@fragments/Banners';
 import {
   Banner,
   Header,
@@ -17,16 +17,16 @@ import {
   ProductDescription,
   ProductGallery,
   RelatedProducts,
-} from '../components';
+} from '@components';
 import {
   computeVariantOrModificationFormFields,
   lookupProductVariants,
   checkPriceAdjuster,
 } from '../helpers/productHelpers.js';
-import * as MENUS from '../constants/menus';
+import * as MENUS from '@constants/menus';
 import useAtlasEcom from '../hooks/useAtlasEcom';
 import classNames from 'classnames';
-import styles from '../styles/pages/_Product.module.scss';
+import styles from '@styles/pages/_Product.module.scss';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 

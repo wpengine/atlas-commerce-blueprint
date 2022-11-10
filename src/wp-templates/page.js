@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
-import * as MENUS from '../constants/menus';
-import { BlogInfoFragment } from '../fragments/GeneralSettings';
-import { StoreSettingsFragment } from '../fragments/StoreSettings';
-import { BannerFragment } from '../fragments/Banners';
+import * as MENUS from '@constants/menus';
+import { BlogInfoFragment } from '@fragments/GeneralSettings';
+import { StoreSettingsFragment } from '@fragments/StoreSettings';
+import { BannerFragment } from '@fragments/Banners';
 import {
   Banner,
   Header,
@@ -12,7 +12,7 @@ import {
   NavigationMenu,
   FeaturedImage,
   SEO,
-} from '../components';
+} from '@components';
 
 export default function Component(props) {
   const { title: siteTitle, description: siteDescription } =
