@@ -3,6 +3,7 @@ import * as MENUS from '../constants/menus';
 import { BlogInfoFragment } from '../fragments/GeneralSettings';
 import { ProductsFragment } from '../fragments/Products';
 import { StoreSettingsFragment } from '../fragments/StoreSettings';
+import { BannerFragment } from '../fragments/Banners';
 import classNames from 'classnames/bind';
 import styles from '../styles/pages/_Shop.module.scss';
 import {
@@ -21,9 +22,9 @@ import {
 const cx = classNames.bind(styles);
 
 export default function Component(props) {
-  console.log(props);
   const { title: siteTitle, description: siteDescription } =
     props?.data?.generalSettings ?? {};
+  const banner = props?.data?.banners?.nodes[0];
   const primaryMenu = props?.data?.headerMenuItems?.nodes ?? [];
   const footerMenu = props?.data?.footerMenuItems?.nodes ?? [];
   const products = props?.data?.products?.nodes ?? [];
@@ -47,7 +48,7 @@ export default function Component(props) {
         menuItems={primaryMenu}
         storeSettings={props?.data?.storeSettings}
       />
-      <Banner />
+      <Banner notificationBanner={banner} />
       <Main>
         <Container>
           <EntryHeader title='Shop' />
@@ -63,6 +64,7 @@ export default function Component(props) {
 
 Component.query = gql`
   ${BlogInfoFragment}
+  ${BannerFragment}
   ${NavigationMenu.fragments.entry}
   ${FeaturedImage.fragments.entry}
   ${ProductsFragment}
@@ -86,12 +88,17 @@ Component.query = gql`
         ...StoreSettingsFragment
       }
     }
-    footerMenuItems: menuItems(where: { location: $footerLocation }) {
+    banners {
+      nodes {
+        ...BannerFragment
+      }
+    }
+    headerMenuItems: menuItems(where: { location: $headerLocation }) {
       nodes {
         ...NavigationMenuItemFragment
       }
     }
-    headerMenuItems: menuItems(where: { location: $headerLocation }) {
+    footerMenuItems: menuItems(where: { location: $footerLocation }) {
       nodes {
         ...NavigationMenuItemFragment
       }

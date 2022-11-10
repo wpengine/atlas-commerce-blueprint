@@ -3,6 +3,7 @@ import { gql } from '@apollo/client';
 import { BlogInfoFragment } from '../fragments/GeneralSettings';
 import { ProductFragment } from '../fragments/Products';
 import { StoreSettingsFragment } from '../fragments/StoreSettings';
+import { BannerFragment } from '../fragments/Banners';
 import {
   Banner,
   Header,
@@ -34,6 +35,7 @@ const cx = classNames.bind(styles);
 export default function Component(props) {
   const { title: siteTitle, description: siteDescription } =
     props?.data?.generalSettings ?? {};
+  const banner = props?.data?.banners?.nodes[0];
   const primaryMenu = props?.data?.headerMenuItems?.nodes ?? [];
   const footerMenu = props?.data?.footerMenuItems?.nodes ?? [];
   const product = props?.data?.product ?? {};
@@ -166,7 +168,7 @@ export default function Component(props) {
         menuItems={primaryMenu}
         storeSettings={props?.data?.storeSettings}
       />
-      <Banner />
+      <Banner notificationBanner={banner} />
       <Main>
         <Container classes={cx(styles.product)}>
           {productNotification ? (
@@ -228,6 +230,7 @@ export default function Component(props) {
 
 Component.query = gql`
   ${BlogInfoFragment}
+  ${BannerFragment}
   ${ProductFragment}
   ${NavigationMenu.fragments.entry}
   ${StoreSettingsFragment}
@@ -246,6 +249,11 @@ Component.query = gql`
     storeSettings {
       nodes {
         ...StoreSettingsFragment
+      }
+    }
+    banners {
+      nodes {
+        ...BannerFragment
       }
     }
     headerMenuItems: menuItems(where: { location: $headerLocation }) {

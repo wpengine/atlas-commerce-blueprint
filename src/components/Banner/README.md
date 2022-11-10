@@ -12,4 +12,19 @@ const MyBanner = () => <Banner />;
 
 ## Props
 
-The `Banner` component does not accept any props:
+The `Banner` component accepts a `notificationBanner` prop containing the following fields:
+
+### backgroundColor
+
+Type: `String`
+Required: No
+
+### fontColor
+
+Type: `String`
+Required: No
+
+### content
+
+Type: `String`
+Required: No
