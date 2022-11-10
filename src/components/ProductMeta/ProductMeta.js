@@ -37,7 +37,7 @@ const ProductMeta = ({
 
   const displayProduct = productVariant ?? product;
   const productBrand = product.brand?.node;
-  const productCategories = product.productCategories?.edges; // make request for these
+  const productCategories = product.productCategories?.edges;
 
   let purchaseDisabledMessage =
     modifierPurchaseDisabled.purchaseDisabledMessage ||
