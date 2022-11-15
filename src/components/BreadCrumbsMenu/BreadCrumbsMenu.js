@@ -1,6 +1,8 @@
 import React from 'react';
-import { classNames } from 'utils';
+import classNames from 'classnames';
 import styles from './BreadCrumbsMenu.module.scss';
+
+const cx = classNames.bind(styles);
 
 const BreadCrumbsMenu = ({ path, label, title }) => {
   return (
@@ -16,7 +18,7 @@ const BreadCrumbsMenu = ({ path, label, title }) => {
             <span>{label}</span>
           </a>
         </li>
-        <li className={classNames([styles.breadcrumb, styles.isActive])}>
+        <li className={cx(styles.breadcrumb, styles.isActive)}>
           <span>{title}</span>
         </li>
       </ul>

@@ -8,16 +8,18 @@
  * @returns {React.ReactElement} The Products component
  */
 import styles from './ProductSummary.module.scss';
-import { classNames } from 'utils';
+import classNames from 'classnames/bind';
 
 import Link from 'next/link';
 
-export default function ProductSummary({ product, imageAltText }) {
+const cx = classNames.bind(styles);
+
+export default function ProductSummary({ product }) {
   const productHref = `/product/${product?.slug}`;
-  const image = product.images({ first: 1 })?.nodes?.[0]?.urlStandard;
+  const image = product?.images?.edges[0]?.node?.urlStandard;
 
   return (
-    <div className={classNames(['column', 'column-25', styles.productWrapper])}>
+    <div className={cx(['column', 'column-25', styles.productWrapper])}>
       <div className={styles.productImageContainer}>
         <Link href={productHref}>
           <a>

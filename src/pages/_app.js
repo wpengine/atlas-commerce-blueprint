@@ -1,21 +1,18 @@
-import 'faust.config';
-import { FaustProvider } from '@faustjs/next';
-import 'normalize.css/normalize.css';
-import 'styles/main.scss';
+import '../../faust.config';
 import React from 'react';
-import { client } from 'client';
-import ThemeStyles from 'components/ThemeStyles/ThemeStyles';
-import { AtlasEcomProvider } from 'hooks/useAtlasEcom';
+import { useRouter } from 'next/router';
+import { FaustProvider } from '@faustwp/core';
+import { AtlasEcomProvider } from '../hooks/useAtlasEcom';
+import '@styles/main.scss';
 
 export default function MyApp({ Component, pageProps }) {
+  const router = useRouter();
+
   return (
-    <>
-      <ThemeStyles />
-      <FaustProvider client={client} pageProps={pageProps}>
-        <AtlasEcomProvider>
-          <Component {...pageProps} />
-        </AtlasEcomProvider>
-      </FaustProvider>
-    </>
+    <FaustProvider pageProps={pageProps}>
+      <AtlasEcomProvider>
+        <Component {...pageProps} key={router.asPath} />
+      </AtlasEcomProvider>
+    </FaustProvider>
   );
 }

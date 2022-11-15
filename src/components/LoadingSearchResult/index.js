@@ -1,3 +1,1 @@
-import LoadingSearchResult from './LoadingSearchResult';
-
-export default LoadingSearchResult;
+export { default as LoadingSearchResult } from './LoadingSearchResult';

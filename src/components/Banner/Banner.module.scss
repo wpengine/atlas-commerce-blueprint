@@ -1,0 +1,61 @@
+@import '@styles/Variables';
+
+.notificationWrap {
+  /*padding-top: 1%;
+    padding-bottom: 1%;*/
+  padding-right: 3%;
+  padding-left: 3%;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  width: auto;
+  max-width: 1000%;
+  clear: both;
+  margin-top: auto;
+  margin-bottom: auto;
+  background-color: #107f67;
+  color: #ffffff;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.layoutColumnWrap {
+  max-width: 1200px;
+  grid-template-columns: 1fr;
+  grid-template-areas: 'col1';
+  margin: 0 auto;
+  grid-gap: 0 2em;
+  display: grid;
+  grid-template-rows: 1fr;
+  position: relative;
+  z-index: 1;
+  box-sizing: border-box;
+}
+
+.layoutColumn {
+  grid-area: col1;
+  display: block;
+  width: 100%;
+  vertical-align: top;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.layoutColumnInner {
+  position: relative;
+  z-index: 1;
+  box-sizing: border-box;
+  display: block;
+}
+
+.innerText {
+  margin-bottom: 0;
+  text-align: center;
+  margin: 0 0 1.41575em;
+  overflow-wrap: break-word;
+  box-sizing: border-box;
+  display: block;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+}

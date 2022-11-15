@@ -1,2 +1,1 @@
-import ProductDescription from './ProductDescription';
-export default ProductDescription;
+export { default as ProductDescription } from './ProductDescription';

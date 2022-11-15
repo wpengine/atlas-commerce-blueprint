@@ -1,17 +1,12 @@
-import { classNames as cn } from 'utils';
-
+import className from 'classnames/bind';
 import styles from './ContentWrapper.new.module.scss';
-/**
- * A basic Container Wrapper component
- * @param {Props} props The props object.
- * @param {string} props.content The content as string.
- * @param {string} props.className An optional className to be added to the container.
- * @param {React.ReactElement} props.children The children to be rendered.
- * @return {React.ReactElement} The ContentWrapper component.
- */
-export default function ContentWrapper({ content, className, children }) {
+
+let cx = className.bind(styles);
+
+export default function ContentWrapper({ content, children }) {
+  console.log(styles);
   return (
-    <article className={cn([styles.content, className])}>
+    <article className={cx(styles.content, 'component')}>
       <div dangerouslySetInnerHTML={{ __html: content ?? '' }} />
       {children}
     </article>

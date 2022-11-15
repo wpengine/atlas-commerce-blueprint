@@ -1,8 +1,8 @@
-import { LoadingSearchResult } from 'components';
 import { FaSearch } from 'react-icons/fa';
-import { ProductSummary } from 'components';
+import { ProductSummary } from '../ProductSummary';
+import { LoadingSearchResult } from '../LoadingSearchResult';
 import styles from './SearchResults.module.scss';
-import { classNames } from 'utils';
+import classNames from 'classnames';
 
 /**
  * Renders the search results list.
@@ -12,6 +12,9 @@ import { classNames } from 'utils';
  * @param {boolean} props.isLoading Whether the search results are loading.
  * @returns {React.ReactElement} The SearchResults component.
  */
+
+const cx = classNames.bind(styles);
+
 export default function SearchResults({ searchResults, isLoading }) {
   // If there are no results, or are loading, return null.
   if (!isLoading && searchResults === null) {
@@ -34,7 +37,7 @@ export default function SearchResults({ searchResults, isLoading }) {
         <h1>Results</h1>
       </div>
 
-      <div className={classNames(['row', 'row-wrap', styles.shop])}>
+      <div className={cx('row', 'row-wrap', styles.shop)}>
         {searchResults?.map((node) => (
           <ProductSummary key={node.id} product={node} />
         ))}

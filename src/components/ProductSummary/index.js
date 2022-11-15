@@ -1,3 +1,1 @@
-import ProductSummary from './ProductSummary';
-
-export default ProductSummary;
+export { default as ProductSummary } from './ProductSummary';

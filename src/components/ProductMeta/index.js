@@ -1,2 +1,1 @@
-import ProductMeta from './ProductMeta';
-export default ProductMeta;
+export { default as ProductMeta } from './ProductMeta';

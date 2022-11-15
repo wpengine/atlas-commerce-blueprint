@@ -1,61 +1,32 @@
-import Button from './Button';
-import ContentWrapper from './ContentWrapper';
-import CTA from './CTA';
-import EntryHeader from './EntryHeader';
-import FeaturedImage from './FeaturedImage';
-import Footer from './Footer';
-import FormatDate from './FormatDate';
-import Header from './Header';
-import Heading from './Heading';
-import LoadingSearchResult from './LoadingSearchResult';
-import LoadMore from './LoadMore';
-import Main from './Main';
-import NavigationMenu from './NavigationMenu/NavigationMenu';
-import Notification from './Notification';
-import PostInfo from './PostInfo/PostInfo';
-import Posts from './Posts';
-import SearchInput from './SearchInput';
-import SearchRecommendations from './SearchRecommendations';
-import SearchResults from './SearchResults';
-import SEO from './SEO';
-import SkipNavigationLink from './SkipNavigationLink';
-import TaxonomyTerms from './TaxonomyTerms';
-import ProductSummary from './ProductSummary';
-import ProductSort from './ProductSort';
-import ProductFormField from './ProductFormField';
-import ProductMeta from './ProductMeta';
-import BreadCrumbsMenu from './BreadCrumbsMenu';
-import ProductPrice from './ProductPrice';
-import ProductDescription from './ProductDescription';
-
-export {
-  Button,
-  ContentWrapper,
-  CTA,
-  EntryHeader,
-  FeaturedImage,
-  Footer,
-  FormatDate,
-  Header,
-  Heading,
-  LoadingSearchResult,
-  LoadMore,
-  Main,
-  NavigationMenu,
-  Notification,
-  PostInfo,
-  Posts,
-  SearchInput,
-  SearchRecommendations,
-  SearchResults,
-  SEO,
-  SkipNavigationLink,
-  TaxonomyTerms,
-  ProductSummary,
-  ProductSort,
-  ProductFormField,
-  ProductMeta,
-  BreadCrumbsMenu,
-  ProductPrice,
-  ProductDescription,
-};
+export { Button } from './Button';
+export { Banner } from './Banner';
+export { BreadCrumbsMenu } from './BreadCrumbsMenu';
+export { Container } from './Container';
+export { ContentWrapper } from './ContentWrapper';
+export { CTA } from './CTA';
+export { EntryHeader } from './EntryHeader';
+export { FeaturedImage } from './FeaturedImage';
+export { Footer } from './Footer';
+export { FormatDate } from './FormatDate';
+export { Header } from './Header';
+export { Heading } from './Heading';
+export { Main } from './Main';
+export { NavigationMenu } from './NavigationMenu';
+export { PostInfo } from './PostInfo';
+export { SkipNavigationLink } from './SkipNavigationLink';
+export { Hero } from './Hero';
+export { LoadingSearchResult } from './LoadingSearchResult';
+export { Post } from './Post';
+export { SEO } from './SEO';
+export { SearchInput } from './SearchInput';
+export { SearchRecommendations } from './SearchRecommendations';
+export { SearchResults } from './SearchResults';
+export { ThemeStyles } from './ThemeStyles';
+export { ProductSummary } from './ProductSummary';
+export { ProductSort } from './ProductSort';
+export { ProductPrice } from './ProductPrice';
+export { ProductMeta } from './ProductMeta';
+export { ProductFormField } from './ProductFormField';
+export { ProductDescription } from './ProductDescription';
+export { ProductGallery } from './ProductGallery';
+export { RelatedProducts } from './RelatedProducts';

@@ -1,16 +1,13 @@
-import * as SELECTORS from 'constants/selectors';
-
-import { classNames as cn } from 'utils';
-
+import classNames from 'classnames/bind';
+import * as SELECTORS from '@constants/selectors';
 import styles from './SkipNavigationLink.module.scss';
-/**
- * Renders a hidden link for skip navigation.
- * @returns {React.ReactElement} The SkipNavigationLink component
- */
+
+let cx = classNames.bind(styles);
+
 export default function SkipNavigationLink() {
   return (
     <a
-      className={cn([styles['skip-nav-link'], 'sr-only'])}
+      className={cx(['component', 'sr-only'])}
       href={`#${SELECTORS.MAIN_CONTENT_ID}`}
     >
       Skip To Main Content

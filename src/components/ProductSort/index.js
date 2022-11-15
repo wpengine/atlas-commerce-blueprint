@@ -1,3 +1,1 @@
-import ProductSort from './ProductSort';
-
-export default ProductSort;
+export { default as ProductSort } from './ProductSort';

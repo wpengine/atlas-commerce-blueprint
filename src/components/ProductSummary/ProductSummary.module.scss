@@ -1,4 +1,4 @@
-@import 'styles/Variables';
+@import '@styles/Variables';
 .shopTitle {
   padding-top: 2rem;
 }
@@ -15,7 +15,7 @@
     color: #43454b;
     padding: 0.202em 0.6180469716em;
     margin: 10px;
-    font-size: .875em;
+    font-size: 0.875em;
     text-transform: uppercase;
     font-weight: 600;
     display: inline-block;
@@ -60,7 +60,7 @@
         padding: 1rem;
         display: inline-block;
         color: #fff;
-        transition: all .5s;
+        transition: all 0.5s;
         &:hover {
           background-color: #00664e;
         }

@@ -1,3 +1,1 @@
-import EntryHeader from './EntryHeader';
-
-export default EntryHeader;
+export { default as EntryHeader } from './EntryHeader';

@@ -1,3 +1,1 @@
-import CTA from './CTA';
-
-export default CTA;
+export { default as CTA } from './CTA';

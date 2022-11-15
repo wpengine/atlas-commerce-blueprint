@@ -1,9 +1,8 @@
 import React from 'react';
-import { ProductFormField, Button } from 'components';
+import { checkPurchaseDisabled } from '../../helpers/productHelpers.js';
+import { ProductFormField, Button } from '@components';
 import Link from 'next/link';
 import styles from './ProductMeta.module.scss';
-
-import { checkPurchaseDisabled } from '../../helpers/productHelpers.js';
 
 const ProductMeta = ({
   product,
@@ -38,27 +37,27 @@ const ProductMeta = ({
 
   const displayProduct = productVariant ?? product;
   const productBrand = product.brand?.node;
-  const productCategories = product.productCategories().nodes;
+  const productCategories = product.productCategories?.edges;
 
   let purchaseDisabledMessage =
     modifierPurchaseDisabled.purchaseDisabledMessage ||
     'The selected product combination is currently unavailable.';
 
   return (
-    <div className='product_meta'>
+    <div className={styles.productMeta}>
       <p>SKU: {displayProduct?.sku}</p>
 
       {productCategories?.length ? (
         <p>
           Categories:{' '}
-          {product.productCategories().nodes.map((category, index) => (
-            <span key={category.id}>
+          {productCategories.map((category, index) => (
+            <span key={category.node.id}>
               {index === 0 ? '' : ', '}
               <Link
-                href={`/product-category/${category.slug}`}
-                key={category.id}
+                href={`/product-category/${category.node.slug}`}
+                key={category.node.id}
               >
-                <a>{category.name}</a>
+                <a>{category.node.name}</a>
               </Link>
             </span>
           ))}
@@ -98,11 +97,7 @@ const ProductMeta = ({
           </div>
         ) : null}
 
-        <Button
-          styleType='secondary'
-          className={styles.addToCart}
-          disabled={purchaseDisabled}
-        >
+        <Button className={styles.addToCart} disabled={purchaseDisabled}>
           Add to cart
         </Button>
       </form>

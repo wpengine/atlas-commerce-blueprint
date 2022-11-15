@@ -1,8 +1,8 @@
-@import 'styles/Variables';
+@import '@styles/Variables';
 
 .header {
-  color: var(--color-white);
-  background-color: var(--color-primary);
+  color: $color-white;
+  background-color: $primary-color;
 }
 
 .bar {
@@ -25,6 +25,7 @@
 
 .logo h3 {
   margin-bottom: 0;
+  font-size: 1.5em;
 }
 
 .logo img {

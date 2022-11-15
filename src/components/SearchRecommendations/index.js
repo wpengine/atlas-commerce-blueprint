@@ -1,3 +1,1 @@
-import SearchRecommendations from './SearchRecommendations';
-
-export default SearchRecommendations;
+export { default as SearchRecommendations } from './SearchRecommendations';

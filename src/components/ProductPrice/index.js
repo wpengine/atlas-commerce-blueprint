@@ -1,2 +1,1 @@
-import ProductPrice from './ProductPrice';
-export default ProductPrice;
+export { default as ProductPrice } from './ProductPrice';

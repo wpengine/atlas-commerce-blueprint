@@ -1,13 +1,11 @@
-import * as MENUS from 'constants/menus';
 import React, { useEffect } from 'react';
-import { classNames as cn } from 'utils';
 import { useState } from 'react';
 import { FaBars, FaSearch } from 'react-icons/fa';
+import { NavigationMenu, SkipNavigationLink } from '@components';
 import Link from 'next/link';
-import { NavigationMenu, SkipNavigationLink } from 'components';
-import { client } from 'client';
+import className from 'classnames/bind';
 import cookieCutter from 'cookie-cutter';
-import useAtlasEcom from 'hooks/useAtlasEcom';
+import useAtlasEcom from '@hooks/useAtlasEcom';
 
 import styles from './Header.module.scss';
 
@@ -17,23 +15,30 @@ import styles from './Header.module.scss';
  * @param {string} props.className An optional className to be added to the container.
  * @return {React.ReactElement} The FeaturedImage component.
  */
-export default function Header({ className, storeSettings }) {
+
+let cx = className.bind(styles);
+
+export default function Header({
+  className,
+  storeSettings,
+  title,
+  description,
+  menuItems,
+}) {
   const [isNavShown, setIsNavShown] = useState(false);
   const [isSignOutShown, setIsSignOutShown] = useState(false);
 
-  const headerClasses = cn([styles.header, className]);
-  const navClasses = cn([
+  const headerClasses = cx([styles.header, className]);
+  const navClasses = cx([
     styles['primary-navigation'],
     isNavShown ? styles['show'] : undefined,
   ]);
 
-  const { useQuery } = client;
-  const generalSettings = useQuery().generalSettings;
   var storeLogo = null;
   try {
     storeLogo =
-      storeSettings?.storeLogo != undefined
-        ? JSON.parse(storeSettings?.storeLogo)
+      storeSettings?.nodes[0].storeLogo != undefined
+        ? JSON.parse(storeSettings?.nodes[0].storeLogo)
         : '';
   } catch (err) {
     console.log('error', err);
@@ -73,12 +78,12 @@ export default function Header({ className, storeSettings }) {
           <div className={styles['logo']}>
             <Link href='/'>
               <a title='Home'>
-                {storeLogo.url && <img src={storeLogo?.url} alt='Store Logo' />}
+                {storeLogo.url && <img src={storeLogo.url} alt='Store Logo' />}
                 <h3 style={{ color: storeSettings?.storeSecondaryColor }}>
-                  {generalSettings?.title}
+                  {title}
                 </h3>
                 <span style={{ color: storeSettings?.storeSecondaryColor }}>
-                  {generalSettings?.description}
+                  {description}
                 </span>
               </a>
             </Link>
@@ -124,8 +129,7 @@ export default function Header({ className, storeSettings }) {
           <NavigationMenu
             id={styles['primary-navigation']}
             className={navClasses}
-            menuLocation={MENUS.PRIMARY_LOCATION}
-            storeSettings={storeSettings}
+            menuItems={menuItems}
           ></NavigationMenu>
 
           <CartQuickView storeSettings={storeSettings} />
@@ -219,6 +223,8 @@ function CartQuickView({ storeSettings }) {
                 <a
                   href={cartData?.redirect_urls.cart_url}
                   className={styles['button']}
+                  target='_blank'
+                  rel='noreferrer'
                 >
                   View cart
                 </a>

@@ -58,7 +58,7 @@ const fieldTypes = {
   Swatch({ field, id, name, required, value, onChange }) {
     return (
       <Field field={field} id={id} required={required} grouped>
-        {field.option_values.map((option, index) => {
+        {field.option_values.map((option) => {
           const id = `attribute_swatch_${field.id}_${option.id}`;
 
           return (
@@ -70,7 +70,7 @@ const fieldTypes = {
                 id={id}
                 aria-label={option.label}
                 checked={option.id === value}
-                onChange={(e) => onChange(option.id)}
+                onChange={() => onChange(option.id)}
               />
               <label htmlFor={id} className={styles.formOption}>
                 {option.value_data?.colors?.map((color, index) => (
@@ -120,7 +120,7 @@ const fieldTypes = {
               id={`attribute_radio_${field.id}_${option.id}`}
               value={option.id}
               checked={option.id === value}
-              onChange={(e) => onChange(option.id)}
+              onChange={() => onChange(option.id)}
             />
             {option.label}
           </label>
@@ -131,7 +131,7 @@ const fieldTypes = {
   Rectangles({ field, id, name, required, value, onChange }) {
     return (
       <Field field={field} id={id} required={required} grouped>
-        {field.option_values.map((option, index) => {
+        {field.option_values.map((option) => {
           const id = `attribute_rectangle_${field.id}_${option.id}`;
 
           return (
@@ -143,7 +143,7 @@ const fieldTypes = {
                 id={id}
                 aria-label={option.label}
                 checked={option.id === value}
-                onChange={(e) => onChange(option.id)}
+                onChange={() => onChange(option.id)}
               />
               <label
                 htmlFor={id}
@@ -211,7 +211,7 @@ const fieldTypes = {
       </Field>
     );
   },
-  Checkbox({ field, id, name, required, value, onChange }) {
+  Checkbox({ field, name, required, value, onChange }) {
     return (
       <Field field={field} required={required}>
         <label
@@ -292,7 +292,7 @@ const fieldTypes = {
       <Field field={field} id={id} required={required}>
         <select name={`${name}[month]`} defaultValue={date?.getMonth() + 1}>
           <option value=''>Month</option>
-          {months.map((option, index) => (
+          {months.map((option) => (
             <option value={option.value} key={option.value}>
               {option.label}
             </option>
@@ -302,7 +302,7 @@ const fieldTypes = {
           <option value=''>Day</option>
           {Array.apply(null, Array(31))
             .map((_, index) => index + 1)
-            .map((day, index) => (
+            .map((day) => (
               <option value={day} key={day}>
                 {day}
               </option>

@@ -1,3 +1,1 @@
-import BreadCrumbsMenu from './BreadCrumbsMenu';
-
-export default BreadCrumbsMenu;
+export { default as BreadCrumbsMenu } from './BreadCrumbsMenu';

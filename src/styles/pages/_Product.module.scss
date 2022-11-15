@@ -1,8 +1,8 @@
-@import 'styles/Variables';
+@import '@styles/Variables';
 
 .product {
-  margin-top: 1em;
-  margin-bottom: 1em;
+  margin-top: 1em !important;
+  margin-bottom: 1em !important;
 
   .productGallery {
     @media (min-width: $breakpoint-small) {

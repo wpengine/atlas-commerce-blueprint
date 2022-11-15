@@ -1,7 +1,9 @@
 // Skip link specific styles. Intentionally separate from this theme's sr-only class.
-.skip-nav-link {
-  color: var(--color-white);
-  background-color: var(--color-black);
-  padding: 1rem 2rem;
+.component {
+  color: var(--wpe--color--white);
+  background-color: var(--wpe--color--black);
+  padding: 0.5rem 0.8rem !important;
+  position: relative;
+  margin: 0.5rem !important;
   z-index: 1;
 }

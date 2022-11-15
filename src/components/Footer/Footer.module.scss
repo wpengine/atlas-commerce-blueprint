@@ -1,37 +1,11 @@
-@import 'styles/Variables';
-
-.footer {
-  position: relative;
-  background-color: var(--color-primary);
-  padding: 3rem;
-  color: var(--color-secondary);
-
-  a {
-    color: var(--color-secondary);
-    text-decoration: underline;
-
-    &:hover,
-    &:focus {
-      color: var(--color-white);
-    }
-  }
-}
-
-.bar {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  padding: 2rem 0;
-  gap: 2rem;
-}
-
-.terms {
-  margin-top: auto;
-  margin-bottom: auto;
-  text-align: left;
+.component {
+	color: var(--wpe--footer--color);
+	background: var(--wpe--footer--background-color);
+	padding-top: var(--wpe--section--padding-y);
+	padding-bottom: var(--wpe--section--padding-y);
 }
 
 .copyright {
-  text-align: center;
-  font-size: 1.5rem;
+	margin: 2rem 0;
+	text-align: center;
 }

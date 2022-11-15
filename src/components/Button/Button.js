@@ -1,6 +1,5 @@
 import Link from 'next/link';
-import { classNames as cn } from 'utils';
-
+import classNames from 'classnames';
 import styles from './Button.module.scss';
 
 /**
@@ -12,6 +11,9 @@ import styles from './Button.module.scss';
  * @param {string} props.className An optional className to be added to the button
  * @return {React.ReactElement} The Button component.
  */
+
+const cx = classNames.bind(styles);
+
 export default function Button({
   href,
   styleType,
@@ -31,16 +33,16 @@ export default function Button({
     }
   }
 
-  let classNames = cn([
+  let classNames = cx(
     styles.button,
     styles[`button-${buttonStyle}`],
-    className,
-  ]);
+    className
+  );
 
   if (href) {
     return (
       <Link href={href}>
-        <a role="button" href={href} className={classNames} {...props}>
+        <a role='button' href={href} className={classNames} {...props}>
           {children}
         </a>
       </Link>

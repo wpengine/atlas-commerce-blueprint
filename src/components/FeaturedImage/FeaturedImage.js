@@ -1,45 +1,50 @@
+import { gql } from '@apollo/client';
 import Image from 'next/image';
-import { classNames as cn } from 'utils';
-
-import styles from './FeaturedImage.module.scss';
-/**
- * A page/post Featured Image component
- * @param {Props} props The props object.
- * @param {string} props.title The post/page title.
- * @param {MediaItem} props.image The post/page image.
- * @param {string|number} props.width The image width.
- * @param {string|number} props.height The image height.
- * @return {React.ReactElement} The FeaturedImage component.
- */
 export default function FeaturedImage({
-  className,
   image,
   width,
   height,
+  className,
+  priority,
+  layout,
   ...props
 }) {
-  let src;
-  if (image?.sourceUrl instanceof Function) {
-    src = image?.sourceUrl();
-  } else {
-    src = image?.sourceUrl;
-  }
+  const src = image?.sourceUrl;
   const { altText } = image || '';
 
   width = width ? width : image?.mediaDetails?.width;
   height = height ? height : image?.mediaDetails?.height;
+  layout = layout ?? 'fill';
 
   return src && width && height ? (
-    <figure className={cn([styles['featured-image'], className])}>
+    <figure className={className}>
       <Image
         src={src}
+        alt={altText}
+        layout={layout}
         width={width}
         height={height}
-        alt={altText}
-        objectFit="cover"
-        layout="responsive"
+        priority={priority}
         {...props}
       />
     </figure>
   ) : null;
 }
+
+FeaturedImage.fragments = {
+  entry: gql`
+    fragment FeaturedImageFragment on NodeWithFeaturedImage {
+      featuredImage {
+        node {
+          id
+          sourceUrl
+          altText
+          mediaDetails {
+            width
+            height
+          }
+        }
+      }
+    }
+  `,
+};

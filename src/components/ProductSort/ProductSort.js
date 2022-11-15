@@ -1,18 +1,22 @@
 import { useState, useMemo } from 'react';
-import ProductSummary from 'components/ProductSummary';
+import { ProductSummary } from '@components';
+import SortUI from './SortUI';
 
-export default function ProductSort({ products }) {
+export default function ProductSort({ products, isCategoryList }) {
   const productsMap = useMemo(
     () =>
-      products.map((product, index) => ({
-        product,
-        index,
-        price: product.salePrice === 0 ? product.price : product.salePrice,
-        rating: product.reviewsRating,
-        popularity: product.totalSold,
-        latest: product.bigCommerceID,
-      })),
-    [products]
+      products.map((productData, index) => {
+        const product = isCategoryList ? productData.node : productData;
+        return {
+          product,
+          index,
+          price: product.salePrice === 0 ? product.price : product.salePrice,
+          rating: product.reviewsRating,
+          popularity: product.totalSold,
+          latest: product.bigCommerceID,
+        };
+      }),
+    [products, isCategoryList]
   );
 
   const [sortOrder, setSortOrder] = useState('index');
@@ -39,34 +43,16 @@ export default function ProductSort({ products }) {
     return 0;
   });
 
-  function SortUI() {
-    return (
-      <div className='column'>
-        <select
-          onChange={(event) => setSortOrder(event.target.value)}
-          value={sortOrder}
-        >
-          <option value='index'>Default sorting</option>
-          <option value='popularity'>Sort by popularity</option>
-          <option value='rating'>Sort by average rating</option>
-          <option value='latest'>Sort by latest</option>
-          <option value='price-asc'>Sort by price: low to high</option>
-          <option value='price-desc'>Sort by price: high to low</option>
-        </select>
-        &nbsp;&nbsp;Showing all {products.length} results
-      </div>
-    );
-  }
-
   return (
     <>
-      <SortUI />
-
+      <SortUI
+        sortOrder={sortOrder}
+        setSortOrder={setSortOrder}
+        products={products}
+      />
       {sorted.map(({ product }) => (
         <ProductSummary product={product} key={product.slug} />
       ))}
-
-      <SortUI />
     </>
   );
 }

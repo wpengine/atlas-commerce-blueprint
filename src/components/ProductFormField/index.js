@@ -1,2 +1,1 @@
-import ProductFormField from './ProductFormField';
-export default ProductFormField;
+export { default as ProductFormField } from './ProductFormField';

@@ -1,10 +1,10 @@
-import appConfig from 'app.config';
-import { client } from 'client';
-import { getArrayFields, getFields, prepass } from 'gqty';
 import { useCallback, useEffect, useState } from 'react';
+import { useLazyQuery } from '@apollo/client';
 import { useDebounce } from 'use-debounce';
-import { uniqBy } from 'utils';
+import { uniqBy } from '../utilities/uniqBy';
 import { useRouter } from 'next/router';
+import { SearchProductQuery } from '../queries/Product';
+import appConfig from '../../app.config';
 
 const searchInputDebounceMs = 500;
 
@@ -32,82 +32,11 @@ export default function useSearch() {
    * @param {string | undefined} endCursor The end cursor if we are paginating
    * @returns
    */
-  const fetchResults = useCallback(
-    async (searchQuery, endCursor = undefined) => {
-      try {
-        /**
-         * Do a prepass request for the search result metadata so we can make a
-         * proper subsequent request for the title and content based on the content
-         * type.
-         *
-         * typically this can be done with the ... on NodeWithTitle interface, but there is
-         * currently a bug.
-         *
-         * @see https://gqty.dev/docs/client/helper-functions#prepass
-         * @see https://github.com/gqty-dev/gqty/issues/733
-         */
-        const metadata = await client.client.resolved(() => {
-          const { nodes, pageInfo } = client.client.query.products({
-            first: appConfig?.postsPerPage,
-            after: endCursor,
-            where: { search: searchQuery },
-          });
 
-          /**
-           * Explicitly define the fields we want GQty to return in this query, as
-           * we have to make a subsequent request for the title and content.
-           *
-           * @see https://gqty.dev/docs/client/helper-functions#prepass
-           */
-          prepass(nodes, 'databaseId', 'id', 'uri', 'date', '__typename');
-
-          return { nodes, pageInfo };
-        });
-
-        /**
-         * Make a prepass request for the title and excerpt from the previously
-         * fetched metadata.
-         */
-        const metadataWithContent = await client.client.resolved(() => {
-          metadata?.nodes?.map((node) =>
-            prepass(
-              node,
-              `$on.${node?.__typename}.name`,
-              `$on.${node?.__typename}.description`
-            )
-          );
-
-          return {
-            nodes: getArrayFields(
-              metadata?.nodes,
-              'databaseId',
-              'id',
-              'uri',
-              'date',
-              '__typename',
-              'name',
-              'description',
-              'slug',
-              '$on'
-            ),
-            pageInfo: getFields(metadata?.pageInfo),
-          };
-        });
-
-        return metadataWithContent;
-      } catch (error) {
-        if (process.env.NODE_ENV === 'development') {
-          console.log(error);
-        }
-
-        setError(error);
-        clearResults();
-
-        return;
-      }
-    },
-    []
-  );
+  const [
+    fetchResults,
+    { data: searchData, loading: searchLoading, error: searchError },
+  ] = useLazyQuery(SearchProductQuery);
 
   /**
    * Fetch initial results. This can happen either upon first search. Or after
@@ -118,36 +47,51 @@ export default function useSearch() {
 
     clearResults();
 
-    const res = await fetchResults(debouncedSearchQuery);
-
-    setSearchResults(res?.nodes);
-    setPageInfo(res?.pageInfo);
-
-    setIsLoading(false);
+    fetchResults({
+      variables: {
+        query: debouncedSearchQuery,
+        first: appConfig?.postsPerPage,
+        // after: pageInfo?.endCursor,
+        after: undefined,
+      },
+    });
   }, [debouncedSearchQuery, fetchResults]);
 
   function clearResults() {
     setSearchResults(null);
-    setPageInfo(null);
+    // setPageInfo(null);
   }
 
   /**
    * Load more search results via the pageInfo `endCursor` and `hasNextPage`
    */
   async function loadMore() {
-    if (!pageInfo?.hasNextPage || !pageInfo?.endCursor) {
-      return;
-    }
+    // if (!pageInfo?.hasNextPage || !pageInfo?.endCursor) {
+    //   return;
+    // }
 
     setIsLoading(true);
 
     const res = await fetchResults(debouncedSearchQuery, pageInfo?.endCursor);
 
     setSearchResults((prev) => uniqBy([...prev, ...res.nodes], (v) => v.id));
-    setPageInfo(res?.pageInfo);
+    // setPageInfo(res?.pageInfo);
 
     setIsLoading(false);
   }
+
+  useEffect(() => {
+    if (searchData) {
+      setSearchResults(searchData?.products?.nodes);
+      // setPageInfo(res?.pageInfo);
+
+      setIsLoading(false);
+    }
+
+    if (searchError) {
+      setError(searchError);
+    }
+  }, [searchData, searchError]);
 
   /**
    * Populate the search input with the searchQuery url param if it exists.
@@ -190,6 +134,7 @@ export default function useSearch() {
       return;
     }
 
+    console.log(debouncedSearchQuery);
     fetchInitialResults(debouncedSearchQuery);
   }, [debouncedSearchQuery, fetchInitialResults]);
 
@@ -199,7 +144,7 @@ export default function useSearch() {
     searchResults,
     loadMore,
     isLoading,
-    pageInfo,
+    // pageInfo,
     error,
   };
 }

@@ -1,3 +1,1 @@
-import FeaturedImage from './FeaturedImage';
-
-export default FeaturedImage;
+export { default as FeaturedImage } from './FeaturedImage';
