@@ -30,5 +30,5 @@ export { ProductFormField } from './ProductFormField';
 export { ProductDescription } from './ProductDescription';
 export { ProductGallery } from './ProductGallery';
 export { RelatedProducts } from './RelatedProducts';
-export { Review } from './Review';
+export { Reviews } from './Reviews';
 export { ReviewForm } from './ReviewForm';

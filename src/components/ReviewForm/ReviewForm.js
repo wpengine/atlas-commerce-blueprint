@@ -1,47 +1,11 @@
-/* eslint-disable no-useless-escape */
 import { useState } from 'react';
 import styles from './ReviewForm.module.scss';
 import classNames from 'classnames';
+import { Button } from '@components/Button';
+import { validateReview } from '../../helpers/validateReview';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
 const cx = classNames.bind(styles);
-
-function validate(values) {
-  const errors = {};
-
-  if (!values.rating) {
-    errors.rating = 'Required';
-  }
-
-  if (!values.name) {
-    errors.name = 'Required';
-  } else if (values.name.length < 2 || values.name.length > 255) {
-    errors.name = 'Field must be between 2 and 255 characters long';
-  } else if (
-    /[\|\\\}\{\]\[;:\?\<\>\=\+\(\)\*\^\%\$\#@\!\~]/.test(values.name)
-  ) {
-    errors.name =
-      'Field cannot contain special characters: |{}[];:?<>=+()*^%$#@!~';
-  }
-
-  if (!values.title) {
-    errors.title = 'Required';
-  } else if (values.title.length < 2 || values.title.length > 255) {
-    errors.title = 'Field must be between 2 and 255 characters long';
-  } else if (/[\|\}\{\]\[\<\>\^@\~]/.test(values.title)) {
-    errors.title = 'Field cannot contain special characters: |{}[]<>^@~';
-  }
-
-  if (!values.text) {
-    errors.text = 'Required';
-  } else if (values.text.length < 2 || values.text.length > 2000) {
-    errors.text = 'Field must be between 2 and 2000 characters long';
-  } else if (/[\|\}\{\]\[\<\>\^@\~]+/.test(values.text)) {
-    errors.text = 'Field cannot contain special characters: |{}[]<>^@~';
-  }
-
-  return errors;
-}
 
 export default function ReviewForm({ product }) {
   const [isActive, setActive] = useState(false);
@@ -55,8 +19,8 @@ export default function ReviewForm({ product }) {
   });
   const [errors, setErrors] = useState({});
 
-  const productId = product.bigCommerceID;
-  const productImage = product.images({ first: 1 })?.nodes[0]?.urlStandard;
+  const productId = product?.bigCommerceID;
+  const productImage = product?.images?.edges?.[0]?.node?.urlStandard;
 
   function handleChange(event) {
     setValues((prevValues) => ({
@@ -68,14 +32,14 @@ export default function ReviewForm({ product }) {
   async function handleSubmit(event) {
     event.preventDefault();
 
-    const errors = validate(values);
+    const errors = validateReview(values);
     setErrors(errors);
 
     if (Object.keys(errors).length === 0) {
       setSubmitResponse({ isLoading: true });
 
       const result = await fetch(
-        `${process.env.NEXT_PUBLIC_WORDPRESS_URL}/wp-json/tecom/v1/create-review`,
+        `${process.env.NEXT_PUBLIC_WORDPRESS_URL}/wp-json/atlas-commerce-connector-bigcommerce/v1/create-review`,
         {
           method: 'POST',
           headers: {
@@ -117,7 +81,7 @@ export default function ReviewForm({ product }) {
             Cancel
           </a>
           <div className='row'>
-            <div className='column column-50'>
+            <div className='column'>
               <img
                 src={productImage}
                 alt={product.name}
@@ -128,7 +92,7 @@ export default function ReviewForm({ product }) {
               </h6>
               <h5 className={styles.productTitle}>{product.name}</h5>
             </div>
-            <div className='column column-50'>
+            <div className='column'>
               <form
                 action='/send-data-here'
                 method='post'
@@ -232,13 +196,9 @@ export default function ReviewForm({ product }) {
                   ) : null}
                 </div>
 
-                <button
-                  className={styles.button}
-                  type='submit'
-                  disabled={submitResponse.isLoading}
-                >
+                <Button type='submit' disabled={submitResponse.isLoading}>
                   Submit Review
-                </button>
+                </Button>
               </form>
             </div>
           </div>
@@ -246,9 +206,7 @@ export default function ReviewForm({ product }) {
       ) : isActive ? (
         <p className={styles.successMessage}>Thank you for your review.</p>
       ) : (
-        <a href='#' onClick={handleClickActivate}>
-          Write a Review
-        </a>
+        <Button onClick={handleClickActivate}>Write a Review</Button>
       )}
     </section>
   );

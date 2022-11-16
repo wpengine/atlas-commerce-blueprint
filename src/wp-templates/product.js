@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { gql } from '@apollo/client';
 import { BlogInfoFragment } from '@fragments/GeneralSettings';
 import { ProductFragment } from '@fragments/Products';
@@ -17,6 +17,8 @@ import {
   ProductDescription,
   ProductGallery,
   RelatedProducts,
+  Reviews,
+  ReviewForm,
 } from '@components';
 import {
   computeVariantOrModificationFormFields,
@@ -96,16 +98,6 @@ export default function Component(props) {
     (productVariant?.calculatedPrice ?? product.calculatedPrice) +
     priceAdjuster;
 
-    const reviewsResult = await fetch(`${faustConfig.wpUrl}/wp-json/tecom/v1/get-reviews?product_id=${bigCommerceID}`, {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: '',
-    });
-    const reviewsData = await reviewsResult.json();
-
   function handleChange(event) {
     setVariantOrModFields((prevValues) => ({
       ...prevValues,
@@ -163,6 +155,26 @@ export default function Component(props) {
       window.scrollTo(0, 0);
     });
   }
+
+  const [reviews, setReviews] = useState([]);
+
+  useEffect(() => {
+    fetch(
+      `${process.env.NEXT_PUBLIC_WORDPRESS_URL}/wp-json/atlas-commerce-connector-bigcommerce/v1/get-reviews?product_id=${bigCommerceId}`,
+      {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: '',
+      }
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        setReviews(data.reviews);
+      });
+  }, [bigCommerceId]);
 
   // Loading state for previews
   if (props.loading) {
@@ -226,6 +238,14 @@ export default function Component(props) {
                 variantValueKeys={variantValueKeys}
                 modifierLookup={modifierLookup}
               />
+            </div>
+          </div>
+        </Container>
+        <Reviews reviews={reviews} product={product} />
+        <Container className='review-product'>
+          <div className='row row-wrap'>
+            <div className='column'>
+              <ReviewForm product={product} />
             </div>
           </div>
         </Container>
