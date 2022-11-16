@@ -96,6 +96,16 @@ export default function Component(props) {
     (productVariant?.calculatedPrice ?? product.calculatedPrice) +
     priceAdjuster;
 
+    const reviewsResult = await fetch(`${faustConfig.wpUrl}/wp-json/tecom/v1/get-reviews?product_id=${bigCommerceID}`, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: '',
+    });
+    const reviewsData = await reviewsResult.json();
+
   function handleChange(event) {
     setVariantOrModFields((prevValues) => ({
       ...prevValues,
