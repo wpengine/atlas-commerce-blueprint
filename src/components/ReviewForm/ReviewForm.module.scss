@@ -13,8 +13,6 @@
     text-transform: uppercase;
     padding: 1.75rem 3.5rem;
     font-size: 1.25rem;
-    -webkit-appearance: none;
-    -moz-appearance: none;
     appearance: none;
     font-weight: 600;
     &:hover {
@@ -60,22 +58,22 @@
     input,
     select,
     textarea {
-      border-color: #f00;
+      border-color: $color-red;
     }
   }
   .formErrorMessage {
-    color: #f00;
+    color: $color-red;
   }
 
   .successMessage,
   .errorMessage {
     margin-bottom: 1em;
     padding: 0.5em 0.75em;
-    border: 1px solid red;
-    background: #ffe3e3;
+    border: 1px solid $color-red;
+    background: $color-light-red;
   }
   .successMessage {
-    border-color: green;
-    background: #e3ffe3;
+    border-color: $color-green;
+    background: $color-light-green;
   }
 }
