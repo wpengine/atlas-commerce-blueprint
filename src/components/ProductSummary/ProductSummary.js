@@ -16,7 +16,7 @@ const cx = classNames.bind(styles);
 
 export default function ProductSummary({ product }) {
   const productHref = `/product/${product?.slug}`;
-  const image = product?.images?.edges[0]?.node?.urlStandard;
+  const image = product?.images?.edges?.[0]?.node?.urlStandard;
 
   return (
     <div className={cx(['column', 'column-25', styles.productWrapper])}>

@@ -28,7 +28,9 @@ function ProductGallery({ images }) {
       </div>
 
       <Slider dots={false} infinite={false} slidesToShow={4} slidesToScroll={4}>
-        {images.map((image, index) => (
+        {!images.length ? (
+          <img alt='Missing product image' src="/ProductDefault.gif" />
+        ) : images.map((image, index) => (
           <img
             src={image?.node?.urlThumbnail}
             className={styles.productGalleryThumbnail}
