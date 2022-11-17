@@ -1,5 +1,12 @@
 @import '@styles/Variables';
 
+.reviews {
+  h3 {
+    border-top: 1px solid $color-gray;
+    padding-top: 40px;
+  }
+}
+
 .review {
   list-style: none;
   margin-left: 0;
@@ -47,9 +54,9 @@
             left: 0;
             position: absolute;
             padding-top: 1.5em;
-            color: #2c2d33;
+            color: $primary-color;
             &:before {
-              color: #107f67;
+              color: $color-green;
               content: '\f005\f005\f005\f005\f005';
               top: 0px;
               left: 0px;

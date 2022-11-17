@@ -1,4 +1,3 @@
-import styles from './Review.module.scss';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
 const months = [
@@ -16,7 +15,7 @@ const months = [
   'December',
 ];
 
-export default function Review({ review }) {
+export default function Review({ review, styles }) {
   const dateReviewed = new Date(review.date_reviewed);
   return (
     <ol className={styles.review}>
