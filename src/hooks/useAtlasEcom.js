@@ -50,7 +50,7 @@ async function fetchCart(body) {
 export const AtlasEcomContext = React.createContext({});
 
 export function AtlasEcomProvider({ children }) {
-  const [cartData, setCartData] = useState();
+  const [cartData, setCartData] = useState(null);
   const router = useRouter();
 
   useEffect(() => {
@@ -95,7 +95,7 @@ export function AtlasEcomProvider({ children }) {
       });
     }
 
-    setCartData(data.cart_data);
+    setCartData(data.cart_data ?? 'Empty');
   }
 
   const value = {

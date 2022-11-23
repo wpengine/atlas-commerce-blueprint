@@ -36,7 +36,7 @@ export default function Page() {
   let cartCount = 0;
   let cartTotal = 0;
 
-  if (cartData) {
+  if (cartData && cartData !== 'Empty') {
     cartTotal = cartData.cart_amount.toFixed(2);
     cartSubTotal = cartData.base_amount.toFixed(2);
     cartItems = [].concat(
@@ -64,7 +64,7 @@ export default function Page() {
         <Container>
           <EntryHeader title='Cart' />
           <div className={styles.cartDetails}>
-            {cartData ? (
+            {cartData !== 'Empty' && cartData !== null && (
               <>
                 <CartTable
                   cartItems={cartItems}
@@ -78,9 +78,8 @@ export default function Page() {
                   checkout_url={cartData?.redirect_urls.checkout_url}
                 />
               </>
-            ) : (
-              <p>You have no items in cart</p>
             )}
+            {cartData === 'Empty' && <p>You have no items in cart</p>}
           </div>
         </Container>
       </Main>

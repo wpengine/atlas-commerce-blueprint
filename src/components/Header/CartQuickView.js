@@ -9,7 +9,7 @@ export function CartQuickView({ storeSettings, styles }) {
   let cartItems = [];
   let cartCount = 0;
 
-  if (cartData) {
+  if (cartData && cartData !== 'Empty') {
     cartSubTotal = cartData.cart_amount.toFixed(2);
     cartItems = [].concat(
       cartData.line_items.physical_items,
@@ -48,7 +48,7 @@ export function CartQuickView({ storeSettings, styles }) {
           </span>
         </a>
       </li>
-      {cartData && router.pathname !== '/cart' ? (
+      {cartData !== 'Empty' && router.pathname !== '/cart' ? (
         <li>
           <div className={styles['widget_shopping_cart']}>
             <div className={styles['widget_shopping_cart_content']}>
@@ -89,6 +89,8 @@ export function CartQuickView({ storeSettings, styles }) {
                 <a
                   href={cartData?.redirect_urls.checkout_url}
                   className={styles['button']}
+                  target='_blank'
+                  rel='noreferrer'
                 >
                   Checkout
                 </a>

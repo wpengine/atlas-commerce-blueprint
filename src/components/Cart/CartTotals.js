@@ -29,6 +29,8 @@ const CartTotals = ({ cartSubTotal, cartTotal, checkout_url }) => {
       <a
         href={checkout_url}
         className={cx(styles.button, styles.checkoutButton)}
+        target='_blank'
+        rel='noreferrer'
       >
         Checkout
       </a>
