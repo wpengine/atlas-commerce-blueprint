@@ -3,6 +3,7 @@
 .cartTable {
   table {
     width: 100%;
+    overflow-x: auto;
 
     .cartImage {
       height: 90px;

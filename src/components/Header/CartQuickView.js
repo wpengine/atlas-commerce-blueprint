@@ -1,6 +1,8 @@
 import useAtlasEcom from '@hooks/useAtlasEcom';
+import { useRouter } from 'next/router';
 
 export function CartQuickView({ storeSettings, styles }) {
+  const router = useRouter();
   const { cartData } = useAtlasEcom();
 
   let cartSubTotal = (0).toFixed(2);
@@ -46,7 +48,7 @@ export function CartQuickView({ storeSettings, styles }) {
           </span>
         </a>
       </li>
-      {cartData ? (
+      {cartData && router.pathname !== '/cart' ? (
         <li>
           <div className={styles['widget_shopping_cart']}>
             <div className={styles['widget_shopping_cart_content']}>
