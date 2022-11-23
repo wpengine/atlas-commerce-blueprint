@@ -4,6 +4,9 @@ import { BlogInfoFragment } from '@fragments/GeneralSettings';
 import { StoreSettingsFragment } from '@fragments/StoreSettings';
 import { BannerFragment } from '@fragments/Banners';
 import useAtlasEcom from '@hooks/useAtlasEcom';
+import CartTable from '@components/Cart/CartTable';
+import CartTotals from '@components/Cart/CartTotals';
+import styles from '@styles/pages/_Cart.module.scss';
 import {
   Banner,
   Header,
@@ -31,9 +34,11 @@ export default function Page() {
   let cartSubTotal = (0).toFixed(2);
   let cartItems = [];
   let cartCount = 0;
+  let cartTotal = 0;
 
   if (cartData) {
-    cartSubTotal = cartData.cart_amount.toFixed(2);
+    cartTotal = cartData.cart_amount.toFixed(2);
+    cartSubTotal = cartData.base_amount.toFixed(2);
     cartItems = [].concat(
       cartData.line_items.physical_items,
       cartData.line_items.custom_items,
@@ -58,9 +63,21 @@ export default function Page() {
       <Main>
         <Container>
           <EntryHeader title='Cart' />
-          <div className='row row-wrap'>
+          <div className={styles.cartDetails}>
             {cartData ? (
-              <p>A Table of Cart Data</p>
+              <>
+                <CartTable
+                  cartItems={cartItems}
+                  cartCount={cartCount}
+                  cartSubTotal={cartSubTotal}
+                  cartTotal={cartTotal}
+                />
+                <CartTotals
+                  cartSubTotal={cartSubTotal}
+                  cartTotal={cartTotal}
+                  checkout_url={cartData?.redirect_urls.checkout_url}
+                />
+              </>
             ) : (
               <p>You have no items in cart</p>
             )}

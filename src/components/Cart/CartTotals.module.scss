@@ -1,0 +1,32 @@
+@import '@styles/Variables';
+
+.cartTotals {
+  float: right;
+
+  .checkoutButton {
+    width: 100%;
+    float: right;
+    text-align: center;
+  }
+
+  .button {
+    background-color: #107f67;
+    border-color: #107f67;
+    color: #ffffff;
+    display: block;
+    margin-bottom: 0.6180469716em;
+    border: 0;
+    border-radius: 0;
+    cursor: pointer;
+    padding: 0.6180469716em 1.41575em;
+    text-decoration: none;
+    font-weight: 600;
+    text-shadow: none;
+    word-break: break-all;
+    &:hover {
+      background-color: #00664e;
+      border-color: #00664e;
+      color: #ffffff;
+    }
+  }
+}

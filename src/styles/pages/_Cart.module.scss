@@ -1,0 +1,16 @@
+@import '@styles/Variables';
+
+.cartDetails {
+  table {
+    th {
+      background-color: $color-light-gray;
+      text-align: left;
+      padding: 1.5em;
+    }
+
+    td {
+      border-bottom: 1px solid $color-light-gray;
+      padding: 1.5em;
+    }
+  }
+}
