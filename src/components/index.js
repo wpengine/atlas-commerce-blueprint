@@ -29,6 +29,7 @@ export { ProductMeta } from './ProductMeta';
 export { ProductFormField } from './ProductFormField';
 export { ProductDescription } from './ProductDescription';
 export { ProductGallery } from './ProductGallery';
+export { ProductNotification } from './ProductNotification';
 export { RelatedProducts } from './RelatedProducts';
 export { Reviews } from './Reviews';
 export { ReviewForm } from './ReviewForm';
