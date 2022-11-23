@@ -15,6 +15,7 @@ import {
   Container,
   EntryHeader,
   NavigationMenu,
+  Loader,
   SEO,
 } from '@components';
 
@@ -80,6 +81,7 @@ export default function Page() {
               </>
             )}
             {cartData === 'Empty' && <p>You have no items in cart</p>}
+            {cartData === null && <Loader />}
           </div>
         </Container>
       </Main>

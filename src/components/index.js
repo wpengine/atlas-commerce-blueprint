@@ -16,6 +16,7 @@ export { PostInfo } from './PostInfo';
 export { SkipNavigationLink } from './SkipNavigationLink';
 export { Hero } from './Hero';
 export { LoadingSearchResult } from './LoadingSearchResult';
+export { Loader } from './Loader';
 export { Post } from './Post';
 export { SEO } from './SEO';
 export { SearchInput } from './SearchInput';
