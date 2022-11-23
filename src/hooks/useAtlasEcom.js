@@ -85,6 +85,20 @@ export function AtlasEcomProvider({ children }) {
     return data;
   }
 
+  async function removeFromCart(itemId) {
+    try {
+      const data = await fetchCart({ action: 'remove', item_id: itemId });
+
+      if (data.status === 200 && data.message) {
+        await checkCart();
+        return data;
+      }
+    } catch (e) {
+      console.err(e);
+      return e;
+    }
+  }
+
   async function checkCart() {
     const data = await fetchCart({ action: 'check' });
 
@@ -101,6 +115,7 @@ export function AtlasEcomProvider({ children }) {
   const value = {
     cartData,
     addToCart,
+    removeFromCart,
     checkCart,
   };
 

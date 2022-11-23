@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { gql, useQuery } from '@apollo/client';
 import * as MENUS from '@constants/menus';
 import { BlogInfoFragment } from '@fragments/GeneralSettings';
@@ -16,10 +17,13 @@ import {
   EntryHeader,
   NavigationMenu,
   Loader,
+  ProductNotification,
   SEO,
 } from '@components';
 
 export default function Page() {
+  const [productNotification, setProductNotification] = useState();
+
   const { data } = useQuery(Page.query, {
     variables: Page.variables(),
   });
@@ -63,6 +67,12 @@ export default function Page() {
       <Banner notificationBanner={banner} />
       <Main>
         <Container>
+          {productNotification && (
+            <ProductNotification
+              productNotification={productNotification}
+              cartPage
+            />
+          )}
           <EntryHeader title='Cart' />
           <div className={styles.cartDetails}>
             {cartData !== 'Empty' && cartData !== null && (
@@ -72,6 +82,7 @@ export default function Page() {
                   cartCount={cartCount}
                   cartSubTotal={cartSubTotal}
                   cartTotal={cartTotal}
+                  setProductNotification={setProductNotification}
                 />
                 <CartTotals
                   cartSubTotal={cartSubTotal}
