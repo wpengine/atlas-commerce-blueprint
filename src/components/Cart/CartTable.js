@@ -7,17 +7,17 @@ const CartTable = ({ cartItems }) => {
       <table>
         <thead>
           <tr>
-            <th></th>
+            <th className={styles.hideOnMobile}></th>
             <th>Product</th>
             <th>Price</th>
-            <th>Quantity</th>
-            <th>Subtotal</th>
+            <th className={styles.hideOnMobile}>Quantity</th>
+            <th className={styles.hideOnMobile}>Subtotal</th>
           </tr>
         </thead>
         <tbody>
           {cartItems.map((item, index) => (
             <tr key={`cart-item-${index}`}>
-              <td>
+              <td className={styles.hideOnMobile}>
                 <img
                   src={item.image_url}
                   alt={`Image of ${item.name}`}
@@ -28,8 +28,8 @@ const CartTable = ({ cartItems }) => {
               <td>
                 <span>$</span> {item.sale_price.toFixed(2)}
               </td>
-              <td>{item.quantity}</td>
-              <td>
+              <td className={styles.hideOnMobile}>{item.quantity}</td>
+              <td className={styles.hideOnMobile}>
                 <span>$</span> {item.sale_price.toFixed(2) * item.quantity}
               </td>
             </tr>
