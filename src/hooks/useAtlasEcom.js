@@ -94,7 +94,7 @@ export function AtlasEcomProvider({ children }) {
         return data;
       }
     } catch (e) {
-      console.err(e);
+      console.error(e);
       return e;
     }
   }

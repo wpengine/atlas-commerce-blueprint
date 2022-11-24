@@ -94,8 +94,6 @@ export function CartQuickView({ storeSettings, styles }) {
                 <a
                   href={cartData?.redirect_urls.checkout_url}
                   className={styles['button']}
-                  target='_blank'
-                  rel='noreferrer'
                 >
                   Checkout
                 </a>
