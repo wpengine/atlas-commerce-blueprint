@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useLazyQuery } from '@apollo/client';
 import { useDebounce } from 'use-debounce';
-import { uniqBy } from '../utilities/uniqBy';
+import uniqBy from 'src/utilities/uniqBy';
 import { useRouter } from 'next/router';
 import { SearchProductQuery } from '../queries/Product';
 import appConfig from '../../app.config';

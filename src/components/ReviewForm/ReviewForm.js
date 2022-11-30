@@ -71,7 +71,7 @@ export default function ReviewForm({ product }) {
   return (
     <section className={styles.reviewForm}>
       {isActive && submitResponse.status !== 200 ? (
-        <>
+        <div className={styles.reviewFormContainer}>
           <h2>Write a Review</h2>
           <a
             href='#'
@@ -202,7 +202,7 @@ export default function ReviewForm({ product }) {
               </form>
             </div>
           </div>
-        </>
+        </div>
       ) : isActive ? (
         <p className={styles.successMessage}>Thank you for your review.</p>
       ) : (
