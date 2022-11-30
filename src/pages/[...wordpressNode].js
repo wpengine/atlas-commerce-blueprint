@@ -1,12 +1,16 @@
 import { getWordPressProps, WordPressTemplate } from '@faustwp/core';
 
 export default function Page(props) {
+  console.log(props);
   return <WordPressTemplate {...props} />;
 }
 
 export async function getStaticProps(ctx) {
-  // use isr for the shop page
-  if (ctx.params.wordpressNode[0] === 'shop') {
+  // use isr for the shop and product pages
+  if (
+    ctx.params.wordpressNode[0] === 'shop' ||
+    ctx.params.wordpressNode[0] === 'product'
+  ) {
     return { ...(await getWordPressProps({ ctx })), revalidate: 5 };
   }
 
