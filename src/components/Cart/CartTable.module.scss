@@ -1,0 +1,18 @@
+@import '@styles/Variables';
+
+.cartTable {
+  table {
+    width: 100%;
+    overflow-x: auto;
+
+    .cartImage {
+      height: 90px;
+    }
+
+    .hideOnMobile {
+      @media (max-width: $breakpoint-extra-small) {
+        display: none;
+      }
+    }
+  }
+}

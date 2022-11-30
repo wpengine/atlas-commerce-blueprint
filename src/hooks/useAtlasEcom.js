@@ -50,7 +50,7 @@ async function fetchCart(body) {
 export const AtlasEcomContext = React.createContext({});
 
 export function AtlasEcomProvider({ children }) {
-  const [cartData, setCartData] = useState();
+  const [cartData, setCartData] = useState(null);
   const router = useRouter();
 
   useEffect(() => {
@@ -85,6 +85,20 @@ export function AtlasEcomProvider({ children }) {
     return data;
   }
 
+  async function removeFromCart(itemId) {
+    try {
+      const data = await fetchCart({ action: 'remove', item_id: itemId });
+
+      if (data.status === 200 && data.message) {
+        await checkCart();
+        return data;
+      }
+    } catch (e) {
+      console.error(e);
+      return e;
+    }
+  }
+
   async function checkCart() {
     const data = await fetchCart({ action: 'check' });
 
@@ -95,12 +109,13 @@ export function AtlasEcomProvider({ children }) {
       });
     }
 
-    setCartData(data.cart_data);
+    setCartData(data.cart_data ?? 'Empty');
   }
 
   const value = {
     cartData,
     addToCart,
+    removeFromCart,
     checkCart,
   };
 

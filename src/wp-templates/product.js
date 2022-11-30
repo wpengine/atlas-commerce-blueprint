@@ -16,6 +16,7 @@ import {
   ProductPrice,
   ProductDescription,
   ProductGallery,
+  ProductNotification,
   RelatedProducts,
   Reviews,
   ReviewForm,
@@ -64,7 +65,7 @@ export default function Component(props) {
     [productFormFields]
   );
 
-  const { cartData, addToCart } = useAtlasEcom();
+  const { addToCart } = useAtlasEcom();
 
   const [productNotification, setProductNotification] = useState();
 
@@ -193,19 +194,9 @@ export default function Component(props) {
       <Banner notificationBanner={banner} />
       <Main>
         <Container classes={cx(styles.product)}>
-          {productNotification ? (
-            <div
-              className={cx(
-                styles.notification,
-                styles[productNotification.className]
-              )}
-            >
-              <div className={styles.message}>
-                {productNotification.message}
-              </div>
-              <a href={cartData?.redirect_urls?.cart_url}>View cart</a>
-            </div>
-          ) : null}
+          {productNotification && (
+            <ProductNotification productNotification={productNotification} />
+          )}
 
           <div className='row'>
             <div className='column column-40'>

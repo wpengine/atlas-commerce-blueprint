@@ -4,11 +4,6 @@
   color: var(--wpe--color--white);
   position: relative;
   overflow: hidden;
-  margin-bottom: 2rem;
-
-  @media (min-width: $breakpoint-small) {
-    margin-bottom: 5rem;
-  }
 }
 
 .has-image {
@@ -24,7 +19,7 @@
 .text {
   width: 100%;
   max-width: 72rem;
-  padding: 8.25rem 0;
+  padding: 6.25rem;
   position: relative;
   z-index: 1; // Pull text to the foreground to sit above <FeaturedImage />.
 }

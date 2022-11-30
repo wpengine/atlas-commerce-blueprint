@@ -1,8 +1,8 @@
 @import '@styles/Variables';
 
 .product {
-  margin-top: 1em !important;
-  margin-bottom: 1em !important;
+  margin-top: 3.5em !important;
+  margin-bottom: 3.5em !important;
 
   .productGallery {
     @media (min-width: $breakpoint-small) {
@@ -44,24 +44,6 @@
   }
   img {
     max-width: initial;
-  }
-
-  .notification {
-    display: flex;
-    margin: 2.5em 0;
-    padding: 1em 2em 1em 3.5em;
-    border-left: 0.75em solid rgba(0, 0, 0, 0.15);
-    color: #fff;
-    background: #0f834d;
-
-    .message {
-      margin-right: auto;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: underline;
-    }
   }
 
   .notificationError {
