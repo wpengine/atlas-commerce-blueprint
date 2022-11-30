@@ -1,6 +1,12 @@
 @import '@styles/Variables';
 
 .reviewForm {
+  margin-top: 4rem;
+
+  .reviewFormContainer {
+    border-bottom: 1px solid $color-gray;
+  }
+
   .button {
     color: var(--color-white);
     border-color: var(--color-primary);
