@@ -24,7 +24,7 @@ export default function Review({ review, styles }) {
           <img
             alt=''
             src='https://secure.gravatar.com/avatar/427dbff1e52ec95a065f5a6b34225c84?s=60&amp;d=mm&amp;r=g'
-            srcset='https://secure.gravatar.com/avatar/427dbff1e52ec95a065f5a6b34225c84?s=120&amp;d=mm&amp;r=g 2x'
+            srcSet='https://secure.gravatar.com/avatar/427dbff1e52ec95a065f5a6b34225c84?s=120&amp;d=mm&amp;r=g 2x'
             className={styles.avatar}
             height='60'
             width='60'
@@ -45,7 +45,7 @@ export default function Review({ review, styles }) {
               <strong className={styles.reviewAuthor}>{review.name}</strong>
               <time
                 className={styles.publishedDate}
-                datetime={review.date_reviewed}
+                dateTime={review.date_reviewed}
               >
                 {`${
                   months[dateReviewed.getMonth()]
