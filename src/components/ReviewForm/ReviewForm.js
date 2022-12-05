@@ -120,11 +120,11 @@ export default function ReviewForm({ product }) {
                     onChange={handleChange}
                   >
                     <option value=''>Select Rating</option>
-                    <option value='1'>1 star (worst)</option>
-                    <option value='2'>2 stars</option>
-                    <option value='3'>3 stars (average)</option>
-                    <option value='4'>4 stars</option>
                     <option value='5'>5 stars (best)</option>
+                    <option value='4'>4 stars</option>
+                    <option value='3'>3 stars (average)</option>
+                    <option value='2'>2 stars</option>
+                    <option value='1'>1 star (worst)</option>
                   </select>
                   {errors.rating ? (
                     <div className={styles.formErrorMessage}>
