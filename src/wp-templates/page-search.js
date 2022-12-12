@@ -3,6 +3,7 @@ import { gql } from '@apollo/client';
 import { getWordPressProps } from '@faustwp/core';
 import { BlogInfoFragment } from '@fragments/GeneralSettings';
 import { StoreSettingsFragment } from '@fragments/StoreSettings';
+import { ProductCategoryFragment } from '@fragments/ProductCategories';
 import {
   Banner,
   Button,
@@ -26,7 +27,7 @@ export default function Page(props) {
   const primaryMenu = props?.data?.headerMenuItems?.nodes ?? [];
   const footerMenu = props?.data?.footerMenuItems?.nodes ?? [];
   const storeSettings = props?.data?.storeSettings?.nodes ?? [];
-  const productCategories = props?.data?.productCategories?.edges ?? [];
+  const productCategories = props?.data?.productCategories?.nodes ?? [];
 
   const {
     searchQuery,
@@ -108,6 +109,7 @@ Page.query = gql`
   ${NavigationMenu.fragments.entry}
   ${FeaturedImage.fragments.entry}
   ${StoreSettingsFragment}
+  ${ProductCategoryFragment}
   query GetPageData(
     $databaseId: ID!
     $headerLocation: MenuLocationEnum
@@ -138,13 +140,8 @@ Page.query = gql`
       }
     }
     productCategories {
-      edges {
-        node {
-          databaseId
-          id
-          name
-          slug
-        }
+      nodes {
+        ...ProductCategoryFragment
       }
     }
   }
