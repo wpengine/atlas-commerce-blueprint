@@ -42,6 +42,7 @@ export default function Component(props) {
   const primaryMenu = props?.data?.headerMenuItems?.nodes ?? [];
   const footerMenu = props?.data?.footerMenuItems?.nodes ?? [];
   const product = props?.data?.product ?? {};
+  const productCategories = props?.data?.productCategories?.nodes ?? [];
 
   let relatedProductIds = [];
   try {
@@ -220,6 +221,7 @@ export default function Component(props) {
 
               <ProductMeta
                 product={product}
+                categories={productCategories}
                 sortedFormFields={sortedFormFields}
                 handleChange={handleChange}
                 handleSubmit={handleSubmit}
@@ -263,6 +265,20 @@ Component.query = gql`
   ) {
     product(id: $databaseId, idType: DATABASE_ID, asPreview: $asPreview) {
       ...ProductFragment
+    }
+    productCategories {
+      nodes {
+        databaseId
+        id
+        slug
+        name
+        products {
+          nodes {
+            slug
+            bigCommerceID
+          }
+        }
+      }
     }
     generalSettings {
       ...BlogInfoFragment

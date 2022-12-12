@@ -1,11 +1,15 @@
 import React from 'react';
-import { checkPurchaseDisabled } from '../../helpers/productHelpers.js';
+import {
+  checkPurchaseDisabled,
+  getProductCategories,
+} from '../../helpers/productHelpers.js';
 import { ProductFormField, Button } from '@components';
 import Link from 'next/link';
 import styles from './ProductMeta.module.scss';
 
 const ProductMeta = ({
   product,
+  categories,
   sortedFormFields,
   handleChange,
   handleSubmit,
@@ -37,7 +41,11 @@ const ProductMeta = ({
 
   const displayProduct = productVariant ?? product;
   const productBrand = product.brand?.node;
-  const productCategories = product.productCategories?.edges;
+  const categoriesForThisProduct = getProductCategories(
+    categories,
+    product.bigCommerceID,
+    product.slug
+  );
 
   let purchaseDisabledMessage =
     modifierPurchaseDisabled.purchaseDisabledMessage ||
@@ -47,22 +55,22 @@ const ProductMeta = ({
     <div className={styles.productMeta}>
       <p>SKU: {displayProduct?.sku}</p>
 
-      {productCategories?.length ? (
+      {categoriesForThisProduct.length >= 1 && (
         <p>
           Categories:{' '}
-          {productCategories.map((category, index) => (
-            <span key={category.node.id}>
+          {categoriesForThisProduct.map((category, index) => (
+            <span key={category.id}>
               {index === 0 ? '' : ', '}
               <Link
-                href={`/product-category/${category.node.slug}`}
-                key={category.node.id}
+                href={`/product-category/${category.slug}`}
+                key={category.id}
               >
-                <a>{category.node.name}</a>
+                <a>{category.name}</a>
               </Link>
             </span>
           ))}
         </p>
-      ) : null}
+      )}
 
       {productBrand ? <p>Brand: {productBrand.name}</p> : null}
 

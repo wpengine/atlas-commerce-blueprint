@@ -42,15 +42,6 @@ export const ProductFragment = gql`
     bigCommerceID
     slug
     productFormFieldsJson
-    productCategories {
-      edges {
-        node {
-          id
-          name
-          slug
-        }
-      }
-    }
     relatedProducts
     variantLookupJson
     modifierLookupJson
