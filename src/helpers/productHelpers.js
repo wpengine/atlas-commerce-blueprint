@@ -98,3 +98,26 @@ export function checkPurchaseDisabled(
 
   return { purchaseDisabled, purchaseDisabledMessage };
 }
+
+/**
+ * Checks the list of categories to see if the current product is associated with any. Returns the list of categories for that product or an empty array.
+ */
+export function getProductCategories(
+  categories,
+  productBigCommerceId,
+  productSlug
+) {
+  const thisProductsCategories = categories.filter((category) => {
+    const foundProduct = category.products.nodes.find(
+      (product) =>
+        product.bigCommerceID === productBigCommerceId &&
+        product.slug === productSlug
+    );
+
+    if (foundProduct) {
+      return category.name;
+    }
+  });
+
+  return thisProductsCategories ?? [];
+}
