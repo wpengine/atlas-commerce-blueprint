@@ -16,7 +16,7 @@ const cx = classNames.bind(styles);
 
 export default function ProductSummary({ product }) {
   const productHref = `/product/${product?.slug}`;
-  const image = product?.images?.edges?.[0]?.node?.urlStandard;
+  const thumbnail = product?.images?.nodes?.find((image) => image.isThumbnail);
 
   return (
     <div className={cx(['column', 'column-25', styles.productWrapper])}>
@@ -28,7 +28,7 @@ export default function ProductSummary({ product }) {
             ) : null}
             <img
               className={styles.productImage}
-              src={image ?? '/ProductDefault.gif'}
+              src={thumbnail?.urlThumbnail ?? '/ProductDefault.gif'}
               alt={product?.imageAltText ?? product?.name}
             />
           </a>

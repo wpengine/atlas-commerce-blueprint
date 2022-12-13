@@ -16,13 +16,13 @@ export const ProductsFragment = gql`
     variantLookupJson
     modifierLookupJson
     images {
-      edges {
-        node {
-          id
-          description
-          urlStandard
-          urlZoom
-        }
+      nodes {
+        id
+        description
+        urlStandard
+        urlZoom
+        urlThumbnail
+        isThumbnail
       }
     }
   }
@@ -51,14 +51,13 @@ export const ProductFragment = gql`
       }
     }
     images {
-      edges {
-        node {
-          id
-          description
-          urlStandard
-          urlZoom
-          urlThumbnail
-        }
+      nodes {
+        id
+        description
+        urlStandard
+        urlZoom
+        urlThumbnail
+        isThumbnail
       }
     }
   }
