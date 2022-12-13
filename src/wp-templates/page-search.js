@@ -94,7 +94,7 @@ export default function Page(props) {
         </Container>
       </Main>
 
-      <Footer storeSettings={storeSettings} menuItems={footerMenu} />
+      <Footer title={siteTitle} menuItems={footerMenu} />
     </>
   );
 }
