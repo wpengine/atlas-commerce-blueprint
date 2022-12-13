@@ -12,6 +12,7 @@ import {
   Footer,
   Main,
   Container,
+  ContentWrapper,
   EntryHeader,
   NavigationMenu,
   FeaturedImage,
@@ -28,7 +29,7 @@ export default function Component(props) {
   const primaryMenu = props?.data?.headerMenuItems?.nodes ?? [];
   const footerMenu = props?.data?.footerMenuItems?.nodes ?? [];
   const products = props?.data?.products?.nodes ?? [];
-  const { featuredImage } = props?.data?.page ?? { title: '' };
+  const { content, featuredImage } = props?.data?.page ?? { title: '' };
 
   // Loading state for previews
   if (props.loading) {
@@ -51,11 +52,15 @@ export default function Component(props) {
       <Banner notificationBanner={banner} />
       <Main>
         <Container>
-          <EntryHeader title='Shop' />
+          <EntryHeader
+            title='Shop'
+            subTitle='Shop your BigCommerce products with WordPress and WPGraphQL'
+          />
           <div className={cx(['row', 'row-wrap', styles.shop])}>
             <ProductSort products={products} />
           </div>
         </Container>
+        <ContentWrapper content={content} />
       </Main>
       <Footer title={siteTitle} menuItems={footerMenu} />
     </>
