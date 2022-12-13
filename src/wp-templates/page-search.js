@@ -7,6 +7,7 @@ import { ProductCategoryFragment } from '@fragments/ProductCategories';
 import {
   Banner,
   Button,
+  Container,
   Footer,
   Header,
   Main,
@@ -55,14 +56,14 @@ export default function Page(props) {
       />
       <Banner />
       <Main>
-        <div
-          className={styles['search-header-pane']}
-          style={{
-            backgroundColor: storeSettings?.storePrimaryColor,
-            color: storeSettings?.storeSecondaryColor,
-          }}
-        >
-          <div className='container small'>
+        <Container>
+          <div
+            className={styles['search-header-pane']}
+            style={{
+              backgroundColor: storeSettings?.storePrimaryColor,
+              color: storeSettings?.storeSecondaryColor,
+            }}
+          >
             <h2 className={styles['search-header-text']}>
               {searchQuery && !isLoading
                 ? `Showing results for "${searchQuery}"`
@@ -73,8 +74,6 @@ export default function Page(props) {
               onChange={(newValue) => setSearchQuery(newValue)}
             />
           </div>
-        </div>
-        <div className='container small'>
           {error && (
             <div className='alert-error'>
               An error has occurred. Please refresh and try again.
@@ -92,7 +91,7 @@ export default function Page(props) {
           {!isLoading && searchResults === null && (
             <SearchRecommendations categories={productCategories} />
           )}
-        </div>
+        </Container>
       </Main>
 
       <Footer storeSettings={storeSettings} menuItems={footerMenu} />
