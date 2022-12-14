@@ -25,11 +25,13 @@
     background-color: $color-white;
   }
   .productImage {
-    width: 100%;
+    width: 80%;
   }
   .productImageContainer {
     position: relative;
     display: block;
+    width: 100%;
+    text-align: center;
   }
   .productInfoContainer {
     padding: 2rem 0;
