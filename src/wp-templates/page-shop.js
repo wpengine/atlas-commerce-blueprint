@@ -54,7 +54,7 @@ export default function Component(props) {
         <Container>
           <EntryHeader
             title='Shop'
-            subtTitle='Shop your BigCommerce products with WordPress and WPGraphQL'
+            subTitle='Shop your BigCommerce products with WordPress and WPGraphQL'
           />
           <div className={cx(['row', 'row-wrap', styles.shop])}>
             <ProductSort products={products} />
