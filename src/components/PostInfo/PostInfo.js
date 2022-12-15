@@ -14,7 +14,7 @@ export default function PostInfo({ date, author, subTitle, className }) {
       )}
       {date && author && <>&nbsp;</>}
       {author && <span>by {author}</span>}
-      {subTitle}
+      {subTitle && <span>{subTitle}</span>}
     </div>
   );
 }
