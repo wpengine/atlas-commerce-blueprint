@@ -34,3 +34,4 @@ export { ProductNotification } from './ProductNotification';
 export { RelatedProducts } from './RelatedProducts';
 export { Reviews } from './Reviews';
 export { ReviewForm } from './ReviewForm';
+export { Socials } from './Socials';

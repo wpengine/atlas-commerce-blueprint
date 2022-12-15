@@ -7,7 +7,7 @@ import shop from './page-shop';
 import search from './page-search';
 import product from './product';
 import productCategory from './product-category';
-
+// eslint-disable-next-line import/no-anonymous-default-export
 export default {
   category,
   tag,

@@ -11,12 +11,12 @@ function ProductGallery({ images }) {
       <div>
         <ReactImageMagnify
           imageProps={{
-            alt: images[productIndex]?.node.description,
+            alt: images[productIndex]?.description,
             isfluidwidth: true.toString(),
-            src: images[productIndex]?.node.urlStandard,
+            src: images[productIndex]?.urlStandard,
           }}
           magnifiedImageProps={{
-            src: images[productIndex]?.node.urlZoom,
+            src: images[productIndex]?.urlZoom,
             width: 600,
             height: '600',
           }}
@@ -33,11 +33,11 @@ function ProductGallery({ images }) {
         ) : (
           images.map((image, index) => (
             <img
-              src={image?.node?.urlThumbnail}
+              src={image?.urlThumbnail}
               className={styles.productGalleryThumbnail}
               onClick={() => setProductIndex(index)}
               key={`slide-image-${index}`}
-              alt={image?.node.description}
+              alt={image?.description}
             />
           ))
         )}
