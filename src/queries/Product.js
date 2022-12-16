@@ -60,14 +60,13 @@ export const SearchProductQuery = gql`
         variantLookupJson
         modifierLookupJson
         images {
-          edges {
-            node {
-              id
-              description
-              urlStandard
-              urlZoom
-              urlThumbnail
-            }
+          nodes {
+            id
+            description
+            urlStandard
+            urlZoom
+            urlThumbnail
+            isThumbnail
           }
         }
       }
