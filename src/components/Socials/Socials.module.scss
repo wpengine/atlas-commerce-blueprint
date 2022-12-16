@@ -1,9 +1,15 @@
+@import '@styles/Variables';
+
 .socials {
   display: flex;
   justify-content: space-evenly;
   margin: 40px 0px 40px 0px;
 
   .socialIcon {
-    height: 60px;
+    height: 50px;
+
+    @media (max-width: $breakpoint-extra-small) {
+      height: 30px;
+    }
   }
 }
