@@ -26,6 +26,10 @@
   }
   .productImage {
     width: 80%;
+
+    @media (max-width: $breakpoint-extra-small) {
+      width: auto;
+    }
   }
   .productImageContainer {
     position: relative;

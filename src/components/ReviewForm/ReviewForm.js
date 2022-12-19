@@ -20,7 +20,9 @@ export default function ReviewForm({ product }) {
   const [errors, setErrors] = useState({});
 
   const productId = product?.bigCommerceID;
-  const productImage = product?.images?.edges?.[0]?.node?.urlStandard;
+  const productImage = product?.images?.nodes?.find(
+    (image) => image.isThumbnail
+  );
 
   function handleChange(event) {
     setValues((prevValues) => ({
@@ -83,7 +85,7 @@ export default function ReviewForm({ product }) {
           <div className='row'>
             <div className='column'>
               <img
-                src={productImage}
+                src={productImage.urlThumbnail}
                 alt={product.name}
                 className={styles.productImage}
               />
