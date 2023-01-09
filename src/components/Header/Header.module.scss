@@ -173,7 +173,7 @@
     }
   }
   .cart-contents {
-    padding: 0.5em 0;
+    padding: 1.5em 0;
     display: block;
     position: relative;
     background-color: transparent;
@@ -182,8 +182,8 @@
     text-indent: 0;
     color: #ffffff;
 
-    @media (max-width: $breakpoint-extra-small) {
-      padding: 1.5em 0;
+    @media (max-width: $breakpoint-small) {
+       padding: 0.5em 0; 
     }
 
     span {
