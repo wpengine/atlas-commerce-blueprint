@@ -125,7 +125,7 @@ export default function Header({
           </button>
         </div>
 
-        <div className={styles['bar']}>
+        <div className={styles['nav-cart-bar']}>
           <NavigationMenu
             id={styles['primary-navigation']}
             className={navClasses}
