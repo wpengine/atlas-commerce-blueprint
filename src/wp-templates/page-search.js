@@ -36,7 +36,6 @@ export default function Page(props) {
     searchResults,
     loadMore,
     isLoading,
-    pageInfo,
     error,
   } = useSearch();
 
@@ -81,12 +80,6 @@ export default function Page(props) {
           )}
 
           <SearchResults searchResults={searchResults} isLoading={isLoading} />
-
-          {pageInfo?.hasNextPage && (
-            <div className={styles['load-more']}>
-              <Button onClick={() => loadMore()}>Load more</Button>
-            </div>
-          )}
 
           {!isLoading && searchResults === null && (
             <SearchRecommendations categories={productCategories} />
