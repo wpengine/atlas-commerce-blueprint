@@ -3,17 +3,15 @@ import { useRouter } from 'next/router';
 import cookieCutter from 'cookie-cutter';
 
 async function fetchCart(body) {
-  const userToken = cookieCutter.get('atlasecom-token-user');
   const cartToken = cookieCutter.get('atlasecom-token-cart');
-  const bearerToken = userToken || cartToken;
 
   const headers = {
     'Content-Type': 'application/json',
     'Accept': 'application/json',
   };
 
-  if (bearerToken) {
-    headers['Authorization'] = 'Bearer ' + bearerToken;
+  if (cartToken) {
+    headers['Authorization'] = 'Bearer ' + cartToken;
   }
 
   const result = await fetch(
@@ -28,11 +26,7 @@ async function fetchCart(body) {
   const data = await result.json();
 
   if (data.token) {
-    cookieCutter.set(
-      'atlasecom-token-' + (userToken ? 'user' : 'cart'),
-      data.token,
-      { path: '/' }
-    );
+    cookieCutter.set('atlasecom-token-cart', data.token, { path: '/' });
   }
 
   if (data.cart_data) {

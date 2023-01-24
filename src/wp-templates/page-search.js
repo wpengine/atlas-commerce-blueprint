@@ -6,7 +6,6 @@ import { StoreSettingsFragment } from '@fragments/StoreSettings';
 import { ProductCategoryFragment } from '@fragments/ProductCategories';
 import {
   Banner,
-  Button,
   Container,
   Footer,
   Header,
@@ -30,15 +29,8 @@ export default function Page(props) {
   const storeSettings = props?.data?.storeSettings?.nodes ?? [];
   const productCategories = props?.data?.productCategories?.nodes ?? [];
 
-  const {
-    searchQuery,
-    setSearchQuery,
-    searchResults,
-    loadMore,
-    isLoading,
-    pageInfo,
-    error,
-  } = useSearch();
+  const { searchQuery, setSearchQuery, searchResults, isLoading, error } =
+    useSearch();
 
   // Loading state for previews
   if (props.loading) {
@@ -81,12 +73,6 @@ export default function Page(props) {
           )}
 
           <SearchResults searchResults={searchResults} isLoading={isLoading} />
-
-          {pageInfo?.hasNextPage && (
-            <div className={styles['load-more']}>
-              <Button onClick={() => loadMore()}>Load more</Button>
-            </div>
-          )}
 
           {!isLoading && searchResults === null && (
             <SearchRecommendations categories={productCategories} />
