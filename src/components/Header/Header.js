@@ -1,11 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useState } from 'react';
 import { FaBars, FaSearch } from 'react-icons/fa';
 import { NavigationMenu, SkipNavigationLink } from '@components';
 import CartQuickView from './CartQuickView';
 import Link from 'next/link';
 import className from 'classnames/bind';
-import cookieCutter from 'cookie-cutter';
 
 import styles from './Header.module.scss';
 
@@ -26,7 +25,6 @@ export default function Header({
   menuItems,
 }) {
   const [isNavShown, setIsNavShown] = useState(false);
-  const [isSignOutShown, setIsSignOutShown] = useState(false);
 
   const headerClasses = cx([styles.header, className]);
   const navClasses = cx([
@@ -41,26 +39,6 @@ export default function Header({
       : null;
   } catch (err) {
     console.log('error', err);
-  }
-
-  // If the auth token already exists, redirect to the BC Account page
-  useEffect(() => {
-    // Get token
-    const authToken = cookieCutter.get('atlasecom-token-user');
-
-    if (typeof authToken !== 'undefined') {
-      console.log('token exists');
-      setIsSignOutShown(true);
-    }
-  }, [isSignOutShown]);
-
-  function clearCookie() {
-    console.log('clear');
-    cookieCutter.set('atlasecom-token-user', '', {
-      path: '/',
-      expires: new Date(0),
-    });
-    setIsSignOutShown(false);
   }
 
   return (
@@ -89,18 +67,6 @@ export default function Header({
               </a>
             </Link>
           </div>
-
-          {isSignOutShown && (
-            <div style={{ marginLeft: 'auto' }}>
-              <a
-                className={styles['sign-out']}
-                href='/my-account'
-                onClick={clearCookie}
-              >
-                Sign Out
-              </a>
-            </div>
-          )}
 
           <div className={styles['search']}>
             <Link href='/search'>
