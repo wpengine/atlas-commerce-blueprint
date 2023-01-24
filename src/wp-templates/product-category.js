@@ -50,7 +50,10 @@ export default function Component(props) {
       <Banner notificationBanner={banner} />
       <Main>
         <Container>
-          <EntryHeader title='Shop' />
+          <EntryHeader
+            title='Shop'
+            subTitle='Shop your BigCommerce products with WordPress and WPGraphQL'
+          />
           <div className={cx(['row', 'row-wrap', styles.shop])}>
             <ProductSort products={products} isCategoryList />
           </div>
