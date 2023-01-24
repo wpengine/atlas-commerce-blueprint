@@ -5,7 +5,6 @@ export default function Page(props) {
 }
 
 export async function getStaticProps(ctx) {
-  // use isr for the shop, search and product pages
   if (
     ctx.params.wordpressNode[0] === 'shop' ||
     ctx.params.wordpressNode[0] === 'product' ||
