@@ -1,5 +1,5 @@
 import className from 'classnames/bind';
-import styles from './ContentWrapper.new.module.scss';
+import styles from './ContentWrapper.module.scss';
 
 let cx = className.bind(styles);
 
