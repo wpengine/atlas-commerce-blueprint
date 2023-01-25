@@ -31,6 +31,8 @@
         margin-right: 0;
         .starRating {
           --percent: calc(var(--rating) / 5 * 100%);
+          overflow: hidden;
+          position: relative;
   
           display: inline-block;
           font-size: 2rem;
@@ -42,6 +44,23 @@
             background: linear-gradient(90deg, $color-green var(--percent), $color-gray var(--percent));
             background-clip: text;
             -webkit-text-fill-color: transparent;
+          }
+          span {
+            overflow: hidden;
+            float: left;
+            top: 0;
+            left: 0;
+            position: absolute;
+            padding-top: 1.5em;
+            color: $primary-color;
+            &:before {
+              color: $color-green;
+              content: '★★★★★';
+              letter-spacing: 3px;
+              top: 0px;
+              left: 0px;
+              position: absolute;
+            }
           }
         }
         .reviewNameDate {

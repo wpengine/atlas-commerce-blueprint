@@ -35,7 +35,7 @@ export default function Review({ review, styles }) {
               aria-label={`Rated ${review.rating} out of 5`}
               style={{"--rating":review.rating}}
             >
-              <span style={{display: "none"}}>
+              <span style={{ width: `${review.rating * 20}%` }}>
                 Rated <strong className='rating'>{review.rating}</strong> out of
                 5 based on <span className='rating'>1</span> customer rating
               </span>
