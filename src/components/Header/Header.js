@@ -78,7 +78,7 @@ export default function Header({
             <Link href='/'>
               <a title='Home'>
                 {storeLogo?.url && (
-                  <img src={storeLogo?.url} alt='Store Logo' />
+                  <img src={storeLogo?.url} alt='Store Logo' loading='lazy' />
                 )}
                 <h3 style={{ color: storeSettings?.storeSecondaryColor }}>
                   {title}

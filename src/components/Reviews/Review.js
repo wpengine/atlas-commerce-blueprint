@@ -1,5 +1,3 @@
-import '@fortawesome/fontawesome-free/css/all.min.css';
-
 const months = [
   'January',
   'February',
@@ -35,8 +33,9 @@ export default function Review({ review, styles }) {
               className={styles.starRating}
               role='img'
               aria-label={`Rated ${review.rating} out of 5`}
+              style={{"--rating":review.rating}}
             >
-              <span style={{ width: `${review.rating * 20}%` }}>
+              <span style={{display: "none"}}>
                 Rated <strong className='rating'>{review.rating}</strong> out of
                 5 based on <span className='rating'>1</span> customer rating
               </span>

@@ -1,7 +1,16 @@
 import React, { useState } from 'react';
-import ReactImageMagnify from '@blacklab/react-image-magnify';
-import Slider from 'react-slick';
 import styles from '@styles/pages/_Product.module.scss';
+import dynamic from 'next/dynamic';
+
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+
+const ReactImageMagnify = dynamic(() => import('@blacklab/react-image-magnify'), {
+  ssr: false,
+});
+const Slider = dynamic(() => import('react-slick'), {
+  ssr: false,
+});
 
 function ProductGallery({ images }) {
   const [productIndex, setProductIndex] = useState(0);
@@ -29,7 +38,7 @@ function ProductGallery({ images }) {
 
       <Slider dots={false} infinite={false} slidesToShow={4} slidesToScroll={4}>
         {!images.length ? (
-          <img alt='Missing product image' src='/ProductDefault.gif' />
+          <img alt='Missing product image' src='/ProductDefault.gif' loading='lazy' />
         ) : (
           images.map((image, index) => (
             <img
@@ -38,6 +47,7 @@ function ProductGallery({ images }) {
               onClick={() => setProductIndex(index)}
               key={`slide-image-${index}`}
               alt={image?.description}
+              loading='lazy'
             />
           ))
         )}

@@ -46,6 +46,7 @@ const CartTable = ({ cartItems, setProductNotification }) => {
                   src={item.image_url}
                   alt={`Image of ${item.name}`}
                   className={styles.cartImage}
+                  loading='lazy'
                 />
               </td>
               <td>{item.name}</td>

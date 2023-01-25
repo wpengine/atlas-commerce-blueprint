@@ -67,6 +67,7 @@ export function CartQuickView({ storeSettings, styles }) {
                         src={item.image_url}
                         className={styles['thumbnail']}
                         alt=''
+                        loading='lazy'
                       ></img>
                       {item.name}
                     </a>
