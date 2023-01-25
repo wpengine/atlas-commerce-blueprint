@@ -5,10 +5,10 @@ export default function Page(props) {
 }
 
 export async function getStaticProps(ctx) {
-  // use isr for the shop and product pages
   if (
     ctx.params.wordpressNode[0] === 'shop' ||
-    ctx.params.wordpressNode[0] === 'product'
+    ctx.params.wordpressNode[0] === 'product' ||
+    ctx.params.wordpressNode[0] === 'search'
   ) {
     return { ...(await getWordPressProps({ ctx })), revalidate: 5 };
   }
