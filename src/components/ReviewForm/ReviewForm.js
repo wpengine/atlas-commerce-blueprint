@@ -206,7 +206,10 @@ export default function ReviewForm({ product }) {
           </div>
         </div>
       ) : isActive ? (
-        <p className={styles.successMessage}>Thank you for your review.</p>
+        <p className={styles.successMessage}>
+          Thank you for your review. It needs to be approved in BigCommerce
+          before it shows up here.
+        </p>
       ) : (
         <Button onClick={handleClickActivate}>Write a Review</Button>
       )}
