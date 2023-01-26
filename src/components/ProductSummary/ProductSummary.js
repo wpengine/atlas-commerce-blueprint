@@ -30,6 +30,7 @@ export default function ProductSummary({ product }) {
               className={styles.productImage}
               src={thumbnail?.urlThumbnail ?? '/ProductDefault.gif'}
               alt={product?.imageAltText ?? product?.name}
+              loading='lazy'
             />
           </a>
         </Link>

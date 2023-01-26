@@ -11,6 +11,7 @@ const Socials = () => {
           className={styles.socialIcon}
           alt={icon.alt}
           src={icon.src}
+          loading='lazy'
         />
       ))}
     </div>

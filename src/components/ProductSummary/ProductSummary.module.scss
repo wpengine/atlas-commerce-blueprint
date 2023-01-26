@@ -26,6 +26,7 @@
   }
   .productImage {
     width: 80%;
+    height: auto;
 
     @media (max-width: $breakpoint-extra-small) {
       width: auto;

@@ -3,7 +3,6 @@ import styles from './ReviewForm.module.scss';
 import classNames from 'classnames';
 import { Button } from '@components/Button';
 import { validateReview } from '../../helpers/validateReview';
-import '@fortawesome/fontawesome-free/css/all.min.css';
 
 const cx = classNames.bind(styles);
 
@@ -88,6 +87,7 @@ export default function ReviewForm({ product }) {
                 src={productImage.urlThumbnail}
                 alt={product.name}
                 className={styles.productImage}
+                loading='lazy'
               />
               <h6 className={styles.productBrand}>
                 {product.brand?.node?.name}

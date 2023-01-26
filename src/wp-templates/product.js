@@ -30,8 +30,6 @@ import * as MENUS from '@constants/menus';
 import useAtlasEcom from '../hooks/useAtlasEcom';
 import classNames from 'classnames';
 import styles from '@styles/pages/_Product.module.scss';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
 
 const cx = classNames.bind(styles);
 
