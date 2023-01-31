@@ -1,6 +1,6 @@
 # Atlas Commerce Blueprint
 
-An eCommerce template for Atlas Blueprints
+An eCommerce template for Atlas Blueprints.
 
 This repository contains a starter Blueprint to get you up and running quickly on [WP Engine's Atlas platform](https://wpengine.com/atlas/) with a simple WordPress site that uses product data from [BigCommerce](https://www.bigcommerce.com/). The Blueprint is intended to be used with the **Atlas Commerce Blocks** and **Atlas Commerce Connector for BigCommerce** plugins.
 
@@ -17,6 +17,10 @@ If you run into issues with `npm install` try use `npm install --legacy-peer-dep
 Make sure that any Wordpress site that is connected to this headless site has set its Permalinks to use this custom structure:
 
     /posts/%postname%/
+
+## Architecture Decision Records
+
+See the `docs/adr` directory for a list of architectural decision records made so far.
 
 ## For more information
 
