@@ -1,8 +1,12 @@
-# atlas-commerce-blueprint
+# Atlas Commerce Blueprint
 
-An eCommerce template for Atlas Blueprints
+An eCommerce template for Atlas Blueprints.
 
-This repository contains a starter Blueprint to get you up and running quickly on [WP Engine's Atlas platform](https://wpengine.com/atlas/) with a simple WordPress blog site.
+This repository contains a starter Blueprint to get you up and running quickly on [WP Engine's Atlas platform](https://wpengine.com/atlas/) with a simple WordPress site that uses product data from [BigCommerce](https://www.bigcommerce.com/). The Blueprint is intended to be used with the **Atlas Commerce Blocks** and **Atlas Commerce Connector for BigCommerce** plugins.
+
+- [Documentation for these plugins can be found here](https://developers.wpengine.com/docs/atlas-commerce-connector/introduction)
+- [Check out the demo store here](https://atlascommerce.wpenginepowered.com)
+- [Try a sandbox version of Atlas to get started with this Blueprint](https://wpengine.com/atlas/)
 
 ## Development
 
@@ -14,6 +18,10 @@ Make sure that any Wordpress site that is connected to this headless site has se
 
     /posts/%postname%/
 
+## Architecture Decision Records
+
+See the `docs/adr` directory for a list of architectural decision records made so far.
+
 ## For more information
 
 For more information on this Blueprint please check out the following sources:
@@ -22,4 +30,5 @@ For more information on this Blueprint please check out the following sources:
 - [Faust.js](https://faustjs.org)
 - [WPGraphQL](https://www.wpgraphql.com)
 - [Atlas Content Modeler](https://wordpress.org/plugins/atlas-content-modeler/)
+- [Atlas Commerce Connector for BigCommerce](https://developers.wpengine.com/docs/atlas-commerce-connector/introduction)
 - [WP Engine's Atlas developer community](https://developers.wpengine.com)
