@@ -15,7 +15,7 @@ const Reviews = ({ reviews, product }) => {
             {reviews?.length ?? 0} review{reviews?.length === 1 ? '' : 's'} for{' '}
             <br /> {product?.name}
           </h3>
-          {reviews?.map((review) => (
+          {reviews?.map?.((review) => (
             <Review
               review={review}
               styles={styles}
