@@ -26,7 +26,7 @@
     "react-slick": "^0.29.0",
     "sass": "^1.54.9",
     "slick-carousel": "^1.8.1",
-    "use-debounce": "^8.0.4"
+    "use-debounce": "^10.0.0"
   },
   "devDependencies": {
     "eslint": "8.26.0",
