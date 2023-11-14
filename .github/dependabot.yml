@@ -1,0 +1,8 @@
+version: 2
+updates:
+
+  # Enable minor/patch version updates for npm
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
