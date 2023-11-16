@@ -1,0 +1,5 @@
+# Your WordPress site URL
+export NEXT_PUBLIC_WORDPRESS_URL=https://headlessfw.wpengine.com
+
+# Plugin secret found in WordPress Settings->Headless
+export FAUSTWP_SECRET_KEY=YOUR_PLUGIN_SECRET
